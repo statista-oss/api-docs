@@ -1,0 +1,62 @@
+---
+title: LLM Answer Generation
+description: "Using Statista's Research AI API to create or complement a chatbot"
+---
+
+<Info>
+    We're working on this feature in beta. If you're interested, reach out to:
+    <a href="mailto:apiteam@statista.com">apiteam@statista.com</a> for a beta key.
+</Info>
+
+This guide provides a simple workflow example of the Research AI API.
+
+Using your API key, submit a question to the POST endpoint described in the <a
+href="/api-reference/introduction">API Reference</a>.
+
+```python
+import requests
+import time
+
+url_post = "https://api.statista.ai/v1/research-ai/v1/research_ai"
+
+payload = {"question": "What are the economic impacts of climate change in Europe?"}
+headers = {
+    "x-api-key": "<your_research_ai_api_key>",
+    "Content-Type": "application/json"
+}
+
+response = requests.request("POST", url_post, json=payload, headers=headers)
+```
+
+In the response we should receive a `research_token` that can be used to poll the
+`research_ai_status` endpoint.
+
+```python
+research_token = response.text['research_token']
+url_get = "https://api.statista.ai/v1/research-ai/v1/research_ai_status"
+
+querystring = {"research_token": 'research_token'}
+
+poll_attempts = 0
+while poll_attempts < 10:
+    response = requests.request("GET", url_get, headers=headers, params=querystring)
+    print(response.status_code)
+    poll_attempts += 1
+    if response.status_code == 200:
+        print('Research AI has a generated answer ready for us!')
+        break
+    time.sleep(0.5)
+```
+
+On a successful poll, you'll be able to fetch the answer from the payload:
+
+```python
+print(response.text['response']['answer'])
+```
+
+In addition you'll be able to extract key facts and sources that the answer is based on:
+
+```python
+for key_fact in response.text['response']['key_facts']:
+    print(key_fact)
+```
