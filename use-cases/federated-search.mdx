@@ -1,0 +1,81 @@
+---
+title: Intranets and Federated Search
+description: "Using Statista's Discovery Advanced API to search for content"
+---
+
+<Info>
+  Statista does not allow for crawling systematically across our data. If you
+  attempt to do so; we will disable your API key.
+</Info>
+
+In the case where you want to show Statista content to your users based on a search query
+in a federated search system or intranet; this guide is for you.
+
+This guide will use the **Discovery Advanced API** and requires an **<a href='/start/request-api-key'>API Key</a>**.
+
+Using Python, you'll learn how to:
+
+1. Configure variables needed for HTTP client
+2. Execute an API query
+3. Render information returned back by the Statista API
+
+### 1. Configure variables needed for HTTP client
+
+You'll connect to the API using a request header: `x-api-key`. In order to fetch
+content, you'll need to decide which endpoint you want to request from;
+`/statistics`, `/marketInsights`, `/studies` or `/infographics`. See <a
+href="/api-reference/introduction">API Reference</a>.{" "}
+
+For this example we'll fetch content from `/statistics` with
+two parameters.
+
+```python
+import requests
+import json
+import pprint
+
+base_url = "https://api.statista.ai/v1/statistics" # Alternate between endpoints as needed
+headers = {"x-api-key": "<YOUR_API_KEY>"}
+params = {"q": "basketball", "limit": "5"} # Using the URL parameters available on the API. See API Reference.
+```
+
+This is the basic setup you'll need to get this example running on your machine - we
+don't recommend using this code in production.
+
+### 2. Execute an API query
+
+Next, we can execute a request and get a response from the API.
+
+```python
+response = requests.get(base_url, headers=headers, params=params) # Fetch data
+
+print(response.status_code) # Check if request was successful
+
+data = json.loads(response.text) # Load raw data as JSON
+pprint.pp(data)
+
+```
+
+### 3. Render information returned back by the Statista API
+
+While you can do this in a multitude of ways; we'll show an example for putting the
+received data into a pandas data frame - and show you what that looks like:
+
+```python
+import pandas as pd
+
+
+df = pd.json_normalize(data['items'])
+pprint.pp(df)
+```
+
+Which yields a structured table:
+| Index | ID | Title | Subject | Premium | Description | Link | Date | Sources | Chargers | Geolocations | Industries | Platform | Teaser Image URL | Image URL | XLS File | PDF File |
+|-------|---------|--------------------------------------------|-----------------------------------------------------|---------|---------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|---------------------------|-------------------------------|------------------------------|-------------------------------------|------------------------|----------|----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| 0 | 910248 | South Korea: total WKBL basketball games attendance 2023 | Total number of spectators in the Women's Korean Basketball League | True | In 2023 in South Korea, over 93 thousand people attended... | [Link](https://www.statista.com/statistics/910248/south-korea-total-wkbl-basketball-games-attendance/) | 2024-08-26T12:00:00Z | Ministry of Culture, Sports and Tourism (MOT) | Ministry of Culture, Sports and Tourism (MOT) | Korea, South | Basketball | en | [Image](https://cdn.statcdn.com/Statistic/910248.jpg) | [Download](https://www.statista.com/download/MCMjMCMjOTEwMjQ4OQ==/) | [Download](https://www.statista.com/download/MCMjMCMjOTEwMjQ4OQ==/) | [Download](https://www.statista.com/download/MCMjMCMjOTEwMjQ4OQ==/) |
+| 1 | 910245 | South Korea: total KBL attendance 2023 | Total number of spectators in the Korean Basketball League | True | In 2023, around 690 thousand people attended... | [Link](https://www.statista.com/statistics/910245/south-korea-total-kbl-attendance/) | 2024-08-26T12:00:00Z | Ministry of Culture, Sports and Tourism (MOT) | Ministry of Culture, Sports and Tourism (MOT) | Korea, South | Basketball | en | [Image](https://cdn.statcdn.com/Statistic/910245.jpg) | [Download](https://www.statista.com/download/MCMjMCMjOTEwMjQ1OQ==/) | [Download](https://www.statista.com/download/MCMjMCMjOTEwMjQ1OQ==/) | [Download](https://www.statista.com/download/MCMjMCMjOTEwMjQ1OQ==/) |
+| 2 | 193467 | Total NBA league revenue 2024 | National Basketball Association total league revenue | True | During the 2023/24 season, the 30 franchise teams in the NBA generated... | [Link](https://www.statista.com/statistics/193467/total-nba-league-revenue/) | 2024-10-24T12:00:00Z | Forbes | Forbes | United States | Basketball | en | [Image](https://cdn.statcdn.com/Statistic/193467.jpg) | [Download](https://www.statista.com/download/MCMjMCMjMTkzNDY3/) | [Download](https://www.statista.com/download/MCMjMCMjMTkzNDY3/) | [Download](https://www.statista.com/download/MCMjMCMjMTkzNDY3/) |
+| 3 | 910300 | South Korea: KBL games number 2023 | Number of matches in the Korean Basketball League | True | In South Korea in 2023, there were a total of 54 games in the... | [Link](https://www.statista.com/statistics/910300/south-korea-kbl-games-number/) | 2024-08-26T12:00:00Z | Ministry of Culture, Sports and Tourism (MOT) | Ministry of Culture, Sports and Tourism (MOT) | Korea, South | Basketball | en | [Image](https://cdn.statcdn.com/Statistic/910300.jpg) | [Download](https://www.statista.com/download/MCMjMCMjOTEwMzAw/) | [Download](https://www.statista.com/download/MCMjMCMjOTEwMzAw/) | [Download](https://www.statista.com/download/MCMjMCMjOTEwMzAw/) |
+| 4 | 193503 | Average revenue of NBA teams 2024 | National Basketball Association average revenue by team | True | During the 2023/24 season, the average revenue for NBA teams reached approximately... | [Link](https://www.statista.com/statistics/193503/nba-team-average-revenue/) | 2024-10-24T12:00:00Z | Statista | Forbes, Statista | United States | Basketball | en | [Image](https://cdn.statcdn.com/Statistic/193503.jpg) | [Download](https://www.statista.com/download/MCMjMCMjMTkzNTAz/) | [Download](https://www.statista.com/download/MCMjMCMjMTkzNTAz/) | [Download](https://www.statista.com/download/MCMjMCMjMTkzNTAz/) |
+
+(See <a href="/api-reference/introduction">API Reference</a> for more info on what data is available)

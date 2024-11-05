@@ -1,0 +1,1192 @@
+openapi: 3.1.0
+tags:
+  - name: list-statistics
+    description: "The List-View for Statistics"
+  - name: list-studies
+    description: "The List-View for Studies"
+  - name: list-infographics
+    description: "The List-View for Infographics"
+  - name: list-marketInsights
+    description: "The List-View for MarketInsights"
+info:
+  title: Statista API
+  contact:
+    email: api@statista.com
+  version: 2.8.0
+  description: The Statista API
+servers:
+  - url: https://api.statista.ai/v1
+paths:
+  /statistics:
+    get:
+      security:
+        - api_key: []
+      summary: Find statistics
+      operationId: list-statistics
+      tags:
+        - list-statistics
+      parameters:
+        - $ref: "#/components/parameters/QueryParam"
+        - $ref: "#/components/parameters/PlatformParam"
+        - $ref: "#/components/parameters/PremiumParam"
+        - $ref: "#/components/parameters/OffsetParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - $ref: "#/components/parameters/DateFromParam"
+        - $ref: "#/components/parameters/DateToParam"
+        - $ref: "#/components/parameters/IndustryParam"
+        - $ref: "#/components/parameters/GeolocationParam"
+      responses:
+        "200":
+          description: "OK - Everything worked as expected."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Statistics"
+        "400":
+          description: "Invalid Request - The request was unacceptable, often due to missing a required parameter."
+          content:
+            application/json:
+              example: "{}"
+        "403":
+          description: "User is not authorized - No valid API key provided."
+          content:
+            application/json:
+              example: "{}"
+  /studies:
+    get:
+      security:
+        - api_key: []
+      summary: Find studies
+      operationId: list-studies
+      tags:
+        - list-studies
+      parameters:
+        - $ref: "#/components/parameters/QueryParam"
+        - $ref: "#/components/parameters/PlatformParam"
+        - $ref: "#/components/parameters/PremiumParam"
+        - $ref: "#/components/parameters/OffsetParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - $ref: "#/components/parameters/DateFromParam"
+        - $ref: "#/components/parameters/DateToParam"
+        - $ref: "#/components/parameters/IndustryParam"
+        - $ref: "#/components/parameters/GeolocationParam"
+      responses:
+        "200":
+          description: "OK - Everything worked as expected."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Studies"
+        "400":
+          description: "Invalid Request - The request was unacceptable, often due to missing a required parameter."
+          content:
+            application/json:
+              example: "{}"
+        "403":
+          description: "User is not authorized - No valid API key provided."
+          content:
+            application/json:
+              example: "{}"
+  /infographics:
+    get:
+      security:
+        - api_key: []
+      summary: Find infographics
+      operationId: list-infographics
+      tags:
+        - list-infographics
+      parameters:
+        - $ref: "#/components/parameters/QueryParam"
+        - $ref: "#/components/parameters/PlatformParam"
+        - $ref: "#/components/parameters/PremiumParam"
+        - $ref: "#/components/parameters/OffsetParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - $ref: "#/components/parameters/DateFromParam"
+        - $ref: "#/components/parameters/DateToParam"
+        - $ref: "#/components/parameters/IndustryParam"
+      responses:
+        "200":
+          description: "OK - Everything worked as expected."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Infographics"
+        "400":
+          description: "Invalid Request - The request was unacceptable, often due to missing a required parameter."
+          content:
+            application/json:
+              example: "{}"
+        "403":
+          description: "User is not authorized - No valid API key provided."
+          content:
+            application/json:
+              example: "{}"
+  /marketInsights:
+    get:
+      security:
+        - api_key: []
+      summary: Find marketInsights
+      operationId: list-marketInsights
+      tags:
+        - list-marketInsights
+      parameters:
+        - $ref: "#/components/parameters/QueryParam"
+        - $ref: "#/components/parameters/PlatformParam"
+        - $ref: "#/components/parameters/OffsetParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - $ref: "#/components/parameters/DateFromParam"
+        - $ref: "#/components/parameters/DateToParam"
+        - $ref: "#/components/parameters/GeolocationParam"
+      responses:
+        "200":
+          description: "OK - Everything worked as expected."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MarketInsights"
+        "400":
+          description: "Invalid Request - The request was unacceptable, often due to missing a required parameter."
+          content:
+            application/json:
+              example: "{}"
+        "403":
+          description: "User is not authorized - No valid API key provided."
+          content:
+            application/json:
+              example: "{}"
+  /research-ai/v1/research_ai:
+    post:
+      security:
+        - api_key: []
+      summary: Submit a research question to the Research AI API
+      operationId: submit-research-question
+      tags:
+        - research-ai
+      requestBody:
+        description: Research question to be processed by Research AI
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  description: "The research question that needs to be processed."
+                  example: "What are the economic impacts of climate change in Europe?"
+      responses:
+        "200":
+          description: "Research question submitted successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  research_token:
+                    type: string
+                    description: "Unique token representing the research job."
+        "422":
+          description: "Invalid request - The question field is missing or improperly formatted."
+        "403":
+          description: "User is not authorized - No valid API key provided."
+  /research-ai/v1/research_ai_status:
+    get:
+      security:
+        - api_key: []
+      summary: Get the status of a research job
+      operationId: get-research-status
+      tags:
+        - research-ai
+      parameters:
+        - name: research_token
+          in: query
+          required: true
+          description: "Unique token representing the research job to retrieve status for."
+          schema:
+            type: string
+            example: "tVHxJayN"
+      responses:
+        "200":
+          description: "Status of the research job retrieved successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  research_token:
+                    type: string
+                    description: "Unique token representing the research job."
+                  status:
+                    type: string
+                    description: "The current status of the research job (e.g., requested, retrive_data, done)."
+                  response:
+                    type: object
+                    description: "The research response if the job has been completed."
+                    nullable: true
+                    properties:
+                      answer:
+                        type: string
+                        example: "Climate change is causing significant economic impacts across Europe..."
+                        errorMessage:
+                          type: string
+                          nullable: true
+                          example: null
+                      keyFacts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                              example: "Economic Losses in the EU 2022"
+                            type:
+                              type: string
+                              example: "number"
+                            unit:
+                              type: string
+                              example: "bn€"
+                            value:
+                              type: string
+                              example: "52"
+                      sources:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            contentId:
+                              type: string
+                              example: "1386301"
+                            contentType:
+                              type: string
+                              example: "statistic"
+                            displayTypeId:
+                              type: integer
+                              example: 2
+                            graphicName:
+                              type: string
+                              nullable: true
+                              example: null
+                            isCharged:
+                              type: boolean
+                              example: true
+                            locale:
+                              type: string
+                              example: "German"
+                            parentId:
+                              type: string
+                              nullable: true
+                              example: null
+                            releasedAt:
+                              type: string
+                              format: date-time
+                              example: "2024-02-09T13:00:00Z"
+                            source:
+                              type: string
+                              example: "EEA"
+                            statisticType:
+                              type: integer
+                              example: 1
+                            surveyPeriod:
+                              type: string
+                              example: "1998 bis 2022"
+                            text:
+                              type: string
+                              example: "Im Jahr 2022 verursachten wetter- und klimabedingte Naturkatastrophen..."
+                            title:
+                              type: string
+                              example: "Wirtschaftliche Verluste durch Klimaextreme in der EU"
+                            titleShort:
+                              type: string
+                              example: "Klimaextreme in Europa: Wirtschaftliche Kosten bis 2022"
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              example: "2024-03-22T10:42:14Z"
+                            url:
+                              type: string
+                              format: uri
+                              example: "https://www.statista.com/statistik/daten/studie/1386301/umfrage/"
+
+        "422":
+          description: "Invalid request - The research_token parameter is missing or invalid."
+        "404":
+          description: "Invalid Researchb Token provided."
+        "403":
+          description: "User is not authorized - No valid API key provided."
+components:
+  schemas:
+    Statistics:
+      type: object
+      summary: "Returns a list of the searched Statistics"
+      properties:
+        items:
+          $ref: "#/components/schemas/Statistic"
+        total_count:
+          type: integer
+          description: "Total number of Statistics."
+    Studies:
+      type: object
+      summary: "Returns a list of the searched Studies"
+      properties:
+        items:
+          $ref: "#/components/schemas/Study"
+        total_count:
+          type: integer
+          description: "Total number of Studies."
+    Infographics:
+      type: object
+      summary: "Returns a list of the searched Infographics"
+      properties:
+        items:
+          $ref: "#/components/schemas/Infographic"
+        total_count:
+          type: integer
+          description: "Total number of Infographics."
+    MarketInsights:
+      type: object
+      summary: "Returns a list of the searched MarketInsights"
+      properties:
+        items:
+          $ref: "#/components/schemas/MarketInsight"
+        total_count:
+          type: integer
+          description: "Total number of Market Insights."
+    Industry:
+      type: integer
+      oneOf:
+        - const: https://www.statista.com/api/v2/industries_de.json
+          title: de
+        - const: https://www.statista.com/api/v2/industries_en.json
+          title: en
+        - const: https://www.statista.com/api/v2/industries_es.json
+          title: es
+        - const: https://www.statista.com/api/v2/industries_fr.json
+          title: fr
+    Platform:
+      type: string
+      description: "The language from which the content is retrieved"
+      enum:
+        - de
+        - en
+        - fr
+        - es
+    Geolocation:
+      type: integer
+      oneOf:
+        - const: 1
+          title: "Worldwide"
+        - const: 2
+          title: "Africa"
+        - const: 3
+          title: "North America"
+        - const: 142
+          title: "Asia"
+        - const: 150
+          title: "Europe"
+        - const: 419
+          title: "Central and South America"
+        - const: 10001
+          title: "Antarctica"
+        - const: 10002
+          title: "Australia and Oceania"
+        - const: 10007
+          title: "DACH"
+        - const: 10008
+          title: "EU"
+        - const: 10009
+          title: "OECD"
+        - const: 10010
+          title: "APAC"
+        - const: 10011
+          title: "MENA"
+        - const: 10088
+          title: "CEE"
+        - const: 10089
+          title: "LAC"
+        - const: 4
+          title: "Afghanistan"
+        - const: 8
+          title: "Albania"
+        - const: 12
+          title: "Algeria"
+        - const: 20
+          title: "Andorra"
+        - const: 24
+          title: "Angola"
+        - const: 28
+          title: "Antigua \u0026 Barbuda"
+        - const: 31
+          title: "Azerbaijan"
+        - const: 32
+          title: "Argentina"
+        - const: 36
+          title: "Australia"
+        - const: 40
+          title: "Austria"
+        - const: 44
+          title: "Bahamas"
+        - const: 48
+          title: "Bahrain"
+        - const: 50
+          title: "Bangladesh"
+        - const: 51
+          title: "Armenia"
+        - const: 52
+          title: "Barbados"
+        - const: 56
+          title: "Belgium"
+        - const: 60
+          title: "Bermuda"
+        - const: 64
+          title: "Bhutan"
+        - const: 68
+          title: "Bolivia"
+        - const: 70
+          title: "Bosnia \u0026 Herzegovina"
+        - const: 72
+          title: "Botswana"
+        - const: 76
+          title: "Brazil"
+        - const: 84
+          title: "Belize"
+        - const: 92
+          title: "British Virgin Islands"
+        - const: 96
+          title: "Brunei"
+        - const: 100
+          title: "Bulgaria"
+        - const: 104
+          title: "Myanmar [Burma]"
+        - const: 108
+          title: "Burundi"
+        - const: 112
+          title: "Belarus"
+        - const: 116
+          title: "Cambodia"
+        - const: 120
+          title: "Cameroon"
+        - const: 124
+          title: "Canada"
+        - const: 140
+          title: "Central African Republic"
+        - const: 144
+          title: "Sri Lanka"
+        - const: 148
+          title: "Chad"
+        - const: 152
+          title: "Chile"
+        - const: 156
+          title: "China"
+        - const: 158
+          title: "Taiwan"
+        - const: 170
+          title: "Colombia"
+        - const: 178
+          title: "Republic of the Congo"
+        - const: 180
+          title: "Democratic Republic of the Congo"
+        - const: 188
+          title: "Costa Rica"
+        - const: 191
+          title: "Croatia"
+        - const: 192
+          title: "Cuba"
+        - const: 196
+          title: "Cyprus"
+        - const: 203
+          title: "Czechia"
+        - const: 204
+          title: "Benin"
+        - const: 208
+          title: "Denmark"
+        - const: 212
+          title: "Dominica"
+        - const: 214
+          title: "Dominican Republic"
+        - const: 218
+          title: "Ecuador"
+        - const: 222
+          title: "El Salvador"
+        - const: 226
+          title: "Equatorial Guinea"
+        - const: 231
+          title: "Ethiopia"
+        - const: 232
+          title: "Eritrea"
+        - const: 233
+          title: "Estonia"
+        - const: 234
+          title: "Faroe Islands"
+        - const: 246
+          title: "Finland"
+        - const: 250
+          title: "France"
+        - const: 262
+          title: "Djibouti"
+        - const: 266
+          title: "Gabon"
+        - const: 268
+          title: "Georgia"
+        - const: 270
+          title: "Gambia"
+        - const: 276
+          title: "Germany"
+        - const: 288
+          title: "Ghana"
+        - const: 300
+          title: "Greece"
+        - const: 304
+          title: "Greenland"
+        - const: 308
+          title: "Grenada"
+        - const: 320
+          title: "Guatemala"
+        - const: 324
+          title: "Guinea"
+        - const: 328
+          title: "Guyana"
+        - const: 332
+          title: "Haiti"
+        - const: 336
+          title: "Vatican City"
+        - const: 340
+          title: "Honduras"
+        - const: 344
+          title: "Hong Kong"
+        - const: 348
+          title: "Hungary"
+        - const: 352
+          title: "Iceland"
+        - const: 356
+          title: "India"
+        - const: 360
+          title: "Indonesia"
+        - const: 364
+          title: "Iran"
+        - const: 368
+          title: "Iraq"
+        - const: 372
+          title: "Ireland"
+        - const: 376
+          title: "Israel"
+        - const: 380
+          title: "Italy"
+        - const: 384
+          title: "Ivory Coast"
+        - const: 388
+          title: "Jamaica"
+        - const: 392
+          title: "Japan"
+        - const: 398
+          title: "Kazakhstan"
+        - const: 400
+          title: "Jordan"
+        - const: 404
+          title: "Kenya"
+        - const: 408
+          title: "North Korea"
+        - const: 410
+          title: "South Korea"
+        - const: 414
+          title: "Kuwait"
+        - const: 417
+          title: "Kyrgyzstan"
+        - const: 418
+          title: "Laos"
+        - const: 422
+          title: "Lebanon"
+        - const: 428
+          title: "Latvia"
+        - const: 430
+          title: "Liberia"
+        - const: 434
+          title: "Libya"
+        - const: 438
+          title: "Liechtenstein"
+        - const: 440
+          title: "Lithuania"
+        - const: 442
+          title: "Luxembourg"
+        - const: 446
+          title: "Macau"
+        - const: 450
+          title: "Madagascar"
+        - const: 454
+          title: "Malawi"
+        - const: 458
+          title: "Malaysia"
+        - const: 466
+          title: "Mali"
+        - const: 470
+          title: "Malta"
+        - const: 478
+          title: "Mauritania"
+        - const: 480
+          title: "Mauritius"
+        - const: 484
+          title: "Mexico"
+        - const: 492
+          title: "Monaco"
+        - const: 496
+          title: "Mongolia"
+        - const: 498
+          title: "Moldova"
+        - const: 499
+          title: "Montenegro"
+        - const: 504
+          title: "Morocco"
+        - const: 508
+          title: "Mozambique"
+        - const: 512
+          title: "Oman"
+        - const: 516
+          title: "Namibia"
+        - const: 524
+          title: "Nepal"
+        - const: 528
+          title: "Netherlands"
+        - const: 531
+          title: "Cura\u00e7ao"
+        - const: 534
+          title: "Sint Maarten"
+        - const: 535
+          title: "Caribbean Netherlands"
+        - const: 554
+          title: "New Zealand"
+        - const: 558
+          title: "Nicaragua"
+        - const: 562
+          title: "Niger"
+        - const: 566
+          title: "Nigeria"
+        - const: 578
+          title: "Norway"
+        - const: 586
+          title: "Pakistan"
+        - const: 591
+          title: "Panama"
+        - const: 598
+          title: "Papua New Guinea"
+        - const: 600
+          title: "Paraguay"
+        - const: 604
+          title: "Peru"
+        - const: 608
+          title: "Philippines"
+        - const: 616
+          title: "Poland"
+        - const: 620
+          title: "Portugal"
+        - const: 626
+          title: "Timor-Leste"
+        - const: 630
+          title: "Puerto Rico"
+        - const: 634
+          title: "Qatar"
+        - const: 642
+          title: "Romania"
+        - const: 643
+          title: "Russia"
+        - const: 646
+          title: "Rwanda"
+        - const: 659
+          title: "St. Kitts \u0026 Nevis"
+        - const: 662
+          title: "St. Lucia"
+        - const: 670
+          title: "St. Vincent \u0026 Grenadines"
+        - const: 674
+          title: "San Marino"
+        - const: 682
+          title: "Saudi Arabia"
+        - const: 686
+          title: "Senegal"
+        - const: 688
+          title: "Serbia"
+        - const: 690
+          title: "Seychelles"
+        - const: 694
+          title: "Sierra Leone"
+        - const: 702
+          title: "Singapore"
+        - const: 703
+          title: "Slovakia"
+        - const: 704
+          title: "Vietnam"
+        - const: 705
+          title: "Slovenia"
+        - const: 706
+          title: "Somalia"
+        - const: 710
+          title: "South Africa"
+        - const: 716
+          title: "Zimbabwe"
+        - const: 724
+          title: "Spain"
+        - const: 728
+          title: "South Sudan"
+        - const: 736
+          title: "Sudan"
+        - const: 740
+          title: "Suriname"
+        - const: 752
+          title: "Sweden"
+        - const: 756
+          title: "Switzerland"
+        - const: 760
+          title: "Syria"
+        - const: 762
+          title: "Tajikistan"
+        - const: 764
+          title: "Thailand"
+        - const: 768
+          title: "Togo"
+        - const: 780
+          title: "Trinidad \u0026 Tobago"
+        - const: 784
+          title: "United Arab Emirates"
+        - const: 788
+          title: "Tunisia"
+        - const: 792
+          title: "Turkey"
+        - const: 795
+          title: "Turkmenistan"
+        - const: 800
+          title: "Uganda"
+        - const: 804
+          title: "Ukraine"
+        - const: 807
+          title: "North Macedonia"
+        - const: 818
+          title: "Egypt"
+        - const: 826
+          title: "United Kingdom"
+        - const: 834
+          title: "Tanzania"
+        - const: 840
+          title: "United States"
+        - const: 850
+          title: "U.S. Virgin Islands"
+        - const: 854
+          title: "Burkina Faso"
+        - const: 858
+          title: "Uruguay"
+        - const: 860
+          title: "Uzbekistan"
+        - const: 862
+          title: "Venezuela"
+        - const: 887
+          title: "Yemen"
+        - const: 894
+          title: "Zambia"
+        - const: 895
+          title: "Cape Verde"
+        - const: 10090
+          title: "Lesotho"
+        - const: 10091
+          title: "Eswatini"
+        - const: 10092
+          title: "Tonga"
+        - const: 10015
+          title: "Great Britain"
+        - const: 10016
+          title: "England"
+        - const: 10017
+          title: "Scotland"
+        - const: 10018
+          title: "Wales"
+        - const: 10019
+          title: "Northern Ireland"
+        - const: 10020
+          title: "Schleswig-Holstein"
+        - const: 10021
+          title: "Bremen"
+        - const: 10022
+          title: "Hamburg"
+        - const: 10023
+          title: "Mecklenburg-West Pomerania"
+        - const: 10024
+          title: "Brandenburg"
+        - const: 10025
+          title: "Berlin"
+        - const: 10026
+          title: "Thuringia"
+        - const: 10027
+          title: "Rhineland-Palatinate"
+        - const: 10028
+          title: "Hesse"
+        - const: 10029
+          title: "Bavaria"
+        - const: 10030
+          title: "Baden-W\u00fcrttemberg"
+        - const: 10031
+          title: "Saxony"
+        - const: 10032
+          title: "Saxony-Anhalt"
+        - const: 10033
+          title: "North Rhine-Westphalia"
+        - const: 10034
+          title: "Saarland"
+        - const: 10035
+          title: "Lower Saxony"
+        - const: 10037
+          title: "Alabama"
+        - const: 10038
+          title: "Alaska"
+        - const: 10039
+          title: "Arizona"
+        - const: 10040
+          title: "Arkansas"
+        - const: 10041
+          title: "Colorado"
+        - const: 10042
+          title: "Connecticut"
+        - const: 10043
+          title: "Delaware"
+        - const: 10044
+          title: "Florida"
+        - const: 10045
+          title: "Georgia"
+        - const: 10046
+          title: "Hawaii"
+        - const: 10047
+          title: "Idaho"
+        - const: 10048
+          title: "Illinois"
+        - const: 10049
+          title: "Indiana"
+        - const: 10050
+          title: "Iowa"
+        - const: 10051
+          title: "California"
+        - const: 10052
+          title: "Kansas"
+        - const: 10053
+          title: "Kentucky"
+        - const: 10054
+          title: "Louisiana"
+        - const: 10055
+          title: "Maine"
+        - const: 10056
+          title: "Maryland"
+        - const: 10057
+          title: "Massachusetts"
+        - const: 10058
+          title: "Michigan"
+        - const: 10059
+          title: "Minnesota"
+        - const: 10060
+          title: "Mississippi"
+        - const: 10061
+          title: "Missouri"
+        - const: 10062
+          title: "Montana"
+        - const: 10063
+          title: "Nebraska"
+        - const: 10064
+          title: "Nevada"
+        - const: 10065
+          title: "New Hampshire"
+        - const: 10066
+          title: "New Jersey"
+        - const: 10067
+          title: "New Mexico"
+        - const: 10068
+          title: "New York"
+        - const: 10069
+          title: "North Carolina"
+        - const: 10070
+          title: "North Dakota"
+        - const: 10071
+          title: "Ohio"
+        - const: 10072
+          title: "Oklahoma"
+        - const: 10073
+          title: "Oregon"
+        - const: 10074
+          title: "Pennsylvania"
+        - const: 10075
+          title: "Rhode Island"
+        - const: 10076
+          title: "South Carolina"
+        - const: 10077
+          title: "South Dakota"
+        - const: 10078
+          title: "Tennessee"
+        - const: 10079
+          title: "Texas"
+        - const: 10080
+          title: "Utah"
+        - const: 10081
+          title: "Vermont"
+        - const: 10082
+          title: "Virginia"
+        - const: 10083
+          title: "Washington"
+        - const: 10084
+          title: "West Virginia"
+        - const: 10085
+          title: "Wisconsin"
+        - const: 10086
+          title: "Wyoming"
+        - const: 10087
+          title: "District of Columbia"
+    ERI:
+      type: object
+      properties:
+        identifier:
+          type: integer
+          description: "The unique id"
+        title:
+          type: string
+          description: "The title"
+        link:
+          type: string
+          description: |
+            The URL, with a mandatory parameter `utm_source` at the end. The `utm_source` parameter specifies the link's origin (default is `api`). Callers must append `utm_term` as `&utm_term=<keyword>`, representing the keyword or phrase related to this resource.
+          example: "https://example.com/resource/<id>?utm_source=api&utm_term=keyword"
+        subject:
+          type: string
+          description: "The subtitle or secondary title"
+        is_premium:
+          type: boolean
+          description: "is paid content or not"
+        platform:
+          $ref: "#/components/schemas/Platform"
+        description:
+          type: string
+          description: "The detailed description"
+        image_url:
+          type: string
+          description: "The URL to download the actual image"
+        date:
+          type: string
+          format: date
+          description: "The date associated with the resource"
+        sources:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceObject"
+        industries:
+          type: array
+          description: "The Industry Ids."
+          items:
+            $ref: "#/components/schemas/IndustryObject"
+    Statistic:
+      title: Statistic
+      allOf:
+        - $ref: "#/components/schemas/ERI"
+        - type: object
+          properties:
+            geolocations:
+              type: array
+              description: "The geolocation Ids"
+              items:
+                $ref: "#/components/schemas/GeolocationObject"
+            pdf_file:
+              type: string
+              description: "The URL to download the PDF"
+            xls_file:
+              type: string
+              description: "The URL to download the Excel"
+            teaser_image_urls:
+              $ref: "#/components/schemas/TeaserImage"
+            publishers:
+              type: array
+              items:
+                $ref: "#/components/schemas/SourceObject"
+              description: "The publishers associated with the statistic"
+            chargers:
+              type: array
+              items:
+                $ref: "#/components/schemas/SourceObject"
+              description: "Entities responsible for charging fees related to the statistic"
+    Study:
+      title: Study
+      allOf:
+        - $ref: "#/components/schemas/ERI"
+        - type: object
+          properties:
+            geolocations:
+              type: array
+              description: "The geolocation Ids"
+              items:
+                $ref: "#/components/schemas/GeolocationObject"
+    Infographic:
+      title: Infographic
+      allOf:
+        - $ref: "#/components/schemas/ERI"
+        - type: object
+          properties:
+            teaser_image_urls:
+              $ref: "#/components/schemas/TeaserImage"
+    MarketInsight:
+      title: MarketInsight
+      allOf:
+        - type: object
+          properties:
+            identifier:
+              type: integer
+              description: "The unique id"
+            title:
+              type: string
+              description: "The title"
+            sub_title:
+              type: string
+              description: "The subtitle"
+            link:
+              type: string
+              description: |
+                The URL, with a mandatory parameter `utm_source` at the end. The `utm_source` parameter specifies the link's origin (default is `api`). Callers must append `utm_term` as `&utm_term=<keyword>`, representing the keyword or phrase related to this resource.
+              example: "https://example.com/resource/<id>?utm_source=api&utm_term=keyword"
+            description:
+              type: string
+              description: "The detailed description"
+            date:
+              type: string
+              format: date
+              description: "The date associated with the resource"
+            platform:
+              type: string
+              description: "The Selected Platform"
+            children:
+              type: array
+              items:
+                $ref: "#/components/schemas/ChildObject"
+            path:
+              type: array
+              items:
+                $ref: "#/components/schemas/PathObject"
+            geolocations:
+              type: array
+              description: "The geolocation Ids"
+              items:
+                $ref: "#/components/schemas/GeolocationObject"
+    TeaserImage:
+      type: object
+      properties:
+        src:
+          type: string
+          description: "The url to this image"
+        width:
+          type: integer
+          description: "The width of this image"
+    SourceObject:
+      type: object
+      properties:
+        title:
+          type: string
+          description: "The title of the source"
+        sub_title:
+          type: string
+          description: "The subtitle of the source"
+    IndustryObject:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "The unique id of the industry"
+        name:
+          type: string
+          description: "The name of the industry"
+    GeolocationObject:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "The unique id of the gelocation"
+        name:
+          type: string
+          description: "The name of the gelocation"
+        code:
+          type: string
+          description: "The code of the gelocation"
+    ChildObject:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "The unique id of the children"
+        name:
+          type: string
+          description: "The name of the children"
+    PathObject:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "The unique id of the path"
+        name:
+          type: string
+          description: "The name of the path"
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+  parameters:
+    QueryParam:
+      name: q
+      in: query
+      description: "The search query to filter by. An empty query will search for everything."
+      schema:
+        type: string
+        default: ""
+    PlatformParam:
+      name: platform
+      in: query
+      description: "The platform/language the content shall be retrieved from."
+      schema:
+        $ref: "#/components/schemas/Platform"
+    PremiumParam:
+      name: premium
+      in: query
+      description: "Whether to include paid content or not. If not specified, paid and unpaid content is included."
+      schema:
+        type: boolean
+        default: null
+    OffsetParam:
+      name: offset
+      in: query
+      description: "The offset from which the content should be returned."
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    LimitParam:
+      name: limit
+      in: query
+      description: "The maximum amount of content returned."
+      schema:
+        type: integer
+        default: 25
+        minimum: 0
+        maximum: 150
+    DateFromParam:
+      name: date_from
+      in: query
+      description: "The earliest publication date of content returned. Default is 3 months ago"
+      schema:
+        type: string
+        format: date
+        default: now - 3m # This needs to be implemented accordingly in the actual API logic
+    DateToParam:
+      name: date_to
+      in: query
+      description: "The latest publication date of content returned."
+      schema:
+        type: string
+        format: date
+        default: null # This needs to be implemented accordingly in the actual API logic
+    IndustryParam:
+      name: industry
+      in: query
+      description: "The id of the industry to filter for."
+      schema:
+        $ref: "#/components/schemas/Industry"
+    GeolocationParam:
+      name: geolocation
+      in: query
+      description: "The id of the geolocation to filter for."
+      schema:
+        $ref: "#/components/schemas/Geolocation"

@@ -1,0 +1,41 @@
+---
+title: "Authentication"
+description: "Using your API key"
+---
+
+Once you have an API key, you can query the endpoints that you've been granted access to.
+
+If you don't already have an API key, be sure to follow this guide:
+
+<CardGroup cols={2}>
+  <Card title="Don't have an API key?" icon="key" href="request-api-key">
+    Request an API key
+  </Card>
+
+</CardGroup>
+You'll need to embed the API key in the a request header as shown below in a `curl` example:
+
+```.sh
+curl --request GET \
+  --url https://api.statista.ai/v1/<ENDPOINT> \
+  --header 'x-api-key: <YOUR_API_KEY>'
+```
+
+## Explore
+
+<CardGroup cols={2}>
+  <Card
+    title="Playground"
+    icon="rocket"
+    href="/api-reference/discovery-starter/get-statistics"
+  >
+    Get started quickly by running a curl command
+  </Card>
+  <Card
+    title="Explore API Reference"
+    icon="code"
+    href="/api-reference/introduction"
+  >
+    Learn more about the data you can retrieve with the Statista API
+  </Card>
+</CardGroup>
