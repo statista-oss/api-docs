@@ -956,9 +956,6 @@ components:
         description:
           type: string
           description: "The detailed description"
-        image_url:
-          type: string
-          description: "The URL to download the actual image"
         date:
           type: string
           format: date
