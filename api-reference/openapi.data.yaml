@@ -1,0 +1,190 @@
+openapi: 3.0.0
+info:
+  title: The Statista Data API
+  contact:
+    name: API Support
+    email: api@statista.com
+  version: 2.8.0
+  description: The Statista Data API
+tags: []
+paths:
+  /data/v1/statistic:
+    get:
+      operationId: Statistic_list
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/Type.Id"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataResponse"
+        "400":
+          description: The server could not understand the request due to invalid syntax.
+        "401":
+          description: Access is unauthorized.
+        "403":
+          description: Access is forbidden.
+security:
+  - ApiKeyAuth: []
+components:
+  schemas:
+    Api.Data.Response.Chart:
+      type: object
+      required:
+        - graphType
+        - data
+      properties:
+        unit:
+          $ref: "#/components/schemas/Api.Data.Response.Unit"
+        graphType:
+          $ref: "#/components/schemas/Api.Data.Response.GraphTpe"
+        data:
+          $ref: "#/components/schemas/Api.Data.Response.Data"
+    Api.Data.Response.Data:
+      type: object
+      required:
+        - categories
+        - series
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+        series:
+          type: array
+          items:
+            anyOf:
+              - type: string
+              - type: number
+              - type: integer
+                format: int32
+    Api.Data.Response.GraphTpe:
+      type: string
+      enum:
+        - annotations
+        - bar
+        - stacked-areas
+        - stacked-bars
+        - dual-y-axes
+        - line-standard
+        - line-zoomable
+        - pie
+        - table
+    Api.Data.Response.Unit:
+      type: string
+      enum:
+        - "%"
+    Api.Response.Source:
+      type: object
+      required:
+        - title
+        - subtitle
+      properties:
+        title:
+          type: string
+        subtitle:
+          type: string
+    Api.Response.TeaserImage:
+      type: object
+      required:
+        - width
+        - src
+      properties:
+        width:
+          type: integer
+          format: uint32
+        src:
+          type: string
+    DataResponse:
+      type: object
+      required:
+        - identifier
+        - title
+        - link
+        - date
+        - platform
+        - subject
+        - is_premium
+        - sources
+        - chargers
+        - publishers
+        - industries
+        - teaser_images
+        - geolocations
+        - chart
+      properties:
+        identifier:
+          $ref: "#/components/schemas/Type.Id"
+        title:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        date:
+          type: string
+          format: date-time
+        platform:
+          $ref: "#/components/schemas/Type.LanguageLocale"
+        subject:
+          type: string
+        is_premium:
+          type: boolean
+        sources:
+          type: array
+          items:
+            $ref: "#/components/schemas/Api.Response.Source"
+        chargers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Api.Response.Source"
+        publishers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Api.Response.Source"
+        industries:
+          type: array
+          items:
+            $ref: "#/components/schemas/Type.IndustryId"
+        teaser_images:
+          type: array
+          items:
+            $ref: "#/components/schemas/Api.Response.TeaserImage"
+        geolocations:
+          type: array
+          items:
+            $ref: "#/components/schemas/Type.RegionId"
+        chart:
+          $ref: "#/components/schemas/Api.Data.Response.Chart"
+      description: The request has succeeded.
+    Type.Id:
+      type: integer
+      format: uint64
+    Type.IndustryId:
+      type: integer
+      format: uint16
+    Type.LanguageLocale:
+      type: string
+      enum:
+        - de
+        - en
+        - fr
+        - es
+    Type.RegionId:
+      type: integer
+      format: uint16
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+servers:
+  - url: https://api.statista.ai/
+    description: Single Server endpoint
+    variables: {}
