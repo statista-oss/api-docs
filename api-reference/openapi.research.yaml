@@ -13,24 +13,24 @@ paths:
       operationId: ResearchAI_ask
       parameters: []
       responses:
-        "200":
+        '200':
           description: The request has succeeded.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/QuestionResponse"
-        "400":
+                $ref: '#/components/schemas/QuestionResponse'
+        '400':
           description: The server could not understand the request due to invalid syntax.
-        "401":
+        '401':
           description: Access is unauthorized.
-        "403":
+        '403':
           description: Access is forbidden.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Api.Research.Request.Ask"
+              $ref: '#/components/schemas/Api.Research.Request.Ask'
   /research-ai/v1/research_ai_status:
     get:
       operationId: ResearchAI_reply
@@ -39,19 +39,19 @@ paths:
           in: query
           required: true
           schema:
-            $ref: "#/components/schemas/Api.Research.ResearchToken"
+            $ref: '#/components/schemas/Api.Research.ResearchToken'
       responses:
-        "200":
+        '200':
           description: The request has succeeded.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AnswerResponse"
-        "400":
+                $ref: '#/components/schemas/AnswerResponse'
+        '400':
           description: The server could not understand the request due to invalid syntax.
-        "401":
+        '401':
           description: Access is unauthorized.
-        "403":
+        '403':
           description: Access is forbidden.
 security:
   - ApiKeyAuth: []
@@ -64,13 +64,13 @@ components:
         - status
       properties:
         research_token:
-          $ref: "#/components/schemas/Api.Research.ResearchToken"
+          $ref: '#/components/schemas/Api.Research.ResearchToken'
         status:
-          $ref: "#/components/schemas/Api.Research.Response.Status"
+          $ref: '#/components/schemas/Api.Research.Response.Status'
         response:
           type: object
           allOf:
-            - $ref: "#/components/schemas/Api.Research.Response.Response"
+            - $ref: '#/components/schemas/Api.Research.Response.Response'
           nullable: true
       description: The request has succeeded.
     Api.Research.Request.Ask:
@@ -118,11 +118,11 @@ components:
         keyFacts:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Research.Response.KeyFacts"
+            $ref: '#/components/schemas/Api.Research.Response.KeyFacts'
         sources:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Research.Response.Source"
+            $ref: '#/components/schemas/Api.Research.Response.Source'
     Api.Research.Response.Source:
       type: object
       required:
@@ -150,7 +150,7 @@ components:
         isCharged:
           type: boolean
         locale:
-          $ref: "#/components/schemas/Api.Research.Response.Locale"
+          $ref: '#/components/schemas/Api.Research.Response.Locale'
         parentId:
           type: string
         releasedAt:
@@ -194,7 +194,7 @@ components:
         - research_token
       properties:
         research_token:
-          $ref: "#/components/schemas/Api.Research.ResearchToken"
+          $ref: '#/components/schemas/Api.Research.ResearchToken'
       description: The request has succeeded.
   securitySchemes:
     ApiKeyAuth:
