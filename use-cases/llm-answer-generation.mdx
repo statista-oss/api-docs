@@ -17,7 +17,7 @@ href="/api-reference/introduction">API Reference</a>.
 import requests
 import time
 
-url_post = "https://api.statista.ai/v1/research-ai/v1/research_ai"
+url_post = "https://api.statista.ai/research-ai/v1/research_ai"
 
 payload = {"question": "What are the economic impacts of climate change in Europe?"}
 headers = {
@@ -33,7 +33,7 @@ In the response we should receive a `research_token` that can be used to poll th
 
 ```python
 research_token = response.text['research_token']
-url_get = "https://api.statista.ai/v1/research-ai/v1/research_ai_status"
+url_get = "https://api.statista.ai/research-ai/v1/research_ai_status"
 
 querystring = {"research_token": 'research_token'}
 

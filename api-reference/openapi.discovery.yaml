@@ -29,6 +29,7 @@ paths:
           schema:
             type: integer
             format: uint32
+            minimum: 0
             default: 0
         - name: size
           in: query
@@ -36,7 +37,8 @@ paths:
           schema:
             type: integer
             format: uint32
-            maximum: 150
+            minimum: 0
+            maximum: 100
             default: 10
         - name: page
           in: query
@@ -44,8 +46,9 @@ paths:
           schema:
             type: integer
             format: uint32
+            minimum: 1
             maximum: 2000
-            default: 0
+            default: 1
         - name: date_from
           in: query
           required: false
@@ -1458,13 +1461,16 @@ paths:
               - Wisconsin
               - Wyoming
               - District of Columbia
-        - name: premium
+        - name: sort
           in: query
           required: false
+          description: |-
+            Choose how you want the results to be ordered:
+            0 – Best match first (sorted by relevance)
+            1 – Most recent first (sorted by publication date)
           schema:
-            type: boolean
-            nullable: true
-            default: null
+            $ref: '#/components/schemas/Type.SortBy'
+            default: 0
       responses:
         '200':
           description: The request has succeeded.
@@ -1474,11 +1480,19 @@ paths:
                 type: object
                 required:
                   - items
+                  - total_count
+                  - total_pages
                 properties:
                   items:
                     type: array
                     items:
                       $ref: '#/components/schemas/Api.Response.Infographic'
+                  total_count:
+                    type: integer
+                    format: uint32
+                  total_pages:
+                    type: integer
+                    format: uint32
                 description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
@@ -1507,6 +1521,7 @@ paths:
           schema:
             type: integer
             format: uint32
+            minimum: 0
             default: 0
         - name: size
           in: query
@@ -1514,7 +1529,8 @@ paths:
           schema:
             type: integer
             format: uint32
-            maximum: 150
+            minimum: 0
+            maximum: 100
             default: 10
         - name: page
           in: query
@@ -1522,8 +1538,9 @@ paths:
           schema:
             type: integer
             format: uint32
+            minimum: 1
             maximum: 2000
-            default: 0
+            default: 1
         - name: date_from
           in: query
           required: false
@@ -2931,6 +2948,16 @@ paths:
               - Wisconsin
               - Wyoming
               - District of Columbia
+        - name: sort
+          in: query
+          required: false
+          description: |-
+            Choose how you want the results to be ordered:
+            0 – Best match first (sorted by relevance)
+            1 – Most recent first (sorted by publication date)
+          schema:
+            $ref: '#/components/schemas/Type.SortBy'
+            default: 0
       responses:
         '200':
           description: The request has succeeded.
@@ -2940,11 +2967,19 @@ paths:
                 type: object
                 required:
                   - items
+                  - total_count
+                  - total_pages
                 properties:
                   items:
                     type: array
                     items:
                       $ref: '#/components/schemas/Api.Response.MarketInsight'
+                  total_count:
+                    type: integer
+                    format: uint32
+                  total_pages:
+                    type: integer
+                    format: uint32
                 description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
@@ -2973,6 +3008,7 @@ paths:
           schema:
             type: integer
             format: uint32
+            minimum: 0
             default: 0
         - name: size
           in: query
@@ -2980,7 +3016,8 @@ paths:
           schema:
             type: integer
             format: uint32
-            maximum: 150
+            minimum: 0
+            maximum: 100
             default: 10
         - name: page
           in: query
@@ -2988,8 +3025,9 @@ paths:
           schema:
             type: integer
             format: uint32
+            minimum: 1
             maximum: 2000
-            default: 0
+            default: 1
         - name: date_from
           in: query
           required: false
@@ -4409,6 +4447,16 @@ paths:
             type: boolean
             nullable: true
             default: null
+        - name: sort
+          in: query
+          required: false
+          description: |-
+            Choose how you want the results to be ordered:
+            0 – Best match first (sorted by relevance)
+            1 – Most recent first (sorted by publication date)
+          schema:
+            $ref: '#/components/schemas/Type.SortBy'
+            default: 0
       responses:
         '200':
           description: The request has succeeded.
@@ -4418,11 +4466,19 @@ paths:
                 type: object
                 required:
                   - items
+                  - total_count
+                  - total_pages
                 properties:
                   items:
                     type: array
                     items:
                       $ref: '#/components/schemas/Api.Response.Statistic'
+                  total_count:
+                    type: integer
+                    format: uint32
+                  total_pages:
+                    type: integer
+                    format: uint32
                 description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
@@ -4451,6 +4507,7 @@ paths:
           schema:
             type: integer
             format: uint32
+            minimum: 0
             default: 0
         - name: size
           in: query
@@ -4458,7 +4515,8 @@ paths:
           schema:
             type: integer
             format: uint32
-            maximum: 150
+            minimum: 0
+            maximum: 100
             default: 10
         - name: page
           in: query
@@ -4466,8 +4524,9 @@ paths:
           schema:
             type: integer
             format: uint32
+            minimum: 1
             maximum: 2000
-            default: 0
+            default: 1
         - name: date_from
           in: query
           required: false
@@ -5887,6 +5946,16 @@ paths:
             type: boolean
             nullable: true
             default: null
+        - name: sort
+          in: query
+          required: false
+          description: |-
+            Choose how you want the results to be ordered:
+            0 – Best match first (sorted by relevance)
+            1 – Most recent first (sorted by publication date)
+          schema:
+            $ref: '#/components/schemas/Type.SortBy'
+            default: 0
       responses:
         '200':
           description: The request has succeeded.
@@ -5896,11 +5965,19 @@ paths:
                 type: object
                 required:
                   - items
+                  - total_count
+                  - total_pages
                 properties:
                   items:
                     type: array
                     items:
                       $ref: '#/components/schemas/Api.Response.Study'
+                  total_count:
+                    type: integer
+                    format: uint32
+                  total_pages:
+                    type: integer
+                    format: uint32
                 description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
@@ -6136,6 +6213,11 @@ components:
     Type.RegionId:
       type: integer
       format: uint16
+    Type.SortBy:
+      type: number
+      enum:
+        - 0
+        - 1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
