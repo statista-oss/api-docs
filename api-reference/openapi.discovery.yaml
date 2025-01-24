@@ -5992,7 +5992,7 @@ components:
     Api.Request.DateFrom:
       type: string
       format: date-time
-      description: By default from now until 3 months ago
+      description: the maximum search depth is limited to 4 years from today
     Api.Request.DateTo:
       type: string
       format: date-time
