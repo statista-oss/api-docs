@@ -5992,10 +5992,27 @@ components:
     Api.Request.DateFrom:
       type: string
       format: date-time
-      description: the maximum search depth is limited to 4 years from today
+      description: |-
+        The maximum search depth is limited to 4 years from today while the default is 3 months from today. Supported formats are
+        - RFC 33939 (`%Y-%m-%dT%H:%M:%S` like in ISO 8601)
+        - `%Y-%m-%d %H:%M:%S` - example `2024-03-07 12:45:38`
+        - `%d.%m.%Y %H:%M:%S` - example `03.07.2024 12:45:38`
+        - `%Y/%m/%d %H:%M:%S` - example `2024/03/07 12:45:38`
+        - `%Y-%m-%d` - example `2024-03-07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+        - `%d.%m.%Y` - example `03.07.2024` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+        - `%Y/%m/%d` - example `2024/03/07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
     Api.Request.DateTo:
       type: string
       format: date-time
+      description: |-
+        Supported formats are
+        - RFC 33939 (`%Y-%m-%dT%H:%M:%S` like in ISO 8601)
+        - `%Y-%m-%d %H:%M:%S` - example `2024-03-07 12:45:38`
+        - `%d.%m.%Y %H:%M:%S` - example `03.07.2024 12:45:38`
+        - `%Y/%m/%d %H:%M:%S` - example `2024/03/07 12:45:38`
+        - `%Y-%m-%d` - example `2024-03-07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+        - `%d.%m.%Y` - example `03.07.2024` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+        - `%Y/%m/%d` - example `2024/03/07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
     Api.Request.Industry:
       type: string
       enum:
