@@ -5993,7 +5993,7 @@ components:
       type: string
       format: date-time
       description: |-
-        The maximum search depth is limited to 4 years from today while the default is 3 months from today. Supported formats are
+        The maximum search depth is limited to 20 years from today while the default is 3 months from today. Supported formats are
         - RFC 33939 (`%Y-%m-%dT%H:%M:%S` like in ISO 8601)
         - `%Y-%m-%d %H:%M:%S` - example `2024-03-07 12:45:38`
         - `%d.%m.%Y %H:%M:%S` - example `03.07.2024 12:45:38`
