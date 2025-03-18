@@ -17,12 +17,12 @@ paths:
           required: false
           schema:
             type: string
-            default: "*"
+            default: '*'
         - name: platform
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Type.LanguageLocale"
+            $ref: '#/components/schemas/Type.LanguageLocale'
         - name: offset
           in: query
           required: false
@@ -53,17 +53,17 @@ paths:
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Api.Request.DateFrom"
+            $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Api.Request.DateTo"
+            $ref: '#/components/schemas/Api.Request.DateTo'
         - name: industry
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Api.Request.Industry"
+            $ref: '#/components/schemas/Api.Request.Industry'
         - name: geolocation
           in: query
           required: false
@@ -1469,10 +1469,10 @@ paths:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
           schema:
-            $ref: "#/components/schemas/Type.SortBy"
+            $ref: '#/components/schemas/Type.SortBy'
             default: 0
       responses:
-        "200":
+        '200':
           description: The request has succeeded.
           content:
             application/json:
@@ -1486,7 +1486,7 @@ paths:
                   items:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Api.Response.Infographic"
+                      $ref: '#/components/schemas/Api.Response.Infographic'
                   total_count:
                     type: integer
                     format: uint32
@@ -1494,11 +1494,11 @@ paths:
                     type: integer
                     format: uint32
                 description: The request has succeeded.
-        "400":
+        '400':
           description: The server could not understand the request due to invalid syntax.
-        "401":
+        '401':
           description: Access is unauthorized.
-        "403":
+        '403':
           description: Access is forbidden.
   /v1/marketInsights:
     get:
@@ -1509,12 +1509,12 @@ paths:
           required: false
           schema:
             type: string
-            default: "*"
+            default: '*'
         - name: platform
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Type.LanguageLocale"
+            $ref: '#/components/schemas/Type.LanguageLocale'
         - name: offset
           in: query
           required: false
@@ -1545,12 +1545,12 @@ paths:
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Api.Request.DateFrom"
+            $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Api.Request.DateTo"
+            $ref: '#/components/schemas/Api.Request.DateTo'
         - name: geolocation
           in: query
           required: false
@@ -2956,10 +2956,10 @@ paths:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
           schema:
-            $ref: "#/components/schemas/Type.SortBy"
+            $ref: '#/components/schemas/Type.SortBy'
             default: 0
       responses:
-        "200":
+        '200':
           description: The request has succeeded.
           content:
             application/json:
@@ -2973,7 +2973,7 @@ paths:
                   items:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Api.Response.MarketInsight"
+                      $ref: '#/components/schemas/Api.Response.MarketInsight'
                   total_count:
                     type: integer
                     format: uint32
@@ -2981,11 +2981,11 @@ paths:
                     type: integer
                     format: uint32
                 description: The request has succeeded.
-        "400":
+        '400':
           description: The server could not understand the request due to invalid syntax.
-        "401":
+        '401':
           description: Access is unauthorized.
-        "403":
+        '403':
           description: Access is forbidden.
   /v1/statistics:
     get:
@@ -2996,12 +2996,12 @@ paths:
           required: false
           schema:
             type: string
-            default: "*"
+            default: '*'
         - name: platform
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Type.LanguageLocale"
+            $ref: '#/components/schemas/Type.LanguageLocale'
         - name: offset
           in: query
           required: false
@@ -3032,17 +3032,17 @@ paths:
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Api.Request.DateFrom"
+            $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Api.Request.DateTo"
+            $ref: '#/components/schemas/Api.Request.DateTo'
         - name: industry
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Api.Request.Industry"
+            $ref: '#/components/schemas/Api.Request.Industry'
         - name: geolocation
           in: query
           required: false
@@ -4455,10 +4455,10 @@ paths:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
           schema:
-            $ref: "#/components/schemas/Type.SortBy"
+            $ref: '#/components/schemas/Type.SortBy'
             default: 0
       responses:
-        "200":
+        '200':
           description: The request has succeeded.
           content:
             application/json:
@@ -4472,7 +4472,7 @@ paths:
                   items:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Api.Response.Statistic"
+                      $ref: '#/components/schemas/Api.Response.Statistic'
                   total_count:
                     type: integer
                     format: uint32
@@ -4480,11 +4480,11 @@ paths:
                     type: integer
                     format: uint32
                 description: The request has succeeded.
-        "400":
+        '400':
           description: The server could not understand the request due to invalid syntax.
-        "401":
+        '401':
           description: Access is unauthorized.
-        "403":
+        '403':
           description: Access is forbidden.
   /v1/studies:
     get:
@@ -4495,12 +4495,12 @@ paths:
           required: false
           schema:
             type: string
-            default: "*"
+            default: '*'
         - name: platform
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Type.LanguageLocale"
+            $ref: '#/components/schemas/Type.LanguageLocale'
         - name: offset
           in: query
           required: false
@@ -4531,17 +4531,17 @@ paths:
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Api.Request.DateFrom"
+            $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Api.Request.DateTo"
+            $ref: '#/components/schemas/Api.Request.DateTo'
         - name: industry
           in: query
           required: false
           schema:
-            $ref: "#/components/schemas/Api.Request.Industry"
+            $ref: '#/components/schemas/Api.Request.Industry'
         - name: geolocation
           in: query
           required: false
@@ -5954,10 +5954,10 @@ paths:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
           schema:
-            $ref: "#/components/schemas/Type.SortBy"
+            $ref: '#/components/schemas/Type.SortBy'
             default: 0
       responses:
-        "200":
+        '200':
           description: The request has succeeded.
           content:
             application/json:
@@ -5971,7 +5971,7 @@ paths:
                   items:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Api.Response.Study"
+                      $ref: '#/components/schemas/Api.Response.Study'
                   total_count:
                     type: integer
                     format: uint32
@@ -5979,11 +5979,11 @@ paths:
                     type: integer
                     format: uint32
                 description: The request has succeeded.
-        "400":
+        '400':
           description: The server could not understand the request due to invalid syntax.
-        "401":
+        '401':
           description: Access is unauthorized.
-        "403":
+        '403':
           description: Access is forbidden.
 security:
   - ApiKeyAuth: []
@@ -6037,7 +6037,7 @@ components:
         - teaser_images
       properties:
         identifier:
-          $ref: "#/components/schemas/Type.Id"
+          $ref: '#/components/schemas/Type.Id'
         title:
           type: string
         description:
@@ -6048,7 +6048,7 @@ components:
           type: string
           format: date-time
         platform:
-          $ref: "#/components/schemas/Type.LanguageLocale"
+          $ref: '#/components/schemas/Type.LanguageLocale'
         subject:
           type: string
         is_premium:
@@ -6056,23 +6056,23 @@ components:
         sources:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.Source"
+            $ref: '#/components/schemas/Api.Response.Source'
         chargers:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.Source"
+            $ref: '#/components/schemas/Api.Response.Source'
         publishers:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.Source"
+            $ref: '#/components/schemas/Api.Response.Source'
         industries:
           type: array
           items:
-            $ref: "#/components/schemas/Type.IndustryId"
+            $ref: '#/components/schemas/Type.IndustryId'
         teaser_images:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.TeaserImage"
+            $ref: '#/components/schemas/Api.Response.TeaserImage'
     Api.Response.ERI:
       type: object
       required:
@@ -6091,7 +6091,7 @@ components:
         - geolocations
       properties:
         identifier:
-          $ref: "#/components/schemas/Type.Id"
+          $ref: '#/components/schemas/Type.Id'
         title:
           type: string
         description:
@@ -6102,7 +6102,7 @@ components:
           type: string
           format: date-time
         platform:
-          $ref: "#/components/schemas/Type.LanguageLocale"
+          $ref: '#/components/schemas/Type.LanguageLocale'
         subject:
           type: string
         is_premium:
@@ -6110,31 +6110,31 @@ components:
         sources:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.Source"
+            $ref: '#/components/schemas/Api.Response.Source'
         chargers:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.Source"
+            $ref: '#/components/schemas/Api.Response.Source'
         publishers:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.Source"
+            $ref: '#/components/schemas/Api.Response.Source'
         industries:
           type: array
           items:
-            $ref: "#/components/schemas/Type.IndustryId"
+            $ref: '#/components/schemas/Type.IndustryId'
         teaser_images:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.TeaserImage"
+            $ref: '#/components/schemas/Api.Response.TeaserImage'
         geolocations:
           type: array
           items:
-            $ref: "#/components/schemas/Type.RegionId"
+            $ref: '#/components/schemas/Type.RegionId'
     Api.Response.Infographic:
       type: object
       allOf:
-        - $ref: "#/components/schemas/Api.Response.Base"
+        - $ref: '#/components/schemas/Api.Response.Base'
     Api.Response.MarketInsight:
       type: object
       required:
@@ -6148,7 +6148,7 @@ components:
         - geolocations
       properties:
         identifier:
-          $ref: "#/components/schemas/Type.Id"
+          $ref: '#/components/schemas/Type.Id'
         title:
           type: string
         description:
@@ -6159,21 +6159,21 @@ components:
           type: string
           format: date-time
         platform:
-          $ref: "#/components/schemas/Type.LanguageLocale"
+          $ref: '#/components/schemas/Type.LanguageLocale'
         sub_title:
           type: string
         children:
           type: array
           items:
-            $ref: "#/components/schemas/Insights.Market"
+            $ref: '#/components/schemas/Insights.Market'
         path:
           type: array
           items:
-            $ref: "#/components/schemas/Insights.Market"
+            $ref: '#/components/schemas/Insights.Market'
         geolocations:
           type: array
           items:
-            $ref: "#/components/schemas/Type.RegionId"
+            $ref: '#/components/schemas/Type.RegionId'
     Api.Response.Source:
       type: object
       required:
@@ -6187,11 +6187,11 @@ components:
     Api.Response.Statistic:
       type: object
       allOf:
-        - $ref: "#/components/schemas/Api.Response.ERI"
+        - $ref: '#/components/schemas/Api.Response.ERI'
     Api.Response.Study:
       type: object
       allOf:
-        - $ref: "#/components/schemas/Api.Response.ERI"
+        - $ref: '#/components/schemas/Api.Response.ERI'
     Api.Response.TeaserImage:
       type: object
       required:
@@ -6210,7 +6210,7 @@ components:
       properties:
         id:
           oneOf:
-            - $ref: "#/components/schemas/Type.Id"
+            - $ref: '#/components/schemas/Type.Id'
           nullable: true
         name:
           type: string

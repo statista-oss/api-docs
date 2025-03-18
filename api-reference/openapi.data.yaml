@@ -16,19 +16,19 @@ paths:
           in: query
           required: true
           schema:
-            $ref: "#/components/schemas/Type.Id"
+            $ref: '#/components/schemas/Type.Id'
       responses:
-        "200":
+        '200':
           description: The request has succeeded.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DataResponse"
-        "400":
+                $ref: '#/components/schemas/DataResponse'
+        '400':
           description: The server could not understand the request due to invalid syntax.
-        "401":
+        '401':
           description: Access is unauthorized.
-        "403":
+        '403':
           description: Access is forbidden.
 security:
   - ApiKeyAuth: []
@@ -41,11 +41,11 @@ components:
         - data
       properties:
         unit:
-          $ref: "#/components/schemas/Api.Data.Response.Unit"
+          $ref: '#/components/schemas/Api.Data.Response.Unit'
         graphType:
-          $ref: "#/components/schemas/Api.Data.Response.GraphType"
+          $ref: '#/components/schemas/Api.Data.Response.GraphType'
         data:
-          $ref: "#/components/schemas/Api.Data.Response.Data"
+          $ref: '#/components/schemas/Api.Data.Response.Data'
     Api.Data.Response.Data:
       type: object
       required:
@@ -79,7 +79,7 @@ components:
     Api.Data.Response.Unit:
       type: string
       enum:
-        - "%"
+        - '%'
     Api.Response.Source:
       type: object
       required:
@@ -120,7 +120,7 @@ components:
         - chart
       properties:
         identifier:
-          $ref: "#/components/schemas/Type.Id"
+          $ref: '#/components/schemas/Type.Id'
         title:
           type: string
         description:
@@ -131,7 +131,7 @@ components:
           type: string
           format: date-time
         platform:
-          $ref: "#/components/schemas/Type.LanguageLocale"
+          $ref: '#/components/schemas/Type.LanguageLocale'
         subject:
           type: string
         is_premium:
@@ -139,29 +139,29 @@ components:
         sources:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.Source"
+            $ref: '#/components/schemas/Api.Response.Source'
         chargers:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.Source"
+            $ref: '#/components/schemas/Api.Response.Source'
         publishers:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.Source"
+            $ref: '#/components/schemas/Api.Response.Source'
         industries:
           type: array
           items:
-            $ref: "#/components/schemas/Type.IndustryId"
+            $ref: '#/components/schemas/Type.IndustryId'
         teaser_images:
           type: array
           items:
-            $ref: "#/components/schemas/Api.Response.TeaserImage"
+            $ref: '#/components/schemas/Api.Response.TeaserImage'
         geolocations:
           type: array
           items:
-            $ref: "#/components/schemas/Type.RegionId"
+            $ref: '#/components/schemas/Type.RegionId'
         chart:
-          $ref: "#/components/schemas/Api.Data.Response.Chart"
+          $ref: '#/components/schemas/Api.Data.Response.Chart'
       description: The request has succeeded.
     Type.Id:
       type: integer
