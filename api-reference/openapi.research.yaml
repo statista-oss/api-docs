@@ -198,9 +198,9 @@ components:
     QuestionResponse:
       type: object
       required:
-        - research_token
+        - researchToken
       properties:
-        research_token:
+        researchToken:
           $ref: '#/components/schemas/Api.Research.ResearchToken'
       description: The request has succeeded.
   securitySchemes:
