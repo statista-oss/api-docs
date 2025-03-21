@@ -6030,11 +6030,6 @@ components:
         - platform
         - subject
         - is_premium
-        - sources
-        - chargers
-        - publishers
-        - industries
-        - teaser_images
       properties:
         identifier:
           $ref: '#/components/schemas/Type.Id'
@@ -6053,26 +6048,10 @@ components:
           type: string
         is_premium:
           type: boolean
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.Source'
-        chargers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.Source'
-        publishers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.Source'
         industries:
           type: array
           items:
             $ref: '#/components/schemas/Type.IndustryId'
-        teaser_images:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.TeaserImage'
     Api.Response.ERI:
       type: object
       required:
@@ -6083,11 +6062,6 @@ components:
         - platform
         - subject
         - is_premium
-        - sources
-        - chargers
-        - publishers
-        - industries
-        - teaser_images
         - geolocations
       properties:
         identifier:
@@ -6107,32 +6081,23 @@ components:
           type: string
         is_premium:
           type: boolean
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.Source'
-        chargers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.Source'
-        publishers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.Source'
         industries:
           type: array
           items:
             $ref: '#/components/schemas/Type.IndustryId'
-        teaser_images:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.TeaserImage'
         geolocations:
           type: array
           items:
             $ref: '#/components/schemas/Type.RegionId'
     Api.Response.Infographic:
       type: object
+      required:
+        - teaser_image_urls
+      properties:
+        teaser_image_urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.TeaserImage'
       allOf:
         - $ref: '#/components/schemas/Api.Response.Base'
     Api.Response.MarketInsight:
@@ -6143,7 +6108,6 @@ components:
         - link
         - date
         - platform
-        - children
         - path
         - geolocations
       properties:
@@ -6174,18 +6138,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Type.RegionId'
-    Api.Response.Source:
-      type: object
-      required:
-        - title
-        - subtitle
-      properties:
-        title:
-          type: string
-        subtitle:
-          type: string
     Api.Response.Statistic:
       type: object
+      required:
+        - teaser_image_urls
+      properties:
+        teaser_image_urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.TeaserImage'
       allOf:
         - $ref: '#/components/schemas/Api.Response.ERI'
     Api.Response.Study:
