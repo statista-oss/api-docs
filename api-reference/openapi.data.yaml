@@ -76,11 +76,7 @@ components:
         - line-zoomable
         - pie
         - table
-    Api.Data.Response.Unit:
-      type: string
-      enum:
-        - '%'
-    Api.Response.Source:
+    Api.Data.Response.Source:
       type: object
       required:
         - title
@@ -90,6 +86,10 @@ components:
           type: string
         subtitle:
           type: string
+    Api.Data.Response.Unit:
+      type: string
+      enum:
+        - '%'
     Api.Response.TeaserImage:
       type: object
       required:
@@ -104,6 +104,7 @@ components:
     DataResponse:
       type: object
       required:
+        - teaser_image_urls
         - identifier
         - title
         - link
@@ -111,14 +112,16 @@ components:
         - platform
         - subject
         - is_premium
+        - geolocations
         - sources
         - chargers
         - publishers
-        - industries
-        - teaser_images
-        - geolocations
         - chart
       properties:
+        teaser_image_urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.TeaserImage'
         identifier:
           $ref: '#/components/schemas/Type.Id'
         title:
@@ -136,30 +139,26 @@ components:
           type: string
         is_premium:
           type: boolean
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.Source'
-        chargers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.Source'
-        publishers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.Source'
         industries:
           type: array
           items:
             $ref: '#/components/schemas/Type.IndustryId'
-        teaser_images:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.TeaserImage'
         geolocations:
           type: array
           items:
             $ref: '#/components/schemas/Type.RegionId'
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Data.Response.Source'
+        chargers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Data.Response.Source'
+        publishers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Data.Response.Source'
         chart:
           $ref: '#/components/schemas/Api.Data.Response.Chart'
       description: The request has succeeded.
