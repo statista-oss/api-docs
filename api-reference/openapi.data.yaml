@@ -8,9 +8,22 @@ info:
   description: The Statista Data API
 tags: []
 paths:
-  /data/v1/statistic:
+  /v1/data/report:
     get:
-      operationId: Statistic_list
+      operationId: Statistic_report
+      description: Returns the Report file as binary data
+      parameters:
+        - name: t
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+  /v1/data/reports:
+    get:
+      operationId: Statistic_reports
       parameters:
         - name: id
           in: query
@@ -23,7 +36,29 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DataResponse'
+                $ref: '#/components/schemas/ReportsResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+  /v1/data/statistic:
+    get:
+      operationId: Statistic_statistic
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Type.Id'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatisticDataResponse'
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -101,7 +136,20 @@ components:
           format: uint32
         src:
           type: string
-    DataResponse:
+    ReportsResponse:
+      type: object
+      properties:
+        pdf:
+          type: string
+          description: The PDF file of this Report
+        ppt:
+          type: string
+          description: The PowerPoint file of this Report
+        xls:
+          type: string
+          description: The Excel file of this Report
+      description: The request has succeeded.
+    StatisticDataResponse:
       type: object
       required:
         - teaser_image_urls
