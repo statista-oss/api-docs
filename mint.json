@@ -26,7 +26,7 @@
         }
     ],
     "topbarCtaButton": {
-        "name": "Dashboard",
+        "name": "Statista.com",
         "url": "https://statista.com"
     },
     "tabs": [
@@ -76,12 +76,19 @@
         },
         {
             "group": "Data API Playground",
-            "pages": ["api-reference/data-api/get-statistic"]
+            "pages": [
+                "api-reference/data-api/get-statistic",
+                "api-reference/data-api/get-report",
+                "api-reference/data-api/get-reports"
+            ]
         },
 
         {
             "group": "Research AI Playground",
-            "pages": ["api-reference/research-ai/post-researchAi", "api-reference/research-ai/get-researchAi"]
+            "pages": [
+                "api-reference/research-ai/post-researchAi", 
+                "api-reference/research-ai/get-researchAi"
+            ]
         }
     ],
     "footerSocials": {
