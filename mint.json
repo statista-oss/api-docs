@@ -78,7 +78,6 @@
             "group": "Data API Playground",
             "pages": [
                 "api-reference/data-api/get-statistic",
-                "api-reference/data-api/get-report",
                 "api-reference/data-api/get-reports"
             ]
         },
