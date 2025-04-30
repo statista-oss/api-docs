@@ -18,7 +18,7 @@
     "topbarLinks": [
         {
             "name": "Support",
-            "url": "mailto:apiteam@statista.com"
+            "url": "mailto:connect@statista.com"
         },
         {
             "name": "Feedback",
@@ -46,15 +46,24 @@
     "navigation": [
         {
             "group": "Get Started",
-            "pages": ["start/introduction", "start/authentication"]
+            "pages": [
+                "start/introduction",
+                "start/authentication"
+            ]
         },
         {
             "group": "API Reference",
-            "pages": ["api-reference/introduction"]
+            "pages": [
+                "api-reference/introduction"
+            ]
         },
         {
             "group": "Use Cases",
-            "pages": ["use-cases/llm-answer-generation", "use-cases/federated-search", "use-cases/subscribe-to-data"]
+            "pages": [
+                "use-cases/llm-answer-generation",
+                "use-cases/federated-search",
+                "use-cases/fetch-chart-data"
+            ]
         },
         {
             "group": "API Packages",
@@ -81,11 +90,10 @@
                 "api-reference/data-api/get-reports"
             ]
         },
-
         {
             "group": "Research AI Playground",
             "pages": [
-                "api-reference/research-ai/post-researchAi", 
+                "api-reference/research-ai/post-researchAi",
                 "api-reference/research-ai/get-researchAi"
             ]
         }
