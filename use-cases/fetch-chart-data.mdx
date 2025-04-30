@@ -1,0 +1,150 @@
+---
+title: Fetch Chart Data
+description: "Using Statista's Data API to pull trusted data into your dashboard or app"
+---
+
+To use the Data API (`v1/data/statistic`), you need to identify the specific data you want to pull. 
+
+This is in the format of an ID for e.g. a **statistic**. You can find these IDs by: a) Using the Discovery API, b) using the Statista website - you'll find the ID in the URL when viewing a specific statistic. 
+
+Say that you wish to pull the raw data for [Nike's Revenue](https://www.statista.com/statistics/241683/nikes-sales-worldwide-since-2004/), you'd identify the ID of this statistic from the URL to be: **241683**. 
+
+You'd then append that ID as a query parameter like so: `v1/data/statistic?id=241683`
+
+Here's an example of pulling data for a specific ID:
+
+```python
+STAT_ID="241683"
+base_url = f"https://api.statista.ai/v1/data/statistic?id={STAT_ID}"
+
+headers = {"x-api-key": f"{os.getenv('DATA_API_KEY')}"}
+
+response = requests.get(base_url, headers=headers)
+data = json.loads(response.text)
+```
+
+Which would yield the following JSON: 
+
+```json
+{
+  "identifier": 241683,
+  "title": "Nike revenue 2024",
+  "subject": "Revenue of Nike from 2005 to 2024 (in million U.S. dollars)",
+  "is_premium": true,
+  "description": "<p>In the year ended May 2024, Nike's global revenue amounted to about 51.36 billion U.S. dollars, which is only a very slight increase compared to the previous financial year. In comparison, between fiscal 2022 and 2023, the company's overall revenue increased by roughly 10 percent. Founded in January 1964, Nike has become the world's leading supplier of athletic shoes and apparel and a major manufacturer of sports equipment. As of 2024, the company <a href=\"/statistics/243199/number-of-employees-of-nike-worldwide/\">employed over 79 thousand people worldwide</a>. <br><br></p>\n<h2>Nike's sponsorships</h2>\n<p>The company <a href=\"/topics/1382/sports-sponsorship/\">sponsors many high-profile professional athletes</a>, such as Cristiano Ronaldo, Rafael Nadal, Lebron James, Naomi Osaka, and Rory Mcllroy to use their products and promote and advertise their technology and design. On top of that, Nike also manufactures and provides kits (uniforms) for a wide range of sports teams like Barcelona and Chelsea.\u00a0<br><br></p>\n<h2>Popularity of Nike in Europe</h2>\n<p>While Nike is an American enterprise, its products are ubiquitous. A Statista survey conducted in Europe showed the overwhelming majority (approximately 94 percent) of online sports and outdoor goods shoppers in the <a href=\"/forecasts/1252337/nike-sports-and-outdoor-online-shops-brand-profile-in-the-uk\" target=\"_blank\" rel=\"noopener\">United Kingdom</a> and <a href=\"/forecasts/1288497/nike-sports-and-outdoor-online-shops-brand-profile-in-germany\" target=\"_blank\" rel=\"noopener\">Germany</a> recognized the Nike brand, at least by name. Furthermore, over 60 percent of these UK and German respondents stated they liked the brand.</p>\n<p>The fiscal year end of the company is May 31st</p>",
+  "link": "https://www.statista.com/statistics/241683/nikes-sales-worldwide-since-2004/?utm_id=1zp1h4k6u4&utm_term=data&utm_medium=opp_api_redirect&utm_source=opp_statista_api",
+  "date": "2025-01-14T10:11:56Z",
+  "sources": [
+    {
+      "is_active": true,
+      "subtitle": "Nike",
+      "title": "Nike Inc."
+    },
+    {
+      "is_active": true,
+      "subtitle": "U.S. Securities and Exchange Commission",
+      "title": "United States Securities and Exchange Commission"
+    }
+  ],
+  "chargers": [
+    {
+      "is_active": true,
+      "subtitle": "Nike",
+      "title": "Nike Inc."
+    },
+    {
+      "is_active": true,
+      "subtitle": "U.S. Securities and Exchange Commission",
+      "title": "United States Securities and Exchange Commission"
+    }
+  ],
+  "publishers": [
+    {
+      "is_active": true,
+      "subtitle": "U.S. Securities and Exchange Commission",
+      "title": "United States Securities and Exchange Commission"
+    }
+  ],
+  "geolocations": [
+    {
+      "name": "Worldwide",
+      "code": "001"
+    },
+    {
+      "name": "United States",
+      "code": "US"
+    }
+  ],
+  "platform": "en",
+  "teaser_image_urls": [
+    {
+      "width": 100,
+      "src": "<image_url>"
+    },
+    {
+      "width": 355,
+      "src": "<image_url>"
+    },
+    {
+      "width": 754,
+      "src": "<image_url>"
+    }
+  ],
+  "image_url": "<image_url>",
+  "chart": {
+    "unit": null,
+    "graphType": "bar",
+    "data": {
+      "categories": [
+        "2005",
+        "2006",
+        "2007",
+        "2008",
+        "2009",
+        "2010",
+        "2011",
+        "2012",
+        "2013",
+        "2014",
+        "2015",
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "series": [
+        {
+          "name": "Column1",
+          "data": [
+            13740.0,
+            14955.0,
+            16326.0,
+            18627.0,
+            18528.0,
+            18324.0,
+            20117.0,
+            23331.0,
+            25313.0,
+            27799.0,
+            30601.0,
+            32376.0,
+            34350.0,
+            36397.0,
+            39117.0,
+            37403.0,
+            44538.0,
+            46710.0,
+            51217.0,
+            51362.0
+          ]
+        }
+      ]
+    }
+  }
+}
+```
