@@ -34,11 +34,16 @@ paths:
         - name: size
           in: query
           required: false
+          description: |-
+            The max. value depends on which API Package you are using.
+            The default value for `size` is 10.
+            See API-Packages for more information.
+
+            An alias for `size` is `limit`
           schema:
             type: integer
             format: uint32
             minimum: 0
-            maximum: 100
             default: 10
         - name: page
           in: query
@@ -47,7 +52,6 @@ paths:
             type: integer
             format: uint32
             minimum: 1
-            maximum: 2000
             default: 1
         - name: date_from
           in: query
@@ -1526,11 +1530,16 @@ paths:
         - name: size
           in: query
           required: false
+          description: |-
+            The max. value depends on which API Package you are using.
+            The default value for `size` is 10.
+            See API-Packages for more information.
+
+            An alias for `size` is `limit`
           schema:
             type: integer
             format: uint32
             minimum: 0
-            maximum: 100
             default: 10
         - name: page
           in: query
@@ -1539,7 +1548,6 @@ paths:
             type: integer
             format: uint32
             minimum: 1
-            maximum: 2000
             default: 1
         - name: date_from
           in: query
@@ -3013,11 +3021,16 @@ paths:
         - name: size
           in: query
           required: false
+          description: |-
+            The max. value depends on which API Package you are using.
+            The default value for `size` is 10.
+            See API-Packages for more information.
+
+            An alias for `size` is `limit`
           schema:
             type: integer
             format: uint32
             minimum: 0
-            maximum: 100
             default: 10
         - name: page
           in: query
@@ -3026,7 +3039,6 @@ paths:
             type: integer
             format: uint32
             minimum: 1
-            maximum: 2000
             default: 1
         - name: date_from
           in: query
@@ -4512,11 +4524,16 @@ paths:
         - name: size
           in: query
           required: false
+          description: |-
+            The max. value depends on which API Package you are using.
+            The default value for `size` is 10.
+            See API-Packages for more information.
+
+            An alias for `size` is `limit`
           schema:
             type: integer
             format: uint32
             minimum: 0
-            maximum: 100
             default: 10
         - name: page
           in: query
@@ -4525,7 +4542,6 @@ paths:
             type: integer
             format: uint32
             minimum: 1
-            maximum: 2000
             default: 1
         - name: date_from
           in: query
