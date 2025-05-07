@@ -62,7 +62,8 @@
             "pages": [
                 "use-cases/llm-answer-generation",
                 "use-cases/federated-search",
-                "use-cases/fetch-chart-data"
+                "use-cases/fetch-chart-data",
+                "use-cases/pagination"
             ]
         },
         {

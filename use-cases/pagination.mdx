@@ -1,0 +1,120 @@
+---
+title: Pagination Guide
+description: "Pagination helps in dividing large sets of data into smaller, more manageable pages. Our API supports pagination through the page and size parameters, enabling you to specify which subset of data you want to retrieve."
+---
+
+Efficiently navigating through large datasets is crucial for a seamless user experience.
+Our API provides robust pagination features that allow you to retrieve data in manageable chunks.
+This guide will help you understand and effectively implement pagination using our `page` and `size` parameters.
+
+## Pagination Parameters
+
+### `page` Parameter
+
+**Description**: Specifies the page number of the results to retrieve.
+**Type**: Integer
+**Minimum Value**: 1
+**Default Value**: 1
+
+#### Usage:
+
+```
+GET /api/items?page=2
+```
+
+This request retrieves the second page of items.
+
+### `size` Parameter
+
+**Description**: Determines the number of items displayed per page.
+**Type**: Integer
+**Default Value**: 10
+
+#### Usage:
+
+```
+GET /api/items?page=1&size=5
+```
+
+### `offset` Parameter
+
+**Description**: An alternative to `page`, representing the number of items to skip before starting to collect the result set.
+**Type**: Integer
+**Note**: While available, offset is translated internally and can be complex to handle. It's recommended to use `page` and `size` instead.
+
+#### Usage:
+
+```
+GET /api/items?offset=50&size=5
+```
+
+This request skips the first 50 items and retrieves the next 5 items.
+
+## Best Practices
+
+**Consistent `size`**: To avoid skipping or repeating items, maintain a consistent `size` across pagination requests.
+**Start from Page 1:** Always initiate pagination from page=1 unless you have a specific reason to start elsewhere.
+**Avoid Changing `size` Midway**: Changing the `size` parameter when navigating beyond the first page can lead to inconsistent data retrieval, such as skipped or duplicated items.
+**Prefer `page` over `offset`**: Use the `page` and `size` parameters for a more straightforward and reliable pagination experience.
+
+## Examples
+
+### Retrieving the first page (default)
+
+```
+GET /api/items
+```
+
+Equivalent to:
+
+```
+GET /api/items?page=1&size=10
+```
+
+### Retrieving a specific page with custom size
+
+```
+GET /api/items?page=3&size=5
+```
+
+This request retrieves the third page, displaying 5 items per page.
+
+### Using `offset` and `size`
+
+```
+GET /api/items?offset=100&size=5
+```
+
+This request skips the first 100 items and retrieves the next 5 items.
+
+**Note**: Using `offset` is generally discouraged due to its complexity and potential for data inconsistency.
+
+## Warnings
+
+### Changing `size` on subsequent pages
+
+**Issue**: Adjusting the `size` parameter when on page 2 or higher can cause items to be skipped or repeated.
+
+**Example**:
+
+Initial Request (items 6-10):
+
+```
+GET /api/items?page=2&size=5
+```
+
+Subsequent Request (items 8-14):
+
+```
+GET /api/items?page=2&size=7
+```
+
+**Result**: Items 1-8 are skipped, and items 6-8 are repeated.
+
+### Avoid using offset for manual pagination:
+
+The `offset` parameter is intended for internal use and can complicate manual pagination efforts. Stick to `page` and `size` for a smoother experience.
+
+---
+
+For further assistance or questions, please contact our support team.
