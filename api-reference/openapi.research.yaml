@@ -8,7 +8,7 @@ info:
   description: The Statista Research-AI API
 tags: []
 paths:
-  /v1/research-ai/research_ai:
+  /v1/research-ai/ask:
     post:
       operationId: ResearchAI_ask
       parameters: []
@@ -31,7 +31,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Api.Research.Request.Ask'
-  /v1/research-ai/research_ai_status:
+  /v1/research-ai/answer:
     get:
       operationId: ResearchAI_reply
       parameters:
