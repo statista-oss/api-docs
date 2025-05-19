@@ -4,8 +4,8 @@ description: "Using Statista's Research AI API to create or complement a chatbot
 ---
 
 <Info>
-    We're working on this feature in beta. If you're interested, reach out to:
-    <a href="mailto:connect@statista.com">connect@statista.com</a> for a beta key.
+  We're working on this feature in beta. If you're interested, reach out to:
+  <a href="mailto:connect@statista.com">connect@statista.com</a> for a beta key.
 </Info>
 
 This guide provides a simple workflow example of the Research AI API.
@@ -17,7 +17,7 @@ href="/api-reference/introduction">API Reference</a>.
 import requests
 import time
 
-url_post = "https://api.statista.ai/research-ai/v1/research_ai"
+url_post = "https://api.statista.ai/v1/research-ai/ask"
 
 payload = {"question": "What are the economic impacts of climate change in Europe?"}
 headers = {
@@ -28,35 +28,43 @@ headers = {
 response = requests.request("POST", url_post, json=payload, headers=headers)
 ```
 
-In the response we should receive a `research_token` that can be used to poll the
-`research_ai_status` endpoint.
+In the response we should receive a `researchToken` that can be used to poll the
+`answer` endpoint.
+
+<Info>
+  You should continue polling the answer endpoint until the response contains a status of "done" in
+  the `state.status` field, indicating that the answer is ready.
+</Info>
 
 ```python
-research_token = response.text['research_token']
-url_get = "https://api.statista.ai/research-ai/v1/research_ai_status"
+research_token = response.json()['researchToken']
+url_get = "https://api.statista.ai/v1/research-ai/answer"
 
-querystring = {"research_token": 'research_token'}
+querystring = {"research_token": research_token}
 
 poll_attempts = 0
 while poll_attempts < 10:
     response = requests.request("GET", url_get, headers=headers, params=querystring)
     print(response.status_code)
+    if response.status_code != 200:
+        break
+    answer_status = response.json()['state']['status']
     poll_attempts += 1
-    if response.status_code == 200:
+    if answer_status == "done":
         print('Research AI has a generated answer ready for us!')
         break
-    time.sleep(0.5)
+    time.sleep(2)
 ```
 
 On a successful poll, you'll be able to fetch the answer from the payload:
 
 ```python
-print(response.text['response']['answer'])
+print(response.json()['response']['answer'])
 ```
 
 In addition you'll be able to extract key facts and sources that the answer is based on:
 
 ```python
-for key_fact in response.text['response']['key_facts']:
+for key_fact in response.json()['response']['keyFacts']:
     print(key_fact)
 ```
