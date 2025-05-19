@@ -8,6 +8,28 @@ info:
   description: The Statista Research-AI API
 tags: []
 paths:
+  /v1/research-ai/answer:
+    get:
+      operationId: ResearchAI_reply
+      parameters:
+        - name: research_token
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Api.Research.ResearchToken'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswerResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
   /v1/research-ai/ask:
     post:
       operationId: ResearchAI_ask
@@ -31,28 +53,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Api.Research.Request.Ask'
-  /v1/research-ai/answer:
-    get:
-      operationId: ResearchAI_reply
-      parameters:
-        - name: research_token
-          in: query
-          required: true
-          schema:
-            $ref: '#/components/schemas/Api.Research.ResearchToken'
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AnswerResponse'
-        '400':
-          description: The server could not understand the request due to invalid syntax.
-        '401':
-          description: Access is unauthorized.
-        '403':
-          description: Access is forbidden.
 security:
   - ApiKeyAuth: []
 components:
