@@ -28,6 +28,7 @@ paths:
         - name: id
           in: query
           required: true
+          description: The unique identifier of a content information to be retrieved.
           schema:
             $ref: '#/components/schemas/Type.Id'
       responses:
@@ -50,6 +51,7 @@ paths:
         - name: id
           in: query
           required: true
+          description: The unique identifier of a content information to be retrieved.
           schema:
             $ref: '#/components/schemas/Type.Id'
       responses:
@@ -125,6 +127,36 @@ components:
       type: string
       enum:
         - '%'
+    Api.Response.Industry:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Type.IndustryId'
+          description: The unique identifier for the industry.
+        name:
+          type: string
+          description: The name of the industry.
+    Api.Response.Region:
+      type: object
+      required:
+        - id
+        - name
+        - code
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Type.RegionId'
+          description: The unique identifier for the region.
+        name:
+          type: string
+          description: The name of the region.
+        code:
+          type: string
+          description: The code of the region.
     Api.Response.TeaserImage:
       type: object
       required:
@@ -134,8 +166,10 @@ components:
         width:
           type: integer
           format: uint32
+          description: The width of the image in pixels.
         src:
           type: string
+          description: The image link (URL).
     ReportsResponse:
       type: object
       properties:
@@ -170,31 +204,44 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Api.Response.TeaserImage'
+          description: A list of preview images for this content.
         identifier:
-          $ref: '#/components/schemas/Type.Id'
+          allOf:
+            - $ref: '#/components/schemas/Type.Id'
+          description: A unique number for this content. It helps find or refer to this data.
         title:
           type: string
+          description: The name of the content. It tells what the data is about.
         description:
           type: string
+          description: A short text that explains the most important facts in the data. Available for Advanced API key.
         link:
           type: string
+          description: The website address (URL) where you can see the full content on the Statista platform.
         date:
           type: string
           format: date-time
+          description: 'The date when the data was published. Format: YYYY-MM-DDTHH:mm:ssZ'
         platform:
-          $ref: '#/components/schemas/Type.LanguageLocale'
+          allOf:
+            - $ref: '#/components/schemas/Type.LanguageLocale'
+          description: The language of the page or platform.
         subject:
           type: string
+          description: A short summary of what the data shows.
         is_premium:
           type: boolean
+          description: A true/false value. Indicates on paid and free content.
         industries:
           type: array
           items:
-            $ref: '#/components/schemas/Type.IndustryId'
+            $ref: '#/components/schemas/Api.Response.Industry'
+          description: A list of industries related to the data.
         geolocations:
           type: array
           items:
-            $ref: '#/components/schemas/Type.RegionId'
+            $ref: '#/components/schemas/Api.Response.Region'
+          description: A list of regions related to the data.
         sources:
           type: array
           items:
