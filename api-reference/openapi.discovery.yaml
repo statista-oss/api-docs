@@ -15,17 +15,28 @@ paths:
         - name: q
           in: query
           required: false
+          description: |-
+            The query string to search for content.
+            Defaults to '*' which means all content.
           schema:
             type: string
             default: '*'
         - name: platform
           in: query
           required: false
+          description: |-
+            The platform to search for content.
+            Defaults to `en` which means English.
           schema:
             $ref: '#/components/schemas/Type.LanguageLocale'
         - name: offset
           in: query
           required: false
+          description: |-
+            The number of items will be skipped before the first result.
+            The default value for `offset` is 0.
+            This is useful for pagination.
+            Could be used in combination with `size`.
           schema:
             type: integer
             format: uint32
@@ -48,6 +59,11 @@ paths:
         - name: page
           in: query
           required: false
+          description: |-
+            The page number to return.
+            The default value for `page` is 1.
+            This is useful for pagination.
+            Could be used in combination with `size`.
           schema:
             type: integer
             format: uint32
@@ -56,21 +72,34 @@ paths:
         - name: date_from
           in: query
           required: false
+          description: The start date to search for content.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
           in: query
           required: false
+          description: |-
+            The end date to search for content.
+            If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
         - name: industry
           in: query
           required: false
+          description: |-
+            It helps to find content related to a specific industry.
+            The value is a number that can be found in the URL.
           schema:
             $ref: '#/components/schemas/Api.Request.Industry'
         - name: geolocation
           in: query
           required: false
+          description: |-
+            Filters content based on a specific geographic location.
+            Defaults to `Worldwide` which means all content.
+            Use geolocation codes provided by the API documentation.
+            For example, `1` for Worldwide, `2` for Africa, etc.
+            Note: only one geolocation can be used at a time.
           schema:
             type: object
             properties:
@@ -1472,6 +1501,7 @@ paths:
             Choose how you want the results to be ordered:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
+            Defaults to `0`.
           schema:
             $ref: '#/components/schemas/Type.SortBy'
             default: 0
@@ -1485,18 +1515,20 @@ paths:
                 required:
                   - items
                   - total_count
-                  - total_pages
                 properties:
                   items:
                     type: array
                     items:
                       $ref: '#/components/schemas/Api.Response.Infographic'
+                    description: A list of results returned for the current request.
                   total_count:
                     type: integer
                     format: uint32
+                    description: The total number of available items matching the request.
                   total_pages:
                     type: integer
                     format: uint32
+                    description: The total number of pages available, based on the selected size parameter
                 description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
@@ -1511,17 +1543,28 @@ paths:
         - name: q
           in: query
           required: false
+          description: |-
+            The query string to search for content.
+            Defaults to '*' which means all content.
           schema:
             type: string
             default: '*'
         - name: platform
           in: query
           required: false
+          description: |-
+            The platform to search for content.
+            Defaults to `en` which means English.
           schema:
             $ref: '#/components/schemas/Type.LanguageLocale'
         - name: offset
           in: query
           required: false
+          description: |-
+            The number of items will be skipped before the first result.
+            The default value for `offset` is 0.
+            This is useful for pagination.
+            Could be used in combination with `size`.
           schema:
             type: integer
             format: uint32
@@ -1544,6 +1587,11 @@ paths:
         - name: page
           in: query
           required: false
+          description: |-
+            The page number to return.
+            The default value for `page` is 1.
+            This is useful for pagination.
+            Could be used in combination with `size`.
           schema:
             type: integer
             format: uint32
@@ -1552,16 +1600,26 @@ paths:
         - name: date_from
           in: query
           required: false
+          description: The start date to search for content.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
           in: query
           required: false
+          description: |-
+            The end date to search for content.
+            If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
         - name: geolocation
           in: query
           required: false
+          description: |-
+            Filters content based on a specific geographic location.
+            Defaults to `Worldwide` which means all content.
+            Use geolocation codes provided by the API documentation.
+            For example, `1` for Worldwide, `2` for Africa, etc.
+            Note: only one geolocation can be used at a time.
           schema:
             type: object
             properties:
@@ -2963,6 +3021,7 @@ paths:
             Choose how you want the results to be ordered:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
+            Defaults to `0`.
           schema:
             $ref: '#/components/schemas/Type.SortBy'
             default: 0
@@ -2976,18 +3035,20 @@ paths:
                 required:
                   - items
                   - total_count
-                  - total_pages
                 properties:
                   items:
                     type: array
                     items:
                       $ref: '#/components/schemas/Api.Response.MarketInsight'
+                    description: A list of results returned for the current request.
                   total_count:
                     type: integer
                     format: uint32
+                    description: The total number of available items matching the request.
                   total_pages:
                     type: integer
                     format: uint32
+                    description: The total number of pages available, based on the selected size parameter
                 description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
@@ -3002,17 +3063,28 @@ paths:
         - name: q
           in: query
           required: false
+          description: |-
+            The query string to search for content.
+            Defaults to '*' which means all content.
           schema:
             type: string
             default: '*'
         - name: platform
           in: query
           required: false
+          description: |-
+            The platform to search for content.
+            Defaults to `en` which means English.
           schema:
             $ref: '#/components/schemas/Type.LanguageLocale'
         - name: offset
           in: query
           required: false
+          description: |-
+            The number of items will be skipped before the first result.
+            The default value for `offset` is 0.
+            This is useful for pagination.
+            Could be used in combination with `size`.
           schema:
             type: integer
             format: uint32
@@ -3035,6 +3107,11 @@ paths:
         - name: page
           in: query
           required: false
+          description: |-
+            The page number to return.
+            The default value for `page` is 1.
+            This is useful for pagination.
+            Could be used in combination with `size`.
           schema:
             type: integer
             format: uint32
@@ -3043,21 +3120,34 @@ paths:
         - name: date_from
           in: query
           required: false
+          description: The start date to search for content.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
           in: query
           required: false
+          description: |-
+            The end date to search for content.
+            If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
         - name: industry
           in: query
           required: false
+          description: |-
+            Filters content related to a specific industry.
+            The value is a number that can be found in the URL.
           schema:
             $ref: '#/components/schemas/Api.Request.Industry'
         - name: geolocation
           in: query
           required: false
+          description: |-
+            Filters content based on a specific geographic location.
+            Defaults to `Worldwide` which means all content.
+            Use geolocation codes provided by the API documentation.
+            For example, `1` for Worldwide, `2` for Africa, etc.
+            Note: only one geolocation can be used at a time.
           schema:
             type: object
             properties:
@@ -4455,6 +4545,11 @@ paths:
         - name: premium
           in: query
           required: false
+          description: |-
+            Filters content based on its premium status.
+            If set to `true`, only premium content is returned.
+            If set to `false`, only free content is returned.
+            If not set, both free and premium content is returned.
           schema:
             type: boolean
             nullable: true
@@ -4466,6 +4561,7 @@ paths:
             Choose how you want the results to be ordered:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
+            Defaults to `0`.
           schema:
             $ref: '#/components/schemas/Type.SortBy'
             default: 0
@@ -4479,18 +4575,20 @@ paths:
                 required:
                   - items
                   - total_count
-                  - total_pages
                 properties:
                   items:
                     type: array
                     items:
                       $ref: '#/components/schemas/Api.Response.Statistic'
+                    description: A list of results returned for the current request.
                   total_count:
                     type: integer
                     format: uint32
+                    description: The total number of available items matching the request.
                   total_pages:
                     type: integer
                     format: uint32
+                    description: The total number of pages available, based on the selected size parameter
                 description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
@@ -4505,17 +4603,28 @@ paths:
         - name: q
           in: query
           required: false
+          description: |-
+            The query string to search for content.
+            Defaults to '*' which means all content.
           schema:
             type: string
             default: '*'
         - name: platform
           in: query
           required: false
+          description: |-
+            The platform to search for content.
+            Defaults to `en` which means English.
           schema:
             $ref: '#/components/schemas/Type.LanguageLocale'
         - name: offset
           in: query
           required: false
+          description: |-
+            The number of items will be skipped before the first result.
+            The default value for `offset` is 0.
+            This is useful for pagination.
+            Could be used in combination with `size`.
           schema:
             type: integer
             format: uint32
@@ -4538,6 +4647,11 @@ paths:
         - name: page
           in: query
           required: false
+          description: |-
+            The page number to return.
+            The default value for `page` is 1.
+            This is useful for pagination.
+            Could be used in combination with `size`.
           schema:
             type: integer
             format: uint32
@@ -4546,21 +4660,34 @@ paths:
         - name: date_from
           in: query
           required: false
+          description: The start date to search for content.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
           in: query
           required: false
+          description: |-
+            The end date to search for content.
+            If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
         - name: industry
           in: query
           required: false
+          description: |-
+            It helps to find content related to a specific industry.
+            The value is a number that can be found in the URL.
           schema:
             $ref: '#/components/schemas/Api.Request.Industry'
         - name: geolocation
           in: query
           required: false
+          description: |-
+            Filters content based on a specific geographic location.
+            Defaults to `Worldwide` which means all content.
+            Use geolocation codes provided by the API documentation.
+            For example, `1` for Worldwide, `2` for Africa, etc.
+            Note: only one geolocation can be used at a time.
           schema:
             type: object
             properties:
@@ -5958,6 +6085,11 @@ paths:
         - name: premium
           in: query
           required: false
+          description: |-
+            Filters content based on its premium status.
+            If set to `true`, only premium content is returned.
+            If set to `false`, only free content is returned.
+            If not set, both free and premium content is returned.
           schema:
             type: boolean
             nullable: true
@@ -5969,6 +6101,7 @@ paths:
             Choose how you want the results to be ordered:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
+            Defaults to `0`.
           schema:
             $ref: '#/components/schemas/Type.SortBy'
             default: 0
@@ -5982,18 +6115,20 @@ paths:
                 required:
                   - items
                   - total_count
-                  - total_pages
                 properties:
                   items:
                     type: array
                     items:
                       $ref: '#/components/schemas/Api.Response.Study'
+                    description: A list of results returned for the current request.
                   total_count:
                     type: integer
                     format: uint32
+                    description: The total number of available items matching the request.
                   total_pages:
                     type: integer
                     format: uint32
+                    description: The total number of pages available, based on the selected size parameter
                 description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
@@ -6048,26 +6183,37 @@ components:
         - is_premium
       properties:
         identifier:
-          $ref: '#/components/schemas/Type.Id'
+          allOf:
+            - $ref: '#/components/schemas/Type.Id'
+          description: A unique number for this content. It helps find or refer to this data.
         title:
           type: string
+          description: The name of the content. It tells what the data is about.
         description:
           type: string
+          description: A short text that explains the most important facts in the data. Available for Advanced API key.
         link:
           type: string
+          description: The website address (URL) where you can see the full content on the Statista platform.
         date:
           type: string
           format: date-time
+          description: 'The date when the data was published. Format: YYYY-MM-DDTHH:mm:ssZ'
         platform:
-          $ref: '#/components/schemas/Type.LanguageLocale'
+          allOf:
+            - $ref: '#/components/schemas/Type.LanguageLocale'
+          description: The language of the page or platform.
         subject:
           type: string
+          description: A short summary of what the data shows.
         is_premium:
           type: boolean
+          description: A true/false value. Indicates on paid and free content.
         industries:
           type: array
           items:
-            $ref: '#/components/schemas/Type.IndustryId'
+            $ref: '#/components/schemas/Api.Response.Industry'
+          description: A list of industries related to the data.
     Api.Response.ERI:
       type: object
       required:
@@ -6081,39 +6227,63 @@ components:
         - geolocations
       properties:
         identifier:
-          $ref: '#/components/schemas/Type.Id'
+          allOf:
+            - $ref: '#/components/schemas/Type.Id'
+          description: A unique number for this content. It helps find or refer to this data.
         title:
           type: string
+          description: The name of the content. It tells what the data is about.
         description:
           type: string
+          description: A short text that explains the most important facts in the data. Available for Advanced API key.
         link:
           type: string
+          description: The website address (URL) where you can see the full content on the Statista platform.
         date:
           type: string
           format: date-time
+          description: 'The date when the data was published. Format: YYYY-MM-DDTHH:mm:ssZ'
         platform:
-          $ref: '#/components/schemas/Type.LanguageLocale'
+          allOf:
+            - $ref: '#/components/schemas/Type.LanguageLocale'
+          description: The language of the page or platform.
         subject:
           type: string
+          description: A short summary of what the data shows.
         is_premium:
           type: boolean
+          description: A true/false value. Indicates on paid and free content.
         industries:
           type: array
           items:
-            $ref: '#/components/schemas/Type.IndustryId'
+            $ref: '#/components/schemas/Api.Response.Industry'
+          description: A list of industries related to the data.
         geolocations:
           type: array
           items:
-            $ref: '#/components/schemas/Type.RegionId'
-    Api.Response.Infographic:
+            $ref: '#/components/schemas/Api.Response.Region'
+          description: A list of regions related to the data.
+    Api.Response.Industry:
       type: object
       required:
-        - teaser_image_urls
+        - id
+        - name
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Type.IndustryId'
+          description: The unique identifier for the industry.
+        name:
+          type: string
+          description: The name of the industry.
+    Api.Response.Infographic:
+      type: object
       properties:
         teaser_image_urls:
           type: array
           items:
             $ref: '#/components/schemas/Api.Response.TeaserImage'
+          description: A list of preview images for this content.
       allOf:
         - $ref: '#/components/schemas/Api.Response.Base'
     Api.Response.MarketInsight:
@@ -6128,32 +6298,61 @@ components:
         - geolocations
       properties:
         identifier:
-          $ref: '#/components/schemas/Type.Id'
+          allOf:
+            - $ref: '#/components/schemas/Type.Id'
+          description: A unique number for this content. It helps find or refer to this data.
         title:
           type: string
+          description: The name of the content. It tells what the data is about.
         description:
           type: string
+          description: A short text that explains the most important facts in the data. Available for Advanced API key.
         link:
           type: string
+          description: The website address (URL) where you can see the full content on the Statista platform.
         date:
           type: string
           format: date-time
+          description: 'The date when the data was published. Format: YYYY-MM-DDTHH:mm:ssZ'
         platform:
-          $ref: '#/components/schemas/Type.LanguageLocale'
+          allOf:
+            - $ref: '#/components/schemas/Type.LanguageLocale'
+          description: The language of the page or platform.
         sub_title:
           type: string
+          description: A short explanation of the content's focus.
         children:
           type: array
           items:
             $ref: '#/components/schemas/Insights.Market'
+          description: A list of sub-markets related to the data.
         path:
           type: array
           items:
             $ref: '#/components/schemas/Insights.Market'
+          description: A list of parent markets showing where this report belongs in the overall market structure.
         geolocations:
           type: array
           items:
-            $ref: '#/components/schemas/Type.RegionId'
+            $ref: '#/components/schemas/Api.Response.Region'
+          description: A list of regions related to the data.
+    Api.Response.Region:
+      type: object
+      required:
+        - id
+        - name
+        - code
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Type.RegionId'
+          description: The unique identifier for the region.
+        name:
+          type: string
+          description: The name of the region.
+        code:
+          type: string
+          description: The code of the region.
     Api.Response.Statistic:
       type: object
       required:
@@ -6163,6 +6362,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Api.Response.TeaserImage'
+          description: A list of preview images for this content.
       allOf:
         - $ref: '#/components/schemas/Api.Response.ERI'
     Api.Response.Study:
@@ -6178,8 +6378,10 @@ components:
         width:
           type: integer
           format: uint32
+          description: The width of the image in pixels.
         src:
           type: string
+          description: The image link (URL).
     Insights.Market:
       type: object
       required:
