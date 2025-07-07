@@ -1,107 +1,106 @@
 {
-    "$schema": "https://mintlify.com/schema.json",
-    "name": "Statista API",
-    "logo": {
-        "dark": "/logo/statista.svg",
-        "light": "/logo/statista.svg"
-    },
-    "favicon": "/favicon.svg",
-    "colors": {
-        "primary": "#307be3",
-        "light": "#307be3",
-        "dark": "#307be3",
-        "anchors": {
-            "from": "#307be3",
-            "to": "#307be3"
-        }
-    },
-    "topbarLinks": [
-        {
-            "name": "Support",
-            "url": "mailto:connect@statista.com"
-        },
-        {
-            "name": "Feedback",
-            "url": "https://forms.office.com/e/DrDM0dWFKU"
-        }
-    ],
-    "topbarCtaButton": {
-        "name": "Statista.com",
-        "url": "https://statista.com"
-    },
-    "tabs": [
-        {
-            "name": "Get Started",
-            "url": "start"
-        },
-        {
-            "name": "API Reference",
-            "url": "api-reference"
-        },
-        {
-            "name": "Use Cases",
-            "url": "use-cases"
-        }
-    ],
-    "navigation": [
-        {
-            "group": "Get Started",
-            "pages": [
-                "start/introduction",
-                "start/authentication"
-            ]
-        },
-        {
-            "group": "API Reference",
-            "pages": [
-                "api-reference/introduction"
-            ]
-        },
-        {
-            "group": "Use Cases",
-            "pages": [
-                "use-cases/llm-answer-generation",
-                "use-cases/federated-search",
-                "use-cases/fetch-chart-data",
-                "use-cases/pagination"
-            ]
-        },
-        {
-            "group": "API Packages",
-            "pages": [
-                "api-reference/discovery-starter/product-description",
-                "api-reference/discovery-advanced/product-description",
-                "api-reference/data-api/product-description",
-                "api-reference/research-ai/product-description"
-            ]
-        },
-        {
-            "group": "Discovery Playground",
-            "pages": [
-                "api-reference/discovery-starter/get-statistics",
-                "api-reference/discovery-starter/get-infographics",
-                "api-reference/discovery-starter/get-studies",
-                "api-reference/discovery-starter/get-marketInsights"
-            ]
-        },
-        {
-            "group": "Data API Playground",
-            "pages": [
-                "api-reference/data-api/get-statistic",
-                "api-reference/data-api/get-reports"
-            ]
-        },
-        {
-            "group": "Research AI Playground",
-            "pages": [
-                "api-reference/research-ai/post-researchAi",
-                "api-reference/research-ai/get-researchAi"
-            ]
-        }
-    ],
-    "footerSocials": {
-        "x": "https://x.com/StatistaCharts",
-        "github": "https://github.com/statista-oss",
-        "linkedin": "https://www.linkedin.com/company/statista"
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Statista API",
+  "logo": {
+    "dark": "/logo/statista.svg",
+    "light": "/logo/statista.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#307be3",
+    "light": "#307be3",
+    "dark": "#307be3",
+    "anchors": {
+      "from": "#307be3",
+      "to": "#307be3"
     }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:connect@statista.com"
+    },
+    {
+      "name": "Feedback",
+      "url": "https://forms.office.com/e/DrDM0dWFKU"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Statista.com",
+    "url": "https://statista.com"
+  },
+  "tabs": [
+    {
+      "name": "Get Started",
+      "url": "start"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    },
+    {
+      "name": "Use Cases",
+      "url": "use-cases"
+    },
+    {
+      "name": "Tutorials",
+      "url": "tutorials"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": ["start/introduction", "start/authentication"]
+    },
+    {
+      "group": "API Reference",
+      "pages": ["api-reference/introduction"]
+    },
+    {
+      "group": "Use Cases",
+      "pages": [
+        "use-cases/llm-answer-generation",
+        "use-cases/federated-search",
+        "use-cases/fetch-chart-data"
+      ]
+    },
+    {
+      "group": "Tutorials",
+      "pages": ["tutorials/tutorials"]
+    },
+    {
+      "group": "API Packages",
+      "pages": [
+        "api-reference/discovery-starter/product-description",
+        "api-reference/discovery-advanced/product-description",
+        "api-reference/data-api/product-description",
+        "api-reference/research-ai/product-description"
+      ]
+    },
+    {
+      "group": "Discovery Playground",
+      "pages": [
+        "api-reference/discovery-starter/get-statistics",
+        "api-reference/discovery-starter/get-infographics",
+        "api-reference/discovery-starter/get-studies",
+        "api-reference/discovery-starter/get-marketInsights"
+      ]
+    },
+    {
+      "group": "Data API Playground",
+      "pages": ["api-reference/data-api/get-statistic", "api-reference/data-api/get-reports"]
+    },
+    {
+      "group": "Research AI Playground",
+      "pages": [
+        "api-reference/research-ai/post-researchAi",
+        "api-reference/research-ai/get-researchAi"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/StatistaCharts",
+    "github": "https://github.com/statista-oss",
+    "linkedin": "https://www.linkedin.com/company/statista"
+  }
 }
