@@ -44,6 +44,8 @@ paths:
           description: Access is unauthorized.
         '403':
           description: Access is forbidden.
+        '404':
+          description: The server cannot find the requested resource.
   /v1/data/statistic:
     get:
       operationId: Statistic_statistic
@@ -67,6 +69,8 @@ paths:
           description: Access is unauthorized.
         '403':
           description: Access is forbidden.
+        '404':
+          description: The server cannot find the requested resource.
 security:
   - ApiKeyAuth: []
 components:
