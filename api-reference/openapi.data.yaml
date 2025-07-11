@@ -21,6 +21,8 @@ paths:
       responses:
         '200':
           description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
   /v1/data/reports:
     get:
       operationId: Statistic_reports
