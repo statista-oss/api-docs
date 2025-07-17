@@ -3056,6 +3056,1521 @@ paths:
           description: Access is unauthorized.
         '403':
           description: Access is forbidden.
+  /v1/search/statistics:
+    get:
+      operationId: StatisticsResearchAiSearch_list
+      description: |-
+        This is an **experimental** endpoint for statistics which is using a semantic search - in contrast to `/v1/statistics` which is using a keyword search.
+        This endpoint is designed to provide more relevant results based on the context of the search query.
+        This endpoint is still in development and may change in the future. Most likely, it will be merged into the `/v1/statistics` endpoint.
+        Usage of this endpoint is recommended for users who want to explore the capabilities of semantic search in statistics.
+
+        If you encounter any issues or have feedback, please contact the API support team.
+      parameters:
+        - name: q
+          in: query
+          required: false
+          description: |-
+            The query string to search for content.
+            Defaults to '*' which means all content.
+          schema:
+            type: string
+            default: '*'
+        - name: platform
+          in: query
+          required: false
+          description: |-
+            The platform to search for content.
+            Defaults to `en` which means English.
+          schema:
+            $ref: '#/components/schemas/Type.LanguageLocale'
+        - name: offset
+          in: query
+          required: false
+          description: |-
+            The number of items will be skipped before the first result.
+            The default value for `offset` is 0.
+            This is useful for pagination.
+            Could be used in combination with `size`.
+          schema:
+            type: integer
+            format: uint32
+            minimum: 0
+            default: 0
+        - name: size
+          in: query
+          required: false
+          description: |-
+            The max. value depends on which API Package you are using.
+            The default value for `size` is 10.
+            See API-Packages for more information.
+
+            An alias for `size` is `limit`
+          schema:
+            type: integer
+            format: uint32
+            minimum: 0
+            default: 10
+        - name: date_from
+          in: query
+          required: false
+          description: The start date to search for content.
+          schema:
+            $ref: '#/components/schemas/Api.Request.DateFrom'
+        - name: date_to
+          in: query
+          required: false
+          description: |-
+            The end date to search for content.
+            If not set, the current date is used.
+          schema:
+            $ref: '#/components/schemas/Api.Request.DateTo'
+        - name: geolocation
+          in: query
+          required: false
+          description: |-
+            Filters content based on a specific geographic location.
+            Defaults to `Worldwide` which means all content.
+            Use geolocation codes provided by the API documentation.
+            For example, `1` for Worldwide, `2` for Africa, etc.
+            Note: only one geolocation can be used at a time.
+          schema:
+            type: object
+            properties:
+              Worldwide:
+                type: number
+                enum:
+                  - 1
+              Africa:
+                type: number
+                enum:
+                  - 2
+              North America:
+                type: number
+                enum:
+                  - 3
+              Asia:
+                type: number
+                enum:
+                  - 142
+              Europe:
+                type: number
+                enum:
+                  - 150
+              Central and South America:
+                type: number
+                enum:
+                  - 419
+              Antarctica:
+                type: number
+                enum:
+                  - 10001
+              Australia and Oceania:
+                type: number
+                enum:
+                  - 10002
+              DACH:
+                type: number
+                enum:
+                  - 10007
+              EU:
+                type: number
+                enum:
+                  - 10008
+              OECD:
+                type: number
+                enum:
+                  - 10009
+              APAC:
+                type: number
+                enum:
+                  - 10010
+              MENA:
+                type: number
+                enum:
+                  - 10011
+              CEE:
+                type: number
+                enum:
+                  - 10088
+              LAC:
+                type: number
+                enum:
+                  - 10089
+              Afghanistan:
+                type: number
+                enum:
+                  - 4
+              Albania:
+                type: number
+                enum:
+                  - 8
+              Algeria:
+                type: number
+                enum:
+                  - 12
+              Andorra:
+                type: number
+                enum:
+                  - 20
+              Angola:
+                type: number
+                enum:
+                  - 24
+              Antigua & Barbuda:
+                type: number
+                enum:
+                  - 28
+              Azerbaijan:
+                type: number
+                enum:
+                  - 31
+              Argentina:
+                type: number
+                enum:
+                  - 32
+              Australia:
+                type: number
+                enum:
+                  - 36
+              Austria:
+                type: number
+                enum:
+                  - 40
+              Bahamas:
+                type: number
+                enum:
+                  - 44
+              Bahrain:
+                type: number
+                enum:
+                  - 48
+              Bangladesh:
+                type: number
+                enum:
+                  - 50
+              Armenia:
+                type: number
+                enum:
+                  - 51
+              Barbados:
+                type: number
+                enum:
+                  - 52
+              Belgium:
+                type: number
+                enum:
+                  - 56
+              Bermuda:
+                type: number
+                enum:
+                  - 60
+              Bhutan:
+                type: number
+                enum:
+                  - 64
+              Bolivia:
+                type: number
+                enum:
+                  - 68
+              Bosnia & Herzegovina:
+                type: number
+                enum:
+                  - 70
+              Botswana:
+                type: number
+                enum:
+                  - 72
+              Brazil:
+                type: number
+                enum:
+                  - 76
+              Belize:
+                type: number
+                enum:
+                  - 84
+              British Virgin Islands:
+                type: number
+                enum:
+                  - 92
+              Brunei:
+                type: number
+                enum:
+                  - 96
+              Bulgaria:
+                type: number
+                enum:
+                  - 100
+              Myanmar [Burma]:
+                type: number
+                enum:
+                  - 104
+              Burundi:
+                type: number
+                enum:
+                  - 108
+              Belarus:
+                type: number
+                enum:
+                  - 112
+              Cambodia:
+                type: number
+                enum:
+                  - 116
+              Cameroon:
+                type: number
+                enum:
+                  - 120
+              Canada:
+                type: number
+                enum:
+                  - 124
+              Central African Republic:
+                type: number
+                enum:
+                  - 140
+              Sri Lanka:
+                type: number
+                enum:
+                  - 144
+              Chad:
+                type: number
+                enum:
+                  - 148
+              Chile:
+                type: number
+                enum:
+                  - 152
+              China:
+                type: number
+                enum:
+                  - 156
+              Taiwan:
+                type: number
+                enum:
+                  - 158
+              Colombia:
+                type: number
+                enum:
+                  - 170
+              Republic of the Congo:
+                type: number
+                enum:
+                  - 178
+              Democratic Republic of the Congo:
+                type: number
+                enum:
+                  - 180
+              Costa Rica:
+                type: number
+                enum:
+                  - 188
+              Croatia:
+                type: number
+                enum:
+                  - 191
+              Cuba:
+                type: number
+                enum:
+                  - 192
+              Cyprus:
+                type: number
+                enum:
+                  - 196
+              Czechia:
+                type: number
+                enum:
+                  - 203
+              Benin:
+                type: number
+                enum:
+                  - 204
+              Denmark:
+                type: number
+                enum:
+                  - 208
+              Dominica:
+                type: number
+                enum:
+                  - 212
+              Dominican Republic:
+                type: number
+                enum:
+                  - 214
+              Ecuador:
+                type: number
+                enum:
+                  - 218
+              El Salvador:
+                type: number
+                enum:
+                  - 222
+              Equatorial Guinea:
+                type: number
+                enum:
+                  - 226
+              Ethiopia:
+                type: number
+                enum:
+                  - 231
+              Eritrea:
+                type: number
+                enum:
+                  - 232
+              Estonia:
+                type: number
+                enum:
+                  - 233
+              Faroe Islands:
+                type: number
+                enum:
+                  - 234
+              Finland:
+                type: number
+                enum:
+                  - 246
+              France:
+                type: number
+                enum:
+                  - 250
+              Djibouti:
+                type: number
+                enum:
+                  - 262
+              Gabon:
+                type: number
+                enum:
+                  - 266
+              Georgia:
+                type: number
+                enum:
+                  - 268
+              Gambia:
+                type: number
+                enum:
+                  - 270
+              Germany:
+                type: number
+                enum:
+                  - 276
+              Ghana:
+                type: number
+                enum:
+                  - 288
+              Greece:
+                type: number
+                enum:
+                  - 300
+              Greenland:
+                type: number
+                enum:
+                  - 304
+              Grenada:
+                type: number
+                enum:
+                  - 308
+              Guatemala:
+                type: number
+                enum:
+                  - 320
+              Guinea:
+                type: number
+                enum:
+                  - 324
+              Guyana:
+                type: number
+                enum:
+                  - 328
+              Haiti:
+                type: number
+                enum:
+                  - 332
+              Vatican City:
+                type: number
+                enum:
+                  - 336
+              Honduras:
+                type: number
+                enum:
+                  - 340
+              Hong Kong:
+                type: number
+                enum:
+                  - 344
+              Hungary:
+                type: number
+                enum:
+                  - 348
+              Iceland:
+                type: number
+                enum:
+                  - 352
+              India:
+                type: number
+                enum:
+                  - 356
+              Indonesia:
+                type: number
+                enum:
+                  - 360
+              Iran:
+                type: number
+                enum:
+                  - 364
+              Iraq:
+                type: number
+                enum:
+                  - 368
+              Ireland:
+                type: number
+                enum:
+                  - 372
+              Israel:
+                type: number
+                enum:
+                  - 376
+              Italy:
+                type: number
+                enum:
+                  - 380
+              Ivory Coast:
+                type: number
+                enum:
+                  - 384
+              Jamaica:
+                type: number
+                enum:
+                  - 388
+              Japan:
+                type: number
+                enum:
+                  - 392
+              Kazakhstan:
+                type: number
+                enum:
+                  - 398
+              Jordan:
+                type: number
+                enum:
+                  - 400
+              Kenya:
+                type: number
+                enum:
+                  - 404
+              North Korea:
+                type: number
+                enum:
+                  - 408
+              South Korea:
+                type: number
+                enum:
+                  - 410
+              Kuwait:
+                type: number
+                enum:
+                  - 414
+              Kyrgyzstan:
+                type: number
+                enum:
+                  - 417
+              Laos:
+                type: number
+                enum:
+                  - 418
+              Lebanon:
+                type: number
+                enum:
+                  - 422
+              Latvia:
+                type: number
+                enum:
+                  - 428
+              Liberia:
+                type: number
+                enum:
+                  - 430
+              Libya:
+                type: number
+                enum:
+                  - 434
+              Liechtenstein:
+                type: number
+                enum:
+                  - 438
+              Lithuania:
+                type: number
+                enum:
+                  - 440
+              Luxembourg:
+                type: number
+                enum:
+                  - 442
+              Macau:
+                type: number
+                enum:
+                  - 446
+              Madagascar:
+                type: number
+                enum:
+                  - 450
+              Malawi:
+                type: number
+                enum:
+                  - 454
+              Malaysia:
+                type: number
+                enum:
+                  - 458
+              Mali:
+                type: number
+                enum:
+                  - 466
+              Malta:
+                type: number
+                enum:
+                  - 470
+              Mauritania:
+                type: number
+                enum:
+                  - 478
+              Mauritius:
+                type: number
+                enum:
+                  - 480
+              Mexico:
+                type: number
+                enum:
+                  - 484
+              Monaco:
+                type: number
+                enum:
+                  - 492
+              Mongolia:
+                type: number
+                enum:
+                  - 496
+              Moldova:
+                type: number
+                enum:
+                  - 498
+              Montenegro:
+                type: number
+                enum:
+                  - 499
+              Morocco:
+                type: number
+                enum:
+                  - 504
+              Mozambique:
+                type: number
+                enum:
+                  - 508
+              Oman:
+                type: number
+                enum:
+                  - 512
+              Namibia:
+                type: number
+                enum:
+                  - 516
+              Nepal:
+                type: number
+                enum:
+                  - 524
+              Netherlands:
+                type: number
+                enum:
+                  - 528
+              CuraU+00E7ao:
+                type: number
+                enum:
+                  - 531
+              Sint Maarten:
+                type: number
+                enum:
+                  - 534
+              Caribbean Netherlands:
+                type: number
+                enum:
+                  - 535
+              New Zealand:
+                type: number
+                enum:
+                  - 554
+              Nicaragua:
+                type: number
+                enum:
+                  - 558
+              Niger:
+                type: number
+                enum:
+                  - 562
+              Nigeria:
+                type: number
+                enum:
+                  - 566
+              Norway:
+                type: number
+                enum:
+                  - 578
+              Pakistan:
+                type: number
+                enum:
+                  - 586
+              Panama:
+                type: number
+                enum:
+                  - 591
+              Papua New Guinea:
+                type: number
+                enum:
+                  - 598
+              Paraguay:
+                type: number
+                enum:
+                  - 600
+              Peru:
+                type: number
+                enum:
+                  - 604
+              Philippines:
+                type: number
+                enum:
+                  - 608
+              Poland:
+                type: number
+                enum:
+                  - 616
+              Portugal:
+                type: number
+                enum:
+                  - 620
+              Timor-Leste:
+                type: number
+                enum:
+                  - 626
+              Puerto Rico:
+                type: number
+                enum:
+                  - 630
+              Qatar:
+                type: number
+                enum:
+                  - 634
+              Romania:
+                type: number
+                enum:
+                  - 642
+              Russia:
+                type: number
+                enum:
+                  - 643
+              Rwanda:
+                type: number
+                enum:
+                  - 646
+              St. Kitts & Nevis:
+                type: number
+                enum:
+                  - 659
+              St. Lucia:
+                type: number
+                enum:
+                  - 662
+              St. Vincent & Grenadines:
+                type: number
+                enum:
+                  - 670
+              San Marino:
+                type: number
+                enum:
+                  - 674
+              Saudi Arabia:
+                type: number
+                enum:
+                  - 682
+              Senegal:
+                type: number
+                enum:
+                  - 686
+              Serbia:
+                type: number
+                enum:
+                  - 688
+              Seychelles:
+                type: number
+                enum:
+                  - 690
+              Sierra Leone:
+                type: number
+                enum:
+                  - 694
+              Singapore:
+                type: number
+                enum:
+                  - 702
+              Slovakia:
+                type: number
+                enum:
+                  - 703
+              Vietnam:
+                type: number
+                enum:
+                  - 704
+              Slovenia:
+                type: number
+                enum:
+                  - 705
+              Somalia:
+                type: number
+                enum:
+                  - 706
+              South Africa:
+                type: number
+                enum:
+                  - 710
+              Zimbabwe:
+                type: number
+                enum:
+                  - 716
+              Spain:
+                type: number
+                enum:
+                  - 724
+              South Sudan:
+                type: number
+                enum:
+                  - 728
+              Sudan:
+                type: number
+                enum:
+                  - 736
+              Suriname:
+                type: number
+                enum:
+                  - 740
+              Sweden:
+                type: number
+                enum:
+                  - 752
+              Switzerland:
+                type: number
+                enum:
+                  - 756
+              Syria:
+                type: number
+                enum:
+                  - 760
+              Tajikistan:
+                type: number
+                enum:
+                  - 762
+              Thailand:
+                type: number
+                enum:
+                  - 764
+              Togo:
+                type: number
+                enum:
+                  - 768
+              Trinidad & Tobago:
+                type: number
+                enum:
+                  - 780
+              United Arab Emirates:
+                type: number
+                enum:
+                  - 784
+              Tunisia:
+                type: number
+                enum:
+                  - 788
+              Turkey:
+                type: number
+                enum:
+                  - 792
+              Turkmenistan:
+                type: number
+                enum:
+                  - 795
+              Uganda:
+                type: number
+                enum:
+                  - 800
+              Ukraine:
+                type: number
+                enum:
+                  - 804
+              North Macedonia:
+                type: number
+                enum:
+                  - 807
+              Egypt:
+                type: number
+                enum:
+                  - 818
+              United Kingdom:
+                type: number
+                enum:
+                  - 826
+              Tanzania:
+                type: number
+                enum:
+                  - 834
+              United States:
+                type: number
+                enum:
+                  - 840
+              U.S. Virgin Islands:
+                type: number
+                enum:
+                  - 850
+              Burkina Faso:
+                type: number
+                enum:
+                  - 854
+              Uruguay:
+                type: number
+                enum:
+                  - 858
+              Uzbekistan:
+                type: number
+                enum:
+                  - 860
+              Venezuela:
+                type: number
+                enum:
+                  - 862
+              Yemen:
+                type: number
+                enum:
+                  - 887
+              Zambia:
+                type: number
+                enum:
+                  - 894
+              Cape Verde:
+                type: number
+                enum:
+                  - 895
+              Lesotho:
+                type: number
+                enum:
+                  - 10090
+              Eswatini:
+                type: number
+                enum:
+                  - 10091
+              Tonga:
+                type: number
+                enum:
+                  - 10092
+              Great Britain:
+                type: number
+                enum:
+                  - 10015
+              England:
+                type: number
+                enum:
+                  - 10016
+              Scotland:
+                type: number
+                enum:
+                  - 10017
+              Wales:
+                type: number
+                enum:
+                  - 10018
+              Northern Ireland:
+                type: number
+                enum:
+                  - 10019
+              Schleswig-Holstein:
+                type: number
+                enum:
+                  - 10020
+              Bremen:
+                type: number
+                enum:
+                  - 10021
+              Hamburg:
+                type: number
+                enum:
+                  - 10022
+              Mecklenburg-West Pomerania:
+                type: number
+                enum:
+                  - 10023
+              Brandenburg:
+                type: number
+                enum:
+                  - 10024
+              Berlin:
+                type: number
+                enum:
+                  - 10025
+              Thuringia:
+                type: number
+                enum:
+                  - 10026
+              Rhineland-Palatinate:
+                type: number
+                enum:
+                  - 10027
+              Hesse:
+                type: number
+                enum:
+                  - 10028
+              Bavaria:
+                type: number
+                enum:
+                  - 10029
+              Baden-Württemberg:
+                type: number
+                enum:
+                  - 10030
+              Saxony:
+                type: number
+                enum:
+                  - 10031
+              Saxony-Anhalt:
+                type: number
+                enum:
+                  - 10032
+              North Rhine-Westphalia:
+                type: number
+                enum:
+                  - 10033
+              Saarland:
+                type: number
+                enum:
+                  - 10034
+              Lower Saxony:
+                type: number
+                enum:
+                  - 10035
+              Alabama:
+                type: number
+                enum:
+                  - 10037
+              Alaska:
+                type: number
+                enum:
+                  - 10038
+              Arizona:
+                type: number
+                enum:
+                  - 10039
+              Arkansas:
+                type: number
+                enum:
+                  - 10040
+              Colorado:
+                type: number
+                enum:
+                  - 10041
+              Connecticut:
+                type: number
+                enum:
+                  - 10042
+              Delaware:
+                type: number
+                enum:
+                  - 10043
+              Florida:
+                type: number
+                enum:
+                  - 10044
+              Hawaii:
+                type: number
+                enum:
+                  - 10046
+              Idaho:
+                type: number
+                enum:
+                  - 10047
+              Illinois:
+                type: number
+                enum:
+                  - 10048
+              Indiana:
+                type: number
+                enum:
+                  - 10049
+              Iowa:
+                type: number
+                enum:
+                  - 10050
+              California:
+                type: number
+                enum:
+                  - 10051
+              Kansas:
+                type: number
+                enum:
+                  - 10052
+              Kentucky:
+                type: number
+                enum:
+                  - 10053
+              Louisiana:
+                type: number
+                enum:
+                  - 10054
+              Maine:
+                type: number
+                enum:
+                  - 10055
+              Maryland:
+                type: number
+                enum:
+                  - 10056
+              Massachusetts:
+                type: number
+                enum:
+                  - 10057
+              Michigan:
+                type: number
+                enum:
+                  - 10058
+              Minnesota:
+                type: number
+                enum:
+                  - 10059
+              Mississippi:
+                type: number
+                enum:
+                  - 10060
+              Missouri:
+                type: number
+                enum:
+                  - 10061
+              Montana:
+                type: number
+                enum:
+                  - 10062
+              Nebraska:
+                type: number
+                enum:
+                  - 10063
+              Nevada:
+                type: number
+                enum:
+                  - 10064
+              New Hampshire:
+                type: number
+                enum:
+                  - 10065
+              New Jersey:
+                type: number
+                enum:
+                  - 10066
+              New Mexico:
+                type: number
+                enum:
+                  - 10067
+              New York:
+                type: number
+                enum:
+                  - 10068
+              North Carolina:
+                type: number
+                enum:
+                  - 10069
+              North Dakota:
+                type: number
+                enum:
+                  - 10070
+              Ohio:
+                type: number
+                enum:
+                  - 10071
+              Oklahoma:
+                type: number
+                enum:
+                  - 10072
+              Oregon:
+                type: number
+                enum:
+                  - 10073
+              Pennsylvania:
+                type: number
+                enum:
+                  - 10074
+              Rhode Island:
+                type: number
+                enum:
+                  - 10075
+              South Carolina:
+                type: number
+                enum:
+                  - 10076
+              South Dakota:
+                type: number
+                enum:
+                  - 10077
+              Tennessee:
+                type: number
+                enum:
+                  - 10078
+              Texas:
+                type: number
+                enum:
+                  - 10079
+              Utah:
+                type: number
+                enum:
+                  - 10080
+              Vermont:
+                type: number
+                enum:
+                  - 10081
+              Virginia:
+                type: number
+                enum:
+                  - 10082
+              Washington:
+                type: number
+                enum:
+                  - 10083
+              West Virginia:
+                type: number
+                enum:
+                  - 10084
+              Wisconsin:
+                type: number
+                enum:
+                  - 10085
+              Wyoming:
+                type: number
+                enum:
+                  - 10086
+              District of Columbia:
+                type: number
+                enum:
+                  - 10087
+            required:
+              - Worldwide
+              - Africa
+              - North America
+              - Asia
+              - Europe
+              - Central and South America
+              - Antarctica
+              - Australia and Oceania
+              - DACH
+              - EU
+              - OECD
+              - APAC
+              - MENA
+              - CEE
+              - LAC
+              - Afghanistan
+              - Albania
+              - Algeria
+              - Andorra
+              - Angola
+              - Antigua & Barbuda
+              - Azerbaijan
+              - Argentina
+              - Australia
+              - Austria
+              - Bahamas
+              - Bahrain
+              - Bangladesh
+              - Armenia
+              - Barbados
+              - Belgium
+              - Bermuda
+              - Bhutan
+              - Bolivia
+              - Bosnia & Herzegovina
+              - Botswana
+              - Brazil
+              - Belize
+              - British Virgin Islands
+              - Brunei
+              - Bulgaria
+              - Myanmar [Burma]
+              - Burundi
+              - Belarus
+              - Cambodia
+              - Cameroon
+              - Canada
+              - Central African Republic
+              - Sri Lanka
+              - Chad
+              - Chile
+              - China
+              - Taiwan
+              - Colombia
+              - Republic of the Congo
+              - Democratic Republic of the Congo
+              - Costa Rica
+              - Croatia
+              - Cuba
+              - Cyprus
+              - Czechia
+              - Benin
+              - Denmark
+              - Dominica
+              - Dominican Republic
+              - Ecuador
+              - El Salvador
+              - Equatorial Guinea
+              - Ethiopia
+              - Eritrea
+              - Estonia
+              - Faroe Islands
+              - Finland
+              - France
+              - Djibouti
+              - Gabon
+              - Georgia
+              - Gambia
+              - Germany
+              - Ghana
+              - Greece
+              - Greenland
+              - Grenada
+              - Guatemala
+              - Guinea
+              - Guyana
+              - Haiti
+              - Vatican City
+              - Honduras
+              - Hong Kong
+              - Hungary
+              - Iceland
+              - India
+              - Indonesia
+              - Iran
+              - Iraq
+              - Ireland
+              - Israel
+              - Italy
+              - Ivory Coast
+              - Jamaica
+              - Japan
+              - Kazakhstan
+              - Jordan
+              - Kenya
+              - North Korea
+              - South Korea
+              - Kuwait
+              - Kyrgyzstan
+              - Laos
+              - Lebanon
+              - Latvia
+              - Liberia
+              - Libya
+              - Liechtenstein
+              - Lithuania
+              - Luxembourg
+              - Macau
+              - Madagascar
+              - Malawi
+              - Malaysia
+              - Mali
+              - Malta
+              - Mauritania
+              - Mauritius
+              - Mexico
+              - Monaco
+              - Mongolia
+              - Moldova
+              - Montenegro
+              - Morocco
+              - Mozambique
+              - Oman
+              - Namibia
+              - Nepal
+              - Netherlands
+              - CuraU+00E7ao
+              - Sint Maarten
+              - Caribbean Netherlands
+              - New Zealand
+              - Nicaragua
+              - Niger
+              - Nigeria
+              - Norway
+              - Pakistan
+              - Panama
+              - Papua New Guinea
+              - Paraguay
+              - Peru
+              - Philippines
+              - Poland
+              - Portugal
+              - Timor-Leste
+              - Puerto Rico
+              - Qatar
+              - Romania
+              - Russia
+              - Rwanda
+              - St. Kitts & Nevis
+              - St. Lucia
+              - St. Vincent & Grenadines
+              - San Marino
+              - Saudi Arabia
+              - Senegal
+              - Serbia
+              - Seychelles
+              - Sierra Leone
+              - Singapore
+              - Slovakia
+              - Vietnam
+              - Slovenia
+              - Somalia
+              - South Africa
+              - Zimbabwe
+              - Spain
+              - South Sudan
+              - Sudan
+              - Suriname
+              - Sweden
+              - Switzerland
+              - Syria
+              - Tajikistan
+              - Thailand
+              - Togo
+              - Trinidad & Tobago
+              - United Arab Emirates
+              - Tunisia
+              - Turkey
+              - Turkmenistan
+              - Uganda
+              - Ukraine
+              - North Macedonia
+              - Egypt
+              - United Kingdom
+              - Tanzania
+              - United States
+              - U.S. Virgin Islands
+              - Burkina Faso
+              - Uruguay
+              - Uzbekistan
+              - Venezuela
+              - Yemen
+              - Zambia
+              - Cape Verde
+              - Lesotho
+              - Eswatini
+              - Tonga
+              - Great Britain
+              - England
+              - Scotland
+              - Wales
+              - Northern Ireland
+              - Schleswig-Holstein
+              - Bremen
+              - Hamburg
+              - Mecklenburg-West Pomerania
+              - Brandenburg
+              - Berlin
+              - Thuringia
+              - Rhineland-Palatinate
+              - Hesse
+              - Bavaria
+              - Baden-Württemberg
+              - Saxony
+              - Saxony-Anhalt
+              - North Rhine-Westphalia
+              - Saarland
+              - Lower Saxony
+              - Alabama
+              - Alaska
+              - Arizona
+              - Arkansas
+              - Colorado
+              - Connecticut
+              - Delaware
+              - Florida
+              - Hawaii
+              - Idaho
+              - Illinois
+              - Indiana
+              - Iowa
+              - California
+              - Kansas
+              - Kentucky
+              - Louisiana
+              - Maine
+              - Maryland
+              - Massachusetts
+              - Michigan
+              - Minnesota
+              - Mississippi
+              - Missouri
+              - Montana
+              - Nebraska
+              - Nevada
+              - New Hampshire
+              - New Jersey
+              - New Mexico
+              - New York
+              - North Carolina
+              - North Dakota
+              - Ohio
+              - Oklahoma
+              - Oregon
+              - Pennsylvania
+              - Rhode Island
+              - South Carolina
+              - South Dakota
+              - Tennessee
+              - Texas
+              - Utah
+              - Vermont
+              - Virginia
+              - Washington
+              - West Virginia
+              - Wisconsin
+              - Wyoming
+              - District of Columbia
+        - name: premium
+          in: query
+          required: false
+          description: |-
+            Filters content based on its premium status.
+            If set to `true`, only premium content is returned.
+            If set to `false`, only free content is returned.
+            If not set, both free and premium content is returned.
+          schema:
+            type: boolean
+            nullable: true
+            default: null
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - items
+                  - total_count
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Api.Response.Statistic'
+                    description: A list of results returned for the current request.
+                  total_count:
+                    type: integer
+                    format: uint32
+                    description: The total number of available items matching the request.
+                  total_pages:
+                    type: integer
+                    format: uint32
+                    description: The total number of pages available, based on the selected size parameter
+                description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
   /v1/statistics:
     get:
       operationId: Statistics_list
