@@ -1,0 +1,49 @@
+---
+title: "MCP Server (Beta)"
+description: "MCP Server Introduction"
+---
+<Info>
+  We're working on this feature in beta. If you're interested, reach out to:
+  <a href="mailto:connect@statista.com">connect@statista.com</a> for a beta key.
+</Info>
+
+The Statista MCP (Model Context Protocol) Server provides AI assistants with direct access to Statista's comprehensive statistical database through a streamable HTTP interface. This server enables real-time data discovery and retrieval from our extensive collection of charts, reports, and forecasts.
+
+## Key Features
+
+- **Streamable HTTP Transport**: Uses efficient streamable HTTP communication (not Server-Sent Events)
+- **CORS Support**: Cross-origin requests are fully supported for web applications
+- **Session Management**: Maintains authenticated sessions for optimal performance
+- **Real-time Data Access**: Direct connection to Statista's live data catalogue
+
+## Authentication
+
+The server requires authentication using the **Authorization: Bearer** pattern:
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+Your API key authenticates each session and provides access to the statistical tools.
+
+## Available Tools
+
+### 1. Search Statistics
+**Tool ID**: `search-statistics`
+
+Searches Statista's comprehensive data catalogue to discover relevant statistical content across various industries and topics. Returns matching statistics with metadata to help you identify the most relevant data sources.
+
+### 2. Get Chart Data by ID  
+**Tool ID**: `get-chart-data-by-id`
+
+Retrieves detailed statistical information for specific charts or datasets using their unique identifier. Provides complete numerical values, methodological information, source details, and contextual metadata.
+
+## Getting Started
+
+1. Obtain your Statista API key and MCP server URL
+2. Connect your AI assistant to the MCP server
+3. Authenticate using the API key
+4. Start exploring Statista's statistical database through the available tools
+
+The server automatically handles session management and provides comprehensive error handling for reliable data access.
+

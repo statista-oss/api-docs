@@ -43,6 +43,10 @@
       "url": "use-cases"
     },
     {
+      "name": "MCP Server",
+      "url": "mcp-server"
+    },
+    {
       "name": "Tutorials",
       "url": "tutorials"
     }
@@ -50,23 +54,35 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["start/introduction", "start/authentication"]
+      "pages": [
+        "start/introduction",
+        "start/authentication"
+      ]
     },
     {
       "group": "API Reference",
-      "pages": ["api-reference/introduction"]
+      "pages": [
+        "api-reference/introduction"
+      ]
+    },
+    {
+      "group": "MCP Server (Beta)",
+      "pages": [
+        "mcp-server/introduction"
+      ]
     },
     {
       "group": "Use Cases",
       "pages": [
-        "use-cases/llm-answer-generation",
         "use-cases/federated-search",
         "use-cases/fetch-chart-data"
       ]
     },
     {
       "group": "Tutorials",
-      "pages": ["tutorials/tutorials"]
+      "pages": [
+        "tutorials/tutorials"
+      ]
     },
     {
       "group": "API Packages",
@@ -80,15 +96,19 @@
     {
       "group": "Discovery Playground",
       "pages": [
-        "api-reference/discovery-starter/get-statistics",
-        "api-reference/discovery-starter/get-infographics",
-        "api-reference/discovery-starter/get-studies",
-        "api-reference/discovery-starter/get-marketInsights"
+        "api-reference/discovery-advanced/get-statistics",
+        "api-reference/discovery-advanced/get-search-statistics",
+        "api-reference/discovery-advanced/get-infographics",
+        "api-reference/discovery-advanced/get-studies",
+        "api-reference/discovery-advanced/get-marketInsights"
       ]
     },
     {
       "group": "Data API Playground",
-      "pages": ["api-reference/data-api/get-statistic", "api-reference/data-api/get-reports"]
+      "pages": [
+        "api-reference/data-api/get-statistic",
+        "api-reference/data-api/get-reports"
+      ]
     },
     {
       "group": "Research AI Playground",
