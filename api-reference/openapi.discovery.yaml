@@ -3083,7 +3083,10 @@ paths:
             The platform to search for content.
             Defaults to `en` which means English.
           schema:
-            $ref: '#/components/schemas/Type.LanguageLocale'
+            type: string
+            enum:
+              - de
+              - en
         - name: offset
           in: query
           required: false
