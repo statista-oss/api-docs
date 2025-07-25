@@ -3,11 +3,11 @@ title: "MCP Server (Beta)"
 description: "MCP Server Introduction"
 ---
 <Info>
-  We're working on this feature in beta. If you're interested, reach out to:
-  <a href="mailto:connect@statista.com">connect@statista.com</a> for a beta key.
+  We're working on this feature in beta. If you're interested, reach out to
+  <a href="mailto:connect@statista.com">connect@statista.com</a> or fill out [our questionnaire](https://forms.office.com/pages/responsepage.aspx?id=OfiFB67f4U-gaID-j8YfKwI-9bbupjFMnubBsPP0QlRUMjZNOFczSjA4NkdFN0U4ODVORU5GTFIxTyQlQCN0PWcu&route=shorturl) for beta access.
 </Info>
 
-The Statista MCP (Model Context Protocol) Server provides AI assistants with direct access to Statista's comprehensive statistical database through a streamable HTTP interface. This server enables real-time data discovery and retrieval from our extensive collection of charts, reports, and forecasts.
+The Statista MCP (Model Context Protocol) Server provides AI assistants with direct access to Statista's comprehensive statistical database through a **Streamable HTTP** interface. This server enables real-time data discovery and retrieval from our extensive collection of charts, reports, and forecasts.
 
 ## Key Features
 
@@ -18,13 +18,14 @@ The Statista MCP (Model Context Protocol) Server provides AI assistants with dir
 
 ## Authentication
 
-The server requires authentication using the **Authorization: Bearer** pattern:
+The server requires authentication using a request header:
 
 ```
-Authorization: Bearer YOUR_API_KEY
+x-api-key: YOUR_API_KEY
 ```
 
-Your API key authenticates each session and provides access to the statistical tools.
+Your API key authenticates each session and provides access to the MCP Server.
+
 
 ## Available Tools
 

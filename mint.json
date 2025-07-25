@@ -17,8 +17,8 @@
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:connect@statista.com"
+      "name": "Get a Key",
+      "url": "https://forms.office.com/pages/responsepage.aspx?id=OfiFB67f4U-gaID-j8YfKwI-9bbupjFMnubBsPP0QlRUMjZNOFczSjA4NkdFN0U4ODVORU5GTFIxTyQlQCN0PWcu&route=shorturl"
     },
     {
       "name": "Feedback",
@@ -27,7 +27,7 @@
   ],
   "topbarCtaButton": {
     "name": "Statista.com",
-    "url": "https://statista.com"
+    "url": "https://www.statista.com/business/connect-api"
   },
   "tabs": [
     {
@@ -66,9 +66,10 @@
       ]
     },
     {
-      "group": "MCP Server (Beta)",
+      "group": "MCP",
       "pages": [
-        "mcp-server/introduction"
+        "mcp-server/introduction",
+        "mcp-server/connection-guide"
       ]
     },
     {
