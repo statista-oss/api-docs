@@ -7709,7 +7709,7 @@ components:
           description: The name of the content. It tells what the data is about.
         description:
           type: string
-          description: A short text that explains the most important facts in the data. Available for Advanced API key.
+          description: 'Optional: A short text that explains the most important facts in the data. Available for Advanced API key'
         link:
           type: string
           description: The website address (URL) where you can see the full content on the Statista platform.
@@ -7731,7 +7731,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Api.Response.Industry'
-          description: A list of industries related to the data.
+          description: 'Optional: A list of industries related to the data.'
     Api.Response.ERI:
       type: object
       required:
@@ -7742,7 +7742,6 @@ components:
         - platform
         - subject
         - is_premium
-        - geolocations
       properties:
         identifier:
           allOf:
@@ -7753,7 +7752,7 @@ components:
           description: The name of the content. It tells what the data is about.
         description:
           type: string
-          description: A short text that explains the most important facts in the data. Available for Advanced API key.
+          description: 'Optional: A short text that explains the most important facts in the data. Available for Advanced API key'
         link:
           type: string
           description: The website address (URL) where you can see the full content on the Statista platform.
@@ -7775,16 +7774,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Api.Response.Industry'
-          description: A list of industries related to the data.
+          description: 'Optional: A list of industries related to the data.'
         geolocations:
           type: array
           items:
             $ref: '#/components/schemas/Api.Response.Region'
-          description: A list of regions related to the data.
+          description: 'Optional: A list of regions related to the data.'
     Api.Response.Industry:
       type: object
       required:
-        - id
         - name
       properties:
         id:
@@ -7824,7 +7822,7 @@ components:
           description: The name of the content. It tells what the data is about.
         description:
           type: string
-          description: A short text that explains the most important facts in the data. Available for Advanced API key.
+          description: 'Optional: A short text that explains the most important facts in the data. Available for Advanced API key'
         link:
           type: string
           description: The website address (URL) where you can see the full content on the Statista platform.
@@ -7857,17 +7855,16 @@ components:
     Api.Response.Region:
       type: object
       required:
-        - id
         - name
         - code
       properties:
         id:
           allOf:
             - $ref: '#/components/schemas/Type.RegionId'
-          description: The unique identifier for the region.
+          description: 'Optional: The unique identifier for the region.'
         name:
           type: string
-          description: The name of the region.
+          description: 'Optional: The name of the region.'
         code:
           type: string
           description: The code of the region.
