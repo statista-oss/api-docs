@@ -58,6 +58,17 @@ paths:
           description: The unique identifier of a content information to be retrieved.
           schema:
             $ref: '#/components/schemas/Type.Id'
+        - name: format
+          in: query
+          required: false
+          description: |-
+            The format of the data to be retrieved. Set 'format=advanced' to get the data in an advanced format.
+          schema:
+            type: string
+            enum:
+              - basic
+              - advanced
+            default: basic
       responses:
         '200':
           description: The request has succeeded.
