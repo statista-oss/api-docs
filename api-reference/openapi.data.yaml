@@ -61,8 +61,7 @@ paths:
         - name: format
           in: query
           required: false
-          description: |-
-            The format of the data to be retrieved. Set 'format=advanced' to get the data in an advanced format.
+          description: The format of the data to be retrieved. Set 'format=advanced' to get the data in an advanced format.
           schema:
             type: string
             enum:
