@@ -1,0 +1,77 @@
+---
+title: "Connect to Claude Desktop"
+description: "Connect the Statista MCP Server to Claude Desktop"
+---
+
+## Install Claude Desktop
+To try the Statista MCP Server with Claude Desktop, follow these steps:
+1. Install [Claude Desktop](https://claude.ai/download) (important that it's the desktop version)
+2. If you don't already have one; create an account
+3. Open Claude Desktop
+
+## Modify configuration file
+<Frame>
+<img 
+  src="/images/claude-settings.png" 
+  alt="Click settings"
+  height="100"
+  width="400"
+  className="rounded-lg"
+/>
+</Frame>
+
+1. Under **Settings**, go to **Developer**
+2. Click **Edit Config**
+<Frame>
+<img 
+  src="/images/claude-edit-config.png" 
+  alt="Click edit config"
+  height="100"
+  width="600"
+  className="rounded-lg"
+/>
+</Frame>
+
+3. Open the ```claude_desktop_config.json``` file in a text editor
+4. Copy/paste below snippet into the file, replace ```YOUR_API_KEY``` with the provided API Key
+5. Save file
+
+```.json
+{
+  "mcpServers": {
+    "statista": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://api.statista.ai/v1/mcp",
+        "--transport",
+        "http-only",
+        "--header",
+        "x-api-key: ${API_KEY}"
+      ],
+      "env": {
+        "API_KEY": "YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+## Use the MCP Server in Claude Desktop
+Once your configuration file is successfully modified and saved, close down Claude Desktop and open it again. 
+
+Now, under **Search and tools** you should see **statista** enabled. 
+
+<Frame>
+<img 
+  src="/images/claude-tools.png" 
+  alt="Statista tool should be enabled"
+  height="100"
+  width="400"
+  className="rounded-lg"
+/>
+</Frame>
+
+You're good to go! Now you can do market research with Statista and Claude Desktop 🎉
+

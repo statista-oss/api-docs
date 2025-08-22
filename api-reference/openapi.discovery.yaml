@@ -72,7 +72,13 @@ paths:
         - name: date_from
           in: query
           required: false
-          description: The start date to search for content.
+          description: |-
+            The start date to search for content.
+            All content published after this date will be returned.
+            We accept a variety of date formats, e.g. `YYYY-MM-DD`.
+            For example, `2023-01-01` will return all content published
+            after or on the January 1st, 2023.
+            If not set, we will use 3 months into the past as the default value.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
@@ -80,6 +86,10 @@ paths:
           required: false
           description: |-
             The end date to search for content.
+            All content published before this date will be returned.
+            We accept a variety of date formats, e.g. `YYYY-MM-DD`.
+            For example, `2023-01-01` will return all content published
+            before or on the January 1st, 2023.
             If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
@@ -1600,7 +1610,13 @@ paths:
         - name: date_from
           in: query
           required: false
-          description: The start date to search for content.
+          description: |-
+            The start date to search for content.
+            All content published after this date will be returned.
+            We accept a variety of date formats, e.g. `YYYY-MM-DD`.
+            For example, `2023-01-01` will return all content published
+            after or on the January 1st, 2023.
+            If not set, we will use 3 months into the past as the default value.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
@@ -1608,6 +1624,10 @@ paths:
           required: false
           description: |-
             The end date to search for content.
+            All content published before this date will be returned.
+            We accept a variety of date formats, e.g. `YYYY-MM-DD`.
+            For example, `2023-01-01` will return all content published
+            before or on the January 1st, 2023.
             If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
@@ -4638,7 +4658,13 @@ paths:
         - name: date_from
           in: query
           required: false
-          description: The start date to search for content.
+          description: |-
+            The start date to search for content.
+            All content published after this date will be returned.
+            We accept a variety of date formats, e.g. `YYYY-MM-DD`.
+            For example, `2023-01-01` will return all content published
+            after or on the January 1st, 2023.
+            If not set, we will use 3 months into the past as the default value.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
@@ -4646,6 +4672,10 @@ paths:
           required: false
           description: |-
             The end date to search for content.
+            All content published before this date will be returned.
+            We accept a variety of date formats, e.g. `YYYY-MM-DD`.
+            For example, `2023-01-01` will return all content published
+            before or on the January 1st, 2023.
             If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
@@ -6178,7 +6208,13 @@ paths:
         - name: date_from
           in: query
           required: false
-          description: The start date to search for content.
+          description: |-
+            The start date to search for content.
+            All content published after this date will be returned.
+            We accept a variety of date formats, e.g. `YYYY-MM-DD`.
+            For example, `2023-01-01` will return all content published
+            after or on the January 1st, 2023.
+            If not set, we will use 3 months into the past as the default value.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
         - name: date_to
@@ -6186,6 +6222,10 @@ paths:
           required: false
           description: |-
             The end date to search for content.
+            All content published before this date will be returned.
+            We accept a variety of date formats, e.g. `YYYY-MM-DD`.
+            For example, `2023-01-01` will return all content published
+            before or on the January 1st, 2023.
             If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
