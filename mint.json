@@ -69,7 +69,8 @@
       "group": "MCP",
       "pages": [
         "mcp-server/introduction",
-        "mcp-server/connection-guide"
+        "mcp-server/connection-openai",
+        "mcp-server/connection-claude"
       ]
     },
     {
