@@ -3089,24 +3089,14 @@ paths:
       parameters:
         - name: q
           in: query
-          required: false
+          required: true
           description: |-
             The query string to search for content.
-            Defaults to '*' which means all content.
+            This parameter is multi-lingual.
           schema:
             type: string
-            default: '*'
-        - name: platform
-          in: query
-          required: false
-          description: |-
-            The platform to search for content.
-            Defaults to `en` which means English.
-          schema:
-            type: string
-            enum:
-              - de
-              - en
+            pattern: '[^\s]'
+            minLength: 1
         - name: offset
           in: query
           required: false
