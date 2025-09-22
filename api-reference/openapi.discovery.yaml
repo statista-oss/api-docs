@@ -5,7 +5,7 @@ info:
     name: API Support
     email: api@statista.com
   version: 2.8.0
-  description: The Discovery-Starter & Discovery-Advanced Statista API
+  x-description: The Discovery-Starter & Discovery-Advanced Statista API
 tags: []
 paths:
   /v1/infographics:
@@ -21,6 +21,7 @@ paths:
           schema:
             type: string
             default: '*'
+          explode: false
         - name: platform
           in: query
           required: false
@@ -29,6 +30,7 @@ paths:
             Defaults to `en` which means English.
           schema:
             $ref: '#/components/schemas/Type.LanguageLocale'
+          explode: false
         - name: offset
           in: query
           required: false
@@ -42,6 +44,7 @@ paths:
             format: uint32
             minimum: 0
             default: 0
+          explode: false
         - name: size
           in: query
           required: false
@@ -56,6 +59,7 @@ paths:
             format: uint32
             minimum: 0
             default: 10
+          explode: false
         - name: page
           in: query
           required: false
@@ -69,6 +73,7 @@ paths:
             format: uint32
             minimum: 1
             default: 1
+          explode: false
         - name: date_from
           in: query
           required: false
@@ -81,6 +86,7 @@ paths:
             If not set, we will use 3 months into the past as the default value.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
+          explode: false
         - name: date_to
           in: query
           required: false
@@ -93,6 +99,7 @@ paths:
             If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
+          explode: false
         - name: industry
           in: query
           required: false
@@ -101,6 +108,7 @@ paths:
             The value is a number that can be found in the URL.
           schema:
             $ref: '#/components/schemas/Api.Request.Industry'
+          explode: false
         - name: geolocation
           in: query
           required: false
@@ -1504,6 +1512,7 @@ paths:
               - Wisconsin
               - Wyoming
               - District of Columbia
+          explode: false
         - name: sort
           in: query
           required: false
@@ -1515,6 +1524,7 @@ paths:
           schema:
             $ref: '#/components/schemas/Type.SortBy'
             default: 0
+          explode: false
       responses:
         '200':
           description: The request has succeeded.
@@ -1539,7 +1549,6 @@ paths:
                     type: integer
                     format: uint32
                     description: The total number of pages available, based on the selected size parameter
-                description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -1559,6 +1568,7 @@ paths:
           schema:
             type: string
             default: '*'
+          explode: false
         - name: platform
           in: query
           required: false
@@ -1567,6 +1577,7 @@ paths:
             Defaults to `en` which means English.
           schema:
             $ref: '#/components/schemas/Type.LanguageLocale'
+          explode: false
         - name: offset
           in: query
           required: false
@@ -1580,6 +1591,7 @@ paths:
             format: uint32
             minimum: 0
             default: 0
+          explode: false
         - name: size
           in: query
           required: false
@@ -1594,6 +1606,7 @@ paths:
             format: uint32
             minimum: 0
             default: 10
+          explode: false
         - name: page
           in: query
           required: false
@@ -1607,6 +1620,7 @@ paths:
             format: uint32
             minimum: 1
             default: 1
+          explode: false
         - name: date_from
           in: query
           required: false
@@ -1619,6 +1633,7 @@ paths:
             If not set, we will use 3 months into the past as the default value.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
+          explode: false
         - name: date_to
           in: query
           required: false
@@ -1631,6 +1646,7 @@ paths:
             If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
+          explode: false
         - name: geolocation
           in: query
           required: false
@@ -3034,6 +3050,7 @@ paths:
               - Wisconsin
               - Wyoming
               - District of Columbia
+          explode: false
         - name: sort
           in: query
           required: false
@@ -3045,6 +3062,7 @@ paths:
           schema:
             $ref: '#/components/schemas/Type.SortBy'
             default: 0
+          explode: false
       responses:
         '200':
           description: The request has succeeded.
@@ -3069,7 +3087,6 @@ paths:
                     type: integer
                     format: uint32
                     description: The total number of pages available, based on the selected size parameter
-                description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -3097,6 +3114,7 @@ paths:
             type: string
             pattern: '[^\s]'
             minLength: 1
+          explode: false
         - name: offset
           in: query
           required: false
@@ -3110,6 +3128,7 @@ paths:
             format: uint32
             minimum: 0
             default: 0
+          explode: false
         - name: size
           in: query
           required: false
@@ -3124,12 +3143,14 @@ paths:
             format: uint32
             minimum: 0
             default: 10
+          explode: false
         - name: date_from
           in: query
           required: false
           description: The start date to search for content.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
+          explode: false
         - name: date_to
           in: query
           required: false
@@ -3138,6 +3159,7 @@ paths:
             If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
+          explode: false
         - name: geolocation
           in: query
           required: false
@@ -4541,6 +4563,7 @@ paths:
               - Wisconsin
               - Wyoming
               - District of Columbia
+          explode: false
         - name: premium
           in: query
           required: false
@@ -4553,6 +4576,7 @@ paths:
             type: boolean
             nullable: true
             default: null
+          explode: false
       responses:
         '200':
           description: The request has succeeded.
@@ -4577,7 +4601,6 @@ paths:
                     type: integer
                     format: uint32
                     description: The total number of pages available, based on the selected size parameter
-                description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -4597,6 +4620,7 @@ paths:
           schema:
             type: string
             default: '*'
+          explode: false
         - name: platform
           in: query
           required: false
@@ -4605,6 +4629,7 @@ paths:
             Defaults to `en` which means English.
           schema:
             $ref: '#/components/schemas/Type.LanguageLocale'
+          explode: false
         - name: offset
           in: query
           required: false
@@ -4618,6 +4643,7 @@ paths:
             format: uint32
             minimum: 0
             default: 0
+          explode: false
         - name: size
           in: query
           required: false
@@ -4632,6 +4658,7 @@ paths:
             format: uint32
             minimum: 0
             default: 10
+          explode: false
         - name: page
           in: query
           required: false
@@ -4645,6 +4672,7 @@ paths:
             format: uint32
             minimum: 1
             default: 1
+          explode: false
         - name: date_from
           in: query
           required: false
@@ -4657,6 +4685,7 @@ paths:
             If not set, we will use 3 months into the past as the default value.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
+          explode: false
         - name: date_to
           in: query
           required: false
@@ -4669,6 +4698,7 @@ paths:
             If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
+          explode: false
         - name: industry
           in: query
           required: false
@@ -4677,6 +4707,7 @@ paths:
             The value is a number that can be found in the URL.
           schema:
             $ref: '#/components/schemas/Api.Request.Industry'
+          explode: false
         - name: geolocation
           in: query
           required: false
@@ -6080,6 +6111,7 @@ paths:
               - Wisconsin
               - Wyoming
               - District of Columbia
+          explode: false
         - name: premium
           in: query
           required: false
@@ -6092,6 +6124,7 @@ paths:
             type: boolean
             nullable: true
             default: null
+          explode: false
         - name: sort
           in: query
           required: false
@@ -6103,6 +6136,7 @@ paths:
           schema:
             $ref: '#/components/schemas/Type.SortBy'
             default: 0
+          explode: false
       responses:
         '200':
           description: The request has succeeded.
@@ -6127,7 +6161,6 @@ paths:
                     type: integer
                     format: uint32
                     description: The total number of pages available, based on the selected size parameter
-                description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -6147,6 +6180,7 @@ paths:
           schema:
             type: string
             default: '*'
+          explode: false
         - name: platform
           in: query
           required: false
@@ -6155,6 +6189,7 @@ paths:
             Defaults to `en` which means English.
           schema:
             $ref: '#/components/schemas/Type.LanguageLocale'
+          explode: false
         - name: offset
           in: query
           required: false
@@ -6168,6 +6203,7 @@ paths:
             format: uint32
             minimum: 0
             default: 0
+          explode: false
         - name: size
           in: query
           required: false
@@ -6182,6 +6218,7 @@ paths:
             format: uint32
             minimum: 0
             default: 10
+          explode: false
         - name: page
           in: query
           required: false
@@ -6195,6 +6232,7 @@ paths:
             format: uint32
             minimum: 1
             default: 1
+          explode: false
         - name: date_from
           in: query
           required: false
@@ -6207,6 +6245,7 @@ paths:
             If not set, we will use 3 months into the past as the default value.
           schema:
             $ref: '#/components/schemas/Api.Request.DateFrom'
+          explode: false
         - name: date_to
           in: query
           required: false
@@ -6219,6 +6258,7 @@ paths:
             If not set, the current date is used.
           schema:
             $ref: '#/components/schemas/Api.Request.DateTo'
+          explode: false
         - name: industry
           in: query
           required: false
@@ -6227,6 +6267,7 @@ paths:
             The value is a number that can be found in the URL.
           schema:
             $ref: '#/components/schemas/Api.Request.Industry'
+          explode: false
         - name: geolocation
           in: query
           required: false
@@ -7630,6 +7671,7 @@ paths:
               - Wisconsin
               - Wyoming
               - District of Columbia
+          explode: false
         - name: premium
           in: query
           required: false
@@ -7642,6 +7684,7 @@ paths:
             type: boolean
             nullable: true
             default: null
+          explode: false
         - name: sort
           in: query
           required: false
@@ -7653,6 +7696,7 @@ paths:
           schema:
             $ref: '#/components/schemas/Type.SortBy'
             default: 0
+          explode: false
       responses:
         '200':
           description: The request has succeeded.
@@ -7677,7 +7721,6 @@ paths:
                     type: integer
                     format: uint32
                     description: The total number of pages available, based on the selected size parameter
-                description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -7933,7 +7976,8 @@ components:
         - name
       properties:
         id:
-          oneOf:
+          type: integer
+          allOf:
             - $ref: '#/components/schemas/Type.Id'
           nullable: true
         name:

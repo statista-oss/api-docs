@@ -1,0 +1,498 @@
+openapi: 3.0.0
+info:
+  title: Internal Statista API Key management
+  version: 1.0.0
+  x-description: The Statista Internal API Keys management
+tags: []
+paths:
+  /v1/management/api-keys:
+    get:
+      operationId: ApiKeys_list
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Api.Internal.ApiKey.Response.ApiKey'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+  /v1/management/api-keys/create:
+    post:
+      operationId: ApiKeys_create
+      parameters: []
+      responses:
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - api_key
+              properties:
+                api_key:
+                  $ref: '#/components/schemas/Api.Internal.ApiKey.Request.CreateApiKey'
+  /v1/management/api-keys/update:
+    put:
+      operationId: ApiKeys_update
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - api_key
+              properties:
+                api_key:
+                  $ref: '#/components/schemas/Api.Internal.ApiKey.Request.UpdateApiKey'
+  /v1/management/api-keys/{id}:
+    get:
+      operationId: ApiKeys_get
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Api.Internal.ApiKey.Response.ApiKey'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+        '404':
+          description: The server cannot find the requested resource.
+  /v1/management/scopes:
+    get:
+      operationId: Scopes_list
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Api.Internal.KeyScopes.Response.Scopes'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+  /v1/management/scopes/create:
+    post:
+      operationId: Scopes_create
+      parameters: []
+      responses:
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Api.Internal.KeyScopes.Request.WriteScopes'
+  /v1/management/scopes/update:
+    put:
+      operationId: Scopes_update
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Api.Internal.KeyScopes.Request.WriteScopes'
+  /v1/management/scopes/{id}:
+    get:
+      operationId: Scopes_get
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Api.Internal.KeyScopes.Response.Scopes'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+security:
+  - ApiKeyAuth: []
+components:
+  schemas:
+    Api.Internal.ApiKey.Common.Issuer:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+      description: Information about the issuer of the API key.
+    Api.Internal.ApiKey.Common.Owner:
+      type: object
+      required:
+        - crm_id
+        - name
+        - email
+      properties:
+        crm_id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+      description: Information about the owner of the API key.
+    Api.Internal.ApiKey.Common.Permissions:
+      type: object
+      required:
+        - is_paid_content_allowed
+        - is_only_metadata_allowed
+        - can_issue_api_keys
+        - can_issue_scopes
+      properties:
+        is_paid_content_allowed:
+          type: boolean
+        is_only_metadata_allowed:
+          type: boolean
+        can_issue_api_keys:
+          type: boolean
+          default: false
+        can_issue_scopes:
+          type: boolean
+          default: false
+      description: Permissions associated with the API key.
+    Api.Internal.ApiKey.Common.Quota:
+      type: object
+      required:
+        - day
+        - week
+        - month
+        - year
+      properties:
+        day:
+          type: object
+          properties:
+            limit:
+              type: integer
+              format: int32
+            usage:
+              type: integer
+              format: int32
+            reset_at:
+              type: integer
+              format: int32
+          required:
+            - limit
+            - usage
+            - reset_at
+        week:
+          type: object
+          properties:
+            limit:
+              type: integer
+              format: int32
+            usage:
+              type: integer
+              format: int32
+            reset_at:
+              type: integer
+              format: int32
+          required:
+            - limit
+            - usage
+            - reset_at
+        month:
+          type: object
+          properties:
+            limit:
+              type: integer
+              format: int32
+            usage:
+              type: integer
+              format: int32
+            reset_at:
+              type: integer
+              format: int32
+          required:
+            - limit
+            - usage
+            - reset_at
+        year:
+          type: object
+          properties:
+            limit:
+              type: integer
+              format: int32
+            usage:
+              type: integer
+              format: int32
+          required:
+            - limit
+            - usage
+      description: Quota details for the API key.
+    Api.Internal.ApiKey.Common.Scopes:
+      type: array
+      items:
+        type: string
+      description: Scopes associated with the API key.
+    Api.Internal.ApiKey.Common.ScopesItem:
+      type: array
+      items:
+        type: string
+      description: Scopes associated with the API key.
+    Api.Internal.ApiKey.Request.CreateApiKey:
+      type: object
+      required:
+        - description
+        - owner
+        - issuer
+        - valid_at
+        - expires_at
+        - permissions
+        - scopes
+        - quota
+      properties:
+        description:
+          type: string
+          description: A description for the API key to help identify it.
+        owner:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Owner'
+        issuer:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Issuer'
+        valid_at:
+          type: integer
+          format: int64
+          description: The date and time when the API key starts being valid, in timestamp format.
+        expires_at:
+          type: integer
+          format: int64
+          description: The date and time when the API key expires, in timestamp format.
+        permissions:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Permissions'
+        scopes:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Scopes'
+        quota:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Quota'
+      description: Request model for creating a new API key.
+    Api.Internal.ApiKey.Request.UpdateApiKey:
+      type: object
+      required:
+        - id
+        - value
+        - description
+        - owner
+        - issuer
+        - expires_at
+        - enabled
+        - permissions
+        - quota
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the API key.
+        value:
+          type: string
+          format: uuid
+          description: The actual value of the API key.
+        description:
+          type: string
+          description: A description for the API key to help identify it.
+        owner:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Owner'
+        issuer:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Issuer'
+        expires_at:
+          type: integer
+          format: int64
+          description: The date and time when the API key expires, in timestamp format.
+        enabled:
+          type: boolean
+          description: A true/false value indicating whether the API key is enabled.
+        permissions:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Permissions'
+        scopes:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Scopes'
+        quota:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Quota'
+      description: Request model for updating an existing API key.
+    Api.Internal.ApiKey.Response.ApiKey:
+      type: object
+      required:
+        - id
+        - value
+        - description
+        - owner
+        - issuer
+        - created_at
+        - valid_at
+        - last_used_at
+        - expires_at
+        - ttl
+        - enabled
+        - permissions
+        - scopes
+        - quota
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the API key.
+        value:
+          type: string
+          format: uuid
+          description: The actual value of the API key.
+        description:
+          type: string
+          description: A description for the API key to help identify it.
+        owner:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Owner'
+        issuer:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Issuer'
+        created_at:
+          type: integer
+          format: int64
+          description: The date and time when the API key was created, in timestamp format.
+        valid_at:
+          type: integer
+          format: int64
+          description: The date and time when the API key starts being valid, in timestamp format.
+        last_used_at:
+          type: integer
+          format: int64
+          description: The date and time when the API key was last used, in timestamp format.
+        expires_at:
+          type: integer
+          format: int64
+          description: The date and time when the API key expires, in timestamp format.
+        disabled_at:
+          type: integer
+          format: int64
+          description: The date and time when the API key was disabled, in timestamp format. Null if the key is still active.
+        ttl:
+          type: integer
+          format: int64
+          description: The date and time when the API key will be automatically disabled, in timestamp format. Null if the key does not have an automatic disable date.
+        enabled:
+          type: boolean
+          description: A true/false value indicating whether the API key is enabled.
+        permissions:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Permissions'
+        scopes:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.ScopesItem'
+        quota:
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Quota'
+      description: Api Key response model.
+    Api.Internal.KeyScopes.Common.Endpoint:
+      type: object
+      required:
+        - path
+        - cost
+      properties:
+        path:
+          type: string
+          description: HTTP method and API path in the format "METHOD:version/path"
+        cost:
+          type: integer
+          format: int32
+          description: Cost associated with the endpoint, meaning each request will cost the amount specified here.
+      description: Endpoint associated with the scope.
+    Api.Internal.KeyScopes.Request.WriteScopes:
+      type: object
+      required:
+        - id
+        - endpoints
+      properties:
+        id:
+          type: string
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Internal.KeyScopes.Common.Endpoint'
+      description: Request model for creating a new scope.
+    Api.Internal.KeyScopes.Response.Scopes:
+      type: object
+      required:
+        - id
+        - endpoints
+      properties:
+        id:
+          type: string
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Internal.KeyScopes.Common.Endpoint'
+      description: Scopes response model.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+servers:
+  - url: https://apiv2.globalsearch.prod.aws.statista.com/
+    description: Single Server endpoint
+    variables: {}
