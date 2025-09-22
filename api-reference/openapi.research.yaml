@@ -5,7 +5,7 @@ info:
     name: API Support
     email: api@statista.com
   version: 2.8.0
-  description: The Statista Research-AI API
+  x-description: The Statista Research-AI API
 tags: []
 paths:
   /v1/research-ai/answer:
@@ -20,13 +20,14 @@ paths:
             This token is returned by the `ask` endpoint.
           schema:
             $ref: '#/components/schemas/Api.Research.ResearchToken'
+          explode: false
       responses:
         '200':
           description: The request has succeeded.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AnswerResponse'
+                $ref: '#/components/schemas/Api.Research.Response.Answer'
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -60,7 +61,17 @@ security:
   - ApiKeyAuth: []
 components:
   schemas:
-    AnswerResponse:
+    Api.Research.Request.Ask:
+      type: object
+      required:
+        - question
+      properties:
+        question:
+          type: string
+          description: The research question that needs to be processed.
+    Api.Research.ResearchToken:
+      type: string
+    Api.Research.Response.Answer:
       type: object
       required:
         - researchToken
@@ -75,17 +86,6 @@ components:
           allOf:
             - $ref: '#/components/schemas/Api.Research.Response.Response'
           nullable: true
-      description: The request has succeeded.
-    Api.Research.Request.Ask:
-      type: object
-      required:
-        - question
-      properties:
-        question:
-          type: string
-          description: The research question that needs to be processed.
-    Api.Research.ResearchToken:
-      type: string
     Api.Research.Response.KeyFacts:
       type: object
       required:
