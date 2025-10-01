@@ -21,24 +21,19 @@ All API endpoints are authenticated including the x-api-key in a request header.
 "x-api-key": <YOUR_API_KEY>
 ```
 
-#### API Rate Limits
+## Integration
+If you're integrating into LLM-based services or programatically building AI Agents, you may want to look at our MCP offering. 
+
+<CardGroup cols={2}>
+  <Card title="MCP Server" icon="chart-simple" href="/mcp-server/introduction">
+    Stateless MCP Server for Market Research
+  </Card>
+</CardGroup>
+
+## API Rate Limits
 
 The service is capable of supporting 10,000 requests per second. Ensure your application respects this limit to avoid throttling. If you need higher limits, please contact us.
 
-## Summary
+## Caching
+We cache requests; and the cache is flushed every 4 hours. We do not charge extra when retrieving cached requests.
 
-#### Statistics
-
-Access a broad collection of statistical data points covering industries, regions, and topics worldwide. The data is sourced from government institutions, research organizations, and commercial entities to ensure high reliability and relevance.
-
-#### Studies
-
-Explore comprehensive research studies analyzing markets, industries, and products. These documents contain detailed findings and are valuable for strategic planning and academic research.
-
-#### Infographics
-
-Retrieve visual summaries of key data points through Statista’s infographics. These graphics provide clear and engaging representations of complex topics.
-
-#### Market Insights (Early Access)
-
-The market insights resource provides detailed reports and forecasts for industries and markets globally, with granular insights into key trends, growth drivers, and competitive landscapes. These insights can be accessed via API endpoints, enabling developers to seamlessly integrate this information into business intelligence tools, e-commerce platforms, or financial models.

@@ -3096,13 +3096,6 @@ paths:
   /v1/search/statistics:
     get:
       operationId: StatisticsResearchAiSearch_list
-      description: |-
-        This is an **experimental** endpoint for statistics which is using a semantic search - in contrast to `/v1/statistics` which is using a keyword search.
-        This endpoint is designed to provide more relevant results based on the context of the search query.
-        This endpoint is still in development and may change in the future. Most likely, it will be merged into the `/v1/statistics` endpoint.
-        Usage of this endpoint is recommended for users who want to explore the capabilities of semantic search in statistics.
-
-        If you encounter any issues or have feedback, please contact the API support team.
       parameters:
         - name: q
           in: query
