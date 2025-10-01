@@ -1,0 +1,61 @@
+---
+title: "Build using Python FastMCP"
+description: "Connect the Statista MCP Server to a Python FastMCP Client"
+---
+
+<Info>
+  This guide requires an installation of Python and `fastmcp` library. If you do not know what that is; this guide is not intended for you.
+</Info>
+
+## Ensure that FastMCP is installed
+Run `pip install fastmcp` and read the [FastMCP documentation](https://gofastmcp.com/getting-started/welcome).
+
+## Set provided Statista configuration details
+```sh
+mcp_api_key = "<YOUR_API_KEY>"
+mcp_server_url = "<PROVIDED_MCP_SERVER_URL>"
+```
+
+## Run example client
+
+```py
+from fastmcp import Client
+from fastmcp.client.transports import StreamableHttpTransport
+
+import asyncio
+import json
+
+mcp_client = Client(
+    transport=StreamableHttpTransport(
+        mcp_server_url,
+        headers={"x-api-key": mcp_api_key},
+    ),
+)
+
+async def main():
+    async with mcp_client as client:
+        # List available tools
+        tools = await client.list_tools()
+        
+        # Call search-statistics with a natural language query
+        statistics = await client.call_tool("search-statistics", 
+                                            {"question": "What's the GDP of Japan?"})
+        print(json.loads(statistics.content[0].text))
+
+        # grab the first statistic id
+        grab_statistic_id = json.loads(statistics.content[0].text)["items"][0]["identifier"]
+        
+        # fetch chart data for a specific statistic id
+        statistic_chart_data = await client.call_tool("get-chart-data-by-id", 
+                                            {"statistic_id": int(grab_statistic_id)})
+        
+        statistic_id = json.loads(statistic_chart_data.content[0].text)
+        chart_data = json.loads(statistic_chart_data.content[1].text)
+    
+if __name__ == "__main__":
+    asyncio.run(main())
+    
+
+```
+
+

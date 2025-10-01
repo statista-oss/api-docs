@@ -70,7 +70,8 @@
       "pages": [
         "mcp-server/introduction",
         "mcp-server/connection-openai",
-        "mcp-server/connection-claude"
+        "mcp-server/connection-claude",
+        "mcp-server/connection-fastmcp"
       ]
     },
     {
@@ -89,32 +90,25 @@
     {
       "group": "API Packages",
       "pages": [
-        "api-reference/discovery-starter/product-description",
         "api-reference/discovery-advanced/product-description",
-        "api-reference/data-api/product-description",
-        "api-reference/research-ai/product-description"
+        "api-reference/data-api/product-description"
       ]
     },
     {
-      "group": "Discovery Playground",
+      "group": "Statistics",
       "pages": [
-        "api-reference/discovery-advanced/get-statistics",
         "api-reference/discovery-advanced/get-search-statistics",
+        "api-reference/data-api/get-statistic"
+      ]
+    },
+    {
+      "group": "Legacy Endpoints",
+      "pages": [
         "api-reference/discovery-advanced/get-infographics",
         "api-reference/discovery-advanced/get-studies",
-        "api-reference/discovery-advanced/get-marketInsights"
-      ]
-    },
-    {
-      "group": "Data API Playground",
-      "pages": [
-        "api-reference/data-api/get-statistic",
-        "api-reference/data-api/get-reports"
-      ]
-    },
-    {
-      "group": "Research AI Playground",
-      "pages": [
+        "api-reference/discovery-advanced/get-marketInsights",
+        "api-reference/data-api/get-reports",
+        "api-reference/discovery-advanced/get-statistics",
         "api-reference/research-ai/post-researchAi",
         "api-reference/research-ai/get-researchAi"
       ]
