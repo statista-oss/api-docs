@@ -31,6 +31,16 @@ paths:
       responses:
         '201':
           description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                required:
+                  - id
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -314,7 +324,6 @@ components:
         - expires_at
         - permissions
         - scopes
-        - quota
       properties:
         description:
           type: string
@@ -336,7 +345,9 @@ components:
         scopes:
           $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Scopes'
         quota:
-          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Quota'
+          allOf:
+            - $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Quota'
+          description: When not specified, this Key will be a member key and inherit the quota from its parent which is the API-Key with which the Request was made
       description: Request model for creating a new API key.
     Api.Internal.ApiKey.Request.UpdateApiKey:
       type: object
@@ -349,7 +360,6 @@ components:
         - expires_at
         - enabled
         - permissions
-        - quota
       properties:
         id:
           type: string
@@ -378,7 +388,9 @@ components:
         scopes:
           $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Scopes'
         quota:
-          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Quota'
+          allOf:
+            - $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Quota'
+          description: Only when this is a main key
       description: Request model for updating an existing API key.
     Api.Internal.ApiKey.Response.ApiKey:
       type: object
