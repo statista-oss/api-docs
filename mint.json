@@ -71,7 +71,8 @@
         "mcp-server/introduction",
         "mcp-server/connection-openai",
         "mcp-server/connection-claude",
-        "mcp-server/connection-fastmcp"
+        "mcp-server/connection-fastmcp",
+        "mcp-server/connection-openai-deepresearch"
       ]
     },
     {
