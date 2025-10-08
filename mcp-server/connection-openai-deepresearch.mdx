@@ -1,0 +1,37 @@
+---
+title: "(Beta) OpenAI DeepResearch API"
+description: "Connect the Statista MCP Server to the OpenAI DeepResearch API"
+---
+
+<Info>
+  This guide shows you how to set up the Statista MCP server with the OpenAI DeepResearch API using the ```openai``` python SDK.
+</Info>
+
+In order to connect the Statista MCP server to DeepResearch functionality, you'll need to append the provided MCP Server URL from Statista with `/beta/deepresearch`. 
+
+You should see the tools ```search``` and ```fetch``` available. 
+
+```python
+from openai import OpenAI
+client = OpenAI(api_key=YOUR_OPENAI_API_KEY)
+mcp_server_url = f"{PROVIDED_STATISTA_MCP_URL}/beta/deepresearch"
+
+response = client.responses.create(
+    model="o4-mini-deep-research", # Any OpenAI DeepResearch model can be used
+    tools=[
+        {
+            "type": "mcp",
+            "server_label": "statista_mcp",
+            "server_url": mcp_server_url,
+            "require_approval": "never",
+            "headers": {
+                "x-api-key": YOUR_STATISTA_API_KEY
+            }
+        },
+    ],
+    input=query,
+)
+
+print(response.text)
+```
+
