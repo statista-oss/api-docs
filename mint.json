@@ -89,13 +89,6 @@
       ]
     },
     {
-      "group": "API Packages",
-      "pages": [
-        "api-reference/discovery-advanced/product-description",
-        "api-reference/data-api/product-description"
-      ]
-    },
-    {
       "group": "Statistics",
       "pages": [
         "api-reference/discovery-advanced/get-search-statistics",
