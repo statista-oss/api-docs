@@ -49,6 +49,10 @@
     {
       "name": "Tutorials",
       "url": "tutorials"
+    },
+    {
+      "name": "Changelogs",
+      "url": "changelogs"
     }
   ],
   "navigation": [
@@ -86,6 +90,12 @@
       "group": "Tutorials",
       "pages": [
         "tutorials/tutorials"
+      ]
+    },
+    {
+      "group": "Changelogs",
+      "pages": [
+        "changelogs/updates"
       ]
     },
     {
