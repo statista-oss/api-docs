@@ -8,7 +8,15 @@ paths:
   /v1/management/api-keys:
     get:
       operationId: ApiKeys_list
-      parameters: []
+      parameters:
+        - name: main_id
+          in: query
+          required: false
+          description: The main api key id used to display its members
+          schema:
+            type: string
+            format: uuid
+          explode: false
       responses:
         '200':
           description: The request has succeeded.
@@ -106,6 +114,34 @@ paths:
           description: Access is forbidden.
         '404':
           description: The server cannot find the requested resource.
+  /v1/management/api-keys/{id}/assign-to-main-key:
+    post:
+      operationId: ApiKeys_assignToMainKey
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+        '404':
+          description: The server cannot find the requested resource.
+        '409':
+          description: The request conflicts with the current state of the server.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Api.Internal.ApiKey.Request.AssignToMainKey'
   /v1/management/scopes:
     get:
       operationId: Scopes_list
@@ -235,13 +271,13 @@ components:
           type: boolean
           default: false
       description: Permissions associated with the API key.
-    Api.Internal.ApiKey.Common.Quota:
+    Api.Internal.ApiKey.Common.QuotaLedger:
       type: object
       required:
         - day
         - week
         - month
-        - year
+        - total
       properties:
         day:
           type: object
@@ -303,6 +339,19 @@ components:
           required:
             - limit
             - usage
+          deprecated: true
+        total:
+          type: object
+          properties:
+            limit:
+              type: integer
+              format: int32
+            usage:
+              type: integer
+              format: int32
+          required:
+            - limit
+            - usage
       description: Quota details for the API key.
     Api.Internal.ApiKey.Common.Scopes:
       type: array
@@ -314,6 +363,16 @@ components:
       items:
         type: string
       description: Scopes associated with the API key.
+    Api.Internal.ApiKey.Request.AssignToMainKey:
+      type: object
+      required:
+        - main_id
+      properties:
+        main_id:
+          type: string
+          format: uuid
+          description: The identifier of the main key that will become the parent.
+      description: Request model for assigning a key to a main key.
     Api.Internal.ApiKey.Request.CreateApiKey:
       type: object
       required:
@@ -344,10 +403,13 @@ components:
           $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Permissions'
         scopes:
           $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Scopes'
+        parent:
+          type: string
+          description: When specified, this Key will be a member key and inherit the quota from its parent
         quota:
           allOf:
-            - $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Quota'
-          description: When not specified, this Key will be a member key and inherit the quota from its parent which is the API-Key with which the Request was made
+            - $ref: '#/components/schemas/Api.Internal.ApiKey.Common.QuotaLedger'
+          description: 'When NOT specified, this Key will be a member key and inherit the quota from its parent. See: parent'
       description: Request model for creating a new API key.
     Api.Internal.ApiKey.Request.UpdateApiKey:
       type: object
@@ -389,7 +451,7 @@ components:
           $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Scopes'
         quota:
           allOf:
-            - $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Quota'
+            - $ref: '#/components/schemas/Api.Internal.ApiKey.Common.QuotaLedger'
           description: Only when this is a main key
       description: Request model for updating an existing API key.
     Api.Internal.ApiKey.Response.ApiKey:
@@ -457,7 +519,7 @@ components:
         scopes:
           $ref: '#/components/schemas/Api.Internal.ApiKey.Common.ScopesItem'
         quota:
-          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.Quota'
+          $ref: '#/components/schemas/Api.Internal.ApiKey.Common.QuotaLedger'
       description: Api Key response model.
     Api.Internal.KeyScopes.Common.Endpoint:
       type: object
