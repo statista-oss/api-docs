@@ -1,0 +1,22 @@
+---
+title: Updates
+description: "Changelogs for the APIs and MCP Server"
+---
+
+<Update label="October 2025">
+
+<b> REST API </b>
+- Chart images are now displayed in source language.
+- ```total_count``` field now shows correct number in ```/search/statistics```.
+- Similarity score for search results appended to ```/search/statistics``` under ```ranking_score```.
+- Update API timeout from 5s to 30s to allow longer-running operations and avoid breakage in client systems.
+- Multilingual search queries  for ```/search/statistics```
+- Extended authorization to include both ```x-api-key``` as custom header and ```Authorization: Bearer```. 
+
+<b> MCP Server </b>
+- Support DeepResearch response format and tool names under ```/beta/deepresearch```.
+- Coerce ID parameter to avoid runtime errors when LLMs pass in a numerical string.
+- Automate MCP Client compatibility tests across LLM providers: OpenAI, Anthropic/Claude, Gemini.
+- Condense output of ```search-statistics``` tool to reduce LLM token consumption by 35%
+
+</Update>
