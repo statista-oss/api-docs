@@ -1,0 +1,119 @@
+---
+title: "Connect to Claude Desktop (Windows)"
+description: "Connect the Statista MCP Server to Claude Desktop on Windows"
+---
+
+## What you'll need
+- Your Statista API Key 
+- Claude Desktop installed on your PC 
+- Node.js installed (we'll help you install this) 
+
+## Step-by-step instructions
+### Step 1: Install NodeJS
+1. Open your web browser 
+2. Go to: https://nodejs.org/ 
+3. Click the big green button that says "LTS" (Recommended for Most Users) 
+4. Find the downloaded file in your Downloads folder and double-click it 
+5. Click "Next" on everything until it finishes installing 
+6. Restart your computer 
+
+### Step 2: Get Your Statista API Key 
+- Keep this somewhere safe - you'll need it in a moment! 
+
+### Step 3: Open Claude's Configuration Folder 
+- Press `Windows Key + R` on your keyboard (this opens the "Run" box) 
+- Type exactly: `%APPDATA%\Claude`
+- Press `Enter` - a folder will open 
+
+### Step 4: Create or Edit the Configuration File 
+Look for a file called `claude_desktop_config.json`
+
+##### If the file EXISTS:
+Right-click it → Open with → Notepad 
+
+##### If the file DOESN'T exist: 
+- Right-click in the empty space → New → Text Document 
+- Name it: claude_desktop_config.json 
+- Open it with Notepad 
+
+### Step 5: Add Your Configuration 
+**Delete everything** in the file (if there's anything there), then paste this: 
+
+```json
+{ 
+  "mcpServers": { 
+    "statista": { 
+      "command": "C:\\PROGRA~1\\nodejs\\npx.cmd", 
+      "args": [ 
+        "-y", 
+        "mcp-remote", 
+        "https://api.statista.ai/v1/mcp", 
+        "--transport", 
+        "http-only", 
+        "--header", 
+        "x-api-key: ${API_KEY}" 
+      ], 
+      "env": { 
+        "API_KEY": "INSERT KEY HERE" 
+      } 
+    } 
+  } 
+} 
+```
+
+### Step 6: Add Your API Key 
+Find this line near the bottom: 
+  "API_KEY": "INSERT KEY HERE" 
+
+Replace `INSERT KEY HERE` with your actual Statista API key from Step 2. 
+
+For example, if your key is sk_1234abcd5678efgh, it should look like: 
+```json
+  "API_KEY": "sk_1234abcd5678efgh" 
+```
+<Info>
+  Important: Keep the quotes ("") around your key 
+</Info>
+
+### Step 7: Save the file
+- In Notepad, click File → Save as .js 
+- Close Notepad 
+
+### Step 8: Restart Claude Desktop
+- Completely close Claude Desktop (hard exit under “Files”) 
+- Open Claude Desktop again 
+
+### Step 9: Test it! 
+Look for the Statista icon or tools indicator in Claude - this means it's connected! 
+
+<Frame>
+<img 
+  src="/images/claude-tools.png" 
+  alt="Toggle Statista MCP"
+  height="100"
+  width="400"
+  className="rounded-lg"
+/>
+</Frame>
+
+<Info>
+Make sure Statista is toggled on, and then ask a Statista related question!  
+If it works, Claude will fetch live data from Statista for you! 
+</Info>
+
+### Troubleshooting 
+##### If you get an error about Node.js 
+- Make sure you installed Node.js from **Step 1**
+- Make sure you restarted your computer after installing Node.js 
+- Try opening Claude again 
+
+##### If nothing happens
+- Make sure you completely closed and reopened Claude 
+- Check that your API key is correct (no extra spaces) 
+- Make sure the quotes are in the right places 
+
+##### If you see "invalid JSON"
+- Check that you have all the curly braces `{` and `}`
+- Check that every line except the last one in each section has a comma `,`
+- Try copying the code again from this document 
+

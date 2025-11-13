@@ -1,0 +1,44 @@
+---
+title: "Connect to Google Gemini API"
+description: "Connect the Statista MCP Server to the Gemini API"
+---
+
+<Info>
+  This guide shows you how to set up the Statista MCP server with the Gemini API using the ```google-genai``` python SDK.
+</Info>
+
+In order to connect the Statista MCP server to the Gemini API, you'll need to wrap it in a FastMCP Client, since Google's Gemini API does not directly support MCP. 
+
+This means that you'll need both [```fastmcp```](https://pypi.org/project/fastmcp/) and [```google-genai```](https://pypi.org/project/google-genai/) python packages installed. 
+
+In order to invoke the Statista MCP Server via Gemini's API, run the following:
+
+```python
+from google import genai
+from fastmcp import Client
+from fastmcp.client.transports import StreamableHttpTransport
+
+# Set up MCP client wrapper with FastMCP
+mcp_client = Client(
+    transport=StreamableHttpTransport(
+        mcp_server_url,
+        headers={"x-api-key": YOUR_STATISTA_API_KEY},
+    ),
+)
+
+# Set up Google genai client
+client = genai.Client(api_key=YOUR_GEMINI_API_KEY)
+
+# Generate content with Gemini
+async with mcp_client:
+    response = await client.aio.models.generate_content(
+        model="gemini-1.5-flash", # or any gemini model of your choice
+        contents=YOUR_PROMPT_STRING,
+        config=genai.types.GenerateContentConfig(
+            temperature=0,
+            tools=[mcp_client.session],
+        ),
+    )
+    print(response.text)
+```
+
