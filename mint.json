@@ -75,7 +75,10 @@
         "mcp-server/introduction",
         "mcp-server/connection-openai",
         "mcp-server/connection-claude",
+        "mcp-server/connection-claude-windows",
+        "mcp-server/connection-perplexity-desktop",
         "mcp-server/connection-fastmcp",
+        "mcp-server/connect-gemini-api",
         "mcp-server/connection-openai-deepresearch"
       ]
     },
