@@ -47,8 +47,8 @@
       "url": "mcp-server"
     },
     {
-      "name": "Tutorials",
-      "url": "tutorials"
+      "name": "Prompt Library",
+      "url": "prompt-library"
     },
     {
       "name": "Changelogs",
@@ -90,9 +90,13 @@
       ]
     },
     {
-      "group": "Tutorials",
+      "group": "Prompt Library",
       "pages": [
-        "tutorials/tutorials"
+        "prompt-library/statista-researcher",
+        "prompt-library/enrichment",
+        "prompt-library/pestel",
+        "prompt-library/swot",
+        "prompt-library/hot-take"
       ]
     },
     {
