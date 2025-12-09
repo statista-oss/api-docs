@@ -251,6 +251,8 @@ components:
         email:
           type: string
           format: email
+        organization:
+          type: string
       description: Information about the owner of the API key.
     Api.Internal.ApiKey.Common.Permissions:
       type: object
@@ -374,7 +376,7 @@ components:
           description: The identifier of the main key that will become the parent.
         merge_usage:
           type: boolean
-          description: Merge the child's existing usage into the parent main key (default=true).
+          description: Merge the child's existing usage into the parent main key. Defaults to true.
       description: Request model for assigning a key to a main key.
     Api.Internal.ApiKey.Request.CreateApiKey:
       type: object
