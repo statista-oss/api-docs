@@ -5,7 +5,7 @@ info:
     name: API Support
     email: api@statista.com
   version: 2.8.0
-  x-description: The Statista Research-AI API
+  description: The Statista Research-AI API
 tags: []
 paths:
   /v1/research-ai/answer:

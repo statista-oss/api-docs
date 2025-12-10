@@ -5,7 +5,7 @@ info:
     name: API Support
     email: api@statista.com
   version: 2.8.0
-  x-description: The Discovery-Starter & Discovery-Advanced Statista API
+  description: The Discovery-Starter & Discovery-Advanced Statista API
 tags: []
 paths:
   /v1/infographics:

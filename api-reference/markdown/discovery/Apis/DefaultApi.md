@@ -80,7 +80,7 @@ All URIs are relative to *https://api.statista.ai*
 
 <a name="statisticsList"></a>
 # **statisticsList**
-> StatisticsResearchAiSearch_list_200_response statisticsList(q, platform, offset, size, page, date\_from, date\_to, industry, geolocation, premium, sort)
+> StatisticsResearchAiSearch_list_200_response statisticsList(q, platform, offset, size, page, date\_from, date\_to, premium, sort)
 
 
 
@@ -95,8 +95,6 @@ All URIs are relative to *https://api.statista.ai*
 | **page** | **Integer**| The page number to return. The default value for &#x60;page&#x60; is 1. This is useful for pagination. Could be used in combination with &#x60;size&#x60;. | [optional] [default to 1] |
 | **date\_from** | **Date**| The start date to search for content. All content published after this date will be returned. We accept a variety of date formats, e.g. &#x60;YYYY-MM-DD&#x60;. For example, &#x60;2023-01-01&#x60; will return all content published after or on the January 1st, 2023. If not set, we will use 3 months into the past as the default value. | [optional] [default to null] |
 | **date\_to** | **Date**| The end date to search for content. All content published before this date will be returned. We accept a variety of date formats, e.g. &#x60;YYYY-MM-DD&#x60;. For example, &#x60;2023-01-01&#x60; will return all content published before or on the January 1st, 2023. If not set, the current date is used. | [optional] [default to null] |
-| **industry** | [**Api.Request.Industry**](../Models/.md)| Filters content related to a specific industry. The value is a number that can be found in the URL. | [optional] [default to null] [enum: https://www.statista.com/api/v2/industries_de.json, https://www.statista.com/api/v2/industries_en.json, https://www.statista.com/api/v2/industries_es.json, https://www.statista.com/api/v2/industries_fr.json] |
-| **geolocation** | [**Infographics_list_geolocation_parameter**](../Models/.md)| Filters content based on a specific geographic location. Defaults to &#x60;Worldwide&#x60; which means all content. Use geolocation codes provided by the API documentation. For example, &#x60;1&#x60; for Worldwide, &#x60;2&#x60; for Africa, etc. Note: only one geolocation can be used at a time. | [optional] [default to null] |
 | **premium** | **Boolean**| Filters content based on its premium status. If set to &#x60;true&#x60;, only premium content is returned. If set to &#x60;false&#x60;, only free content is returned. If not set, both free and premium content is returned. | [optional] [default to null] |
 | **sort** | [**Type.SortBy**](../Models/.md)| Choose how you want the results to be ordered: 0 – Best match first (sorted by relevance) 1 – Most recent first (sorted by publication date) Defaults to &#x60;0&#x60;. | [optional] [default to null] [enum: 0, 1] |
 

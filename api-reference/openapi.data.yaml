@@ -5,7 +5,7 @@ info:
     name: API Support
     email: api@statista.com
   version: 2.8.0
-  x-description: The Statista Data API
+  description: The Statista Data API provides access to statistical data and reports
 tags: []
 paths:
   /v1/data/report:
