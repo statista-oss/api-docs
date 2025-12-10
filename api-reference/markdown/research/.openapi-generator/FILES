@@ -1,0 +1,12 @@
+.openapi-generator-ignore
+Apis/DefaultApi.md
+Models/Api.Research.Request.Ask.md
+Models/Api.Research.Response.Answer.md
+Models/Api.Research.Response.KeyFacts.md
+Models/Api.Research.Response.Locale.md
+Models/Api.Research.Response.Response.md
+Models/Api.Research.Response.Source.md
+Models/Api.Research.Response.State.md
+Models/Api.Research.Response.Status.md
+Models/QuestionResponse.md
+README.md

@@ -377,6 +377,7 @@ components:
         merge_usage:
           type: boolean
           description: Merge the child's existing usage into the parent main key. Defaults to true.
+          default: true
       description: Request model for assigning a key to a main key.
     Api.Internal.ApiKey.Request.CreateApiKey:
       type: object

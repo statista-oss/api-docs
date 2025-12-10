@@ -1,0 +1,15 @@
+.openapi-generator-ignore
+Apis/DefaultApi.md
+Models/Api.Data.Response.Chart.md
+Models/Api.Data.Response.Data.md
+Models/Api.Data.Response.GraphType.md
+Models/Api.Data.Response.Source.md
+Models/Api.Data.Response.Statistic.md
+Models/Api.Data.Response.Unit.md
+Models/Api.Response.Industry.md
+Models/Api.Response.Region.md
+Models/Api.Response.TeaserImage.md
+Models/Api_Data_Response_Data_series_inner.md
+Models/ReportsResponse.md
+Models/Type.LanguageLocale.md
+README.md
