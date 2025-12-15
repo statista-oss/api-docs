@@ -73,6 +73,10 @@ paths:
       responses:
         '200':
           description: The request has succeeded.
+          content:
+            text/plain:
+              schema:
+                type: string
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -126,6 +130,10 @@ paths:
       responses:
         '200':
           description: The request has succeeded.
+          content:
+            text/plain:
+              schema:
+                type: string
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -168,6 +176,10 @@ paths:
       responses:
         '201':
           description: The request has succeeded and a new resource has been created as a result.
+          content:
+            text/plain:
+              schema:
+                type: string
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -187,6 +199,10 @@ paths:
       responses:
         '200':
           description: The request has succeeded.
+          content:
+            text/plain:
+              schema:
+                type: string
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -573,6 +589,6 @@ components:
       in: header
       name: x-api-key
 servers:
-  - url: https://apiv2.globalsearch.prod.aws.statista.com/
+  - url: https://internal.globalsearch.prod.aws.statista.com/
     description: Single Server endpoint
     variables: {}

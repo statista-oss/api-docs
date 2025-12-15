@@ -1,6 +1,6 @@
 # DefaultApi
 
-All URIs are relative to *https://apiv2.globalsearch.prod.aws.statista.com*
+All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -17,7 +17,7 @@ All URIs are relative to *https://apiv2.globalsearch.prod.aws.statista.com*
 
 <a name="apiKeysAssignToMainKey"></a>
 # **apiKeysAssignToMainKey**
-> apiKeysAssignToMainKey(id, Api.Internal.ApiKey.Request.AssignToMainKey)
+> String apiKeysAssignToMainKey(id, Api.Internal.ApiKey.Request.AssignToMainKey)
 
 
 
@@ -30,7 +30,7 @@ All URIs are relative to *https://apiv2.globalsearch.prod.aws.statista.com*
 
 ### Return type
 
-null (empty response body)
+**String**
 
 ### Authorization
 
@@ -39,7 +39,7 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: text/plain
 
 <a name="apiKeysCreate"></a>
 # **apiKeysCreate**
@@ -118,7 +118,7 @@ null (empty response body)
 
 <a name="apiKeysUpdate"></a>
 # **apiKeysUpdate**
-> apiKeysUpdate(ApiKeys\_update\_request)
+> String apiKeysUpdate(ApiKeys\_update\_request)
 
 
 
@@ -130,7 +130,7 @@ null (empty response body)
 
 ### Return type
 
-null (empty response body)
+**String**
 
 ### Authorization
 
@@ -139,11 +139,11 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: text/plain
 
 <a name="scopesCreate"></a>
 # **scopesCreate**
-> scopesCreate(Api.Internal.KeyScopes.Request.WriteScopes)
+> String scopesCreate(Api.Internal.KeyScopes.Request.WriteScopes)
 
 
 
@@ -155,7 +155,7 @@ null (empty response body)
 
 ### Return type
 
-null (empty response body)
+**String**
 
 ### Authorization
 
@@ -164,7 +164,7 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: text/plain
 
 <a name="scopesGet"></a>
 # **scopesGet**
@@ -215,7 +215,7 @@ This endpoint does not need any parameter.
 
 <a name="scopesUpdate"></a>
 # **scopesUpdate**
-> scopesUpdate(Api.Internal.KeyScopes.Request.WriteScopes)
+> String scopesUpdate(Api.Internal.KeyScopes.Request.WriteScopes)
 
 
 
@@ -227,7 +227,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-null (empty response body)
+**String**
 
 ### Authorization
 
@@ -236,5 +236,5 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: text/plain
 
