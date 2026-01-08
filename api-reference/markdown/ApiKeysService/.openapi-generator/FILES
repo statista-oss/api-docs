@@ -16,5 +16,4 @@ Models/ApiKeys_create_request.md
 Models/ApiKeys_update_request.md
 Models/Api_Internal_ApiKey_Common_QuotaLedger_day.md
 Models/Api_Internal_ApiKey_Common_QuotaLedger_total.md
-Models/Api_Internal_ApiKey_Common_QuotaLedger_year.md
 README.md

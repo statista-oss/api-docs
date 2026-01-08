@@ -345,19 +345,6 @@ components:
             - limit
             - usage
             - reset_at
-        year:
-          type: object
-          properties:
-            limit:
-              type: integer
-              format: int32
-            usage:
-              type: integer
-              format: int32
-          required:
-            - limit
-            - usage
-          deprecated: true
         total:
           type: object
           properties:

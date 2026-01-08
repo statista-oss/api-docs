@@ -37,7 +37,6 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
  - [ApiKeys_update_request](./Models/ApiKeys_update_request.md)
  - [Api_Internal_ApiKey_Common_QuotaLedger_day](./Models/Api_Internal_ApiKey_Common_QuotaLedger_day.md)
  - [Api_Internal_ApiKey_Common_QuotaLedger_total](./Models/Api_Internal_ApiKey_Common_QuotaLedger_total.md)
- - [Api_Internal_ApiKey_Common_QuotaLedger_year](./Models/Api_Internal_ApiKey_Common_QuotaLedger_year.md)
 
 
 <a name="documentation-for-authorization"></a>
