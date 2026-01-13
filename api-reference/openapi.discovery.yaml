@@ -6340,8 +6340,6 @@ components:
       enum:
         - https://www.statista.com/api/v2/industries_de.json
         - https://www.statista.com/api/v2/industries_en.json
-        - https://www.statista.com/api/v2/industries_es.json
-        - https://www.statista.com/api/v2/industries_fr.json
     Api.Response.Base:
       type: object
       required:
