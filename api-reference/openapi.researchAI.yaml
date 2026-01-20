@@ -1,0 +1,217 @@
+openapi: 3.0.0
+info:
+  title: The Statista Research-AI API
+  contact:
+    name: API Support
+    email: api@statista.com
+  version: 2.8.0
+  description: The Statista Research-AI API
+tags: []
+paths:
+  /v1/research-ai/answer:
+    get:
+      operationId: answer
+      parameters:
+        - name: research_token
+          in: query
+          required: true
+          description: |-
+            The research token to identify the question.
+            This token is returned by the `ask` endpoint.
+          schema:
+            $ref: '#/components/schemas/Api.Research.ResearchToken'
+          explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Api.Research.Response.Answer'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+  /v1/research-ai/ask:
+    post:
+      operationId: ask
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Api.Research.Request.Ask'
+security:
+  - ApiKeyAuth: []
+components:
+  schemas:
+    Api.Research.Request.Ask:
+      type: object
+      required:
+        - question
+      properties:
+        question:
+          type: string
+          description: The research question that needs to be processed.
+    Api.Research.ResearchToken:
+      type: string
+    Api.Research.Response.Answer:
+      type: object
+      required:
+        - researchToken
+        - state
+      properties:
+        researchToken:
+          $ref: '#/components/schemas/Api.Research.ResearchToken'
+        state:
+          $ref: '#/components/schemas/Api.Research.Response.State'
+        response:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Api.Research.Response.Response'
+          nullable: true
+    Api.Research.Response.KeyFacts:
+      type: object
+      required:
+        - title
+        - type
+        - unit
+        - value
+      properties:
+        title:
+          type: string
+        type:
+          type: string
+        unit:
+          type: string
+        value:
+          type: string
+    Api.Research.Response.Locale:
+      type: string
+      enum:
+        - german
+        - english
+        - french
+        - spanish
+    Api.Research.Response.Response:
+      type: object
+      required:
+        - answer
+        - keyFacts
+        - sources
+      properties:
+        answer:
+          type: string
+        keyFacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Research.Response.KeyFacts'
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Research.Response.Source'
+    Api.Research.Response.Source:
+      type: object
+      required:
+        - contentId
+        - contentType
+        - displayTypeId
+        - isCharged
+        - locale
+        - releasedAt
+        - source
+        - text
+        - title
+        - updatedAt
+        - url
+      properties:
+        contentId:
+          type: string
+        contentType:
+          type: string
+        displayTypeId:
+          type: integer
+          format: uint32
+        graphicName:
+          type: string
+        isCharged:
+          type: boolean
+        locale:
+          $ref: '#/components/schemas/Api.Research.Response.Locale'
+        parentId:
+          type: string
+        releasedAt:
+          type: string
+          format: date-time
+        source:
+          type: string
+        statisticType:
+          type: integer
+          format: uint16
+        surveyPeriod:
+          type: string
+        text:
+          type: string
+        title:
+          type: string
+        titleShort:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        url:
+          type: string
+          format: uri
+    Api.Research.Response.State:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/Api.Research.Response.Status'
+    Api.Research.Response.Status:
+      type: string
+      enum:
+        - requested
+        - done
+        - content_retrieved
+        - initialized
+        - moderated
+        - content_compressed
+        - answer_generated
+        - title_generated
+        - answer_rated
+        - key_facts_generated
+    QuestionResponse:
+      type: object
+      required:
+        - researchToken
+      properties:
+        researchToken:
+          $ref: '#/components/schemas/Api.Research.ResearchToken'
+      description: The request has succeeded.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+servers:
+  - url: https://api.statista.ai/
+    description: Single Server endpoint
+    variables: {}
