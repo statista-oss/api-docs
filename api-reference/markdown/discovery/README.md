@@ -7,11 +7,11 @@ All URIs are relative to *https://api.statista.ai*
 
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
-| *DefaultApi* | [**infographicsList**](Apis/DefaultApi.md#infographicsList) | **GET** /v1/infographics |  |
-*DefaultApi* | [**marketInsightsList**](Apis/DefaultApi.md#marketInsightsList) | **GET** /v1/marketInsights |  |
-*DefaultApi* | [**statisticsList**](Apis/DefaultApi.md#statisticsList) | **GET** /v1/statistics |  |
-*DefaultApi* | [**statisticsResearchAiSearchList**](Apis/DefaultApi.md#statisticsResearchAiSearchList) | **GET** /v1/search/statistics |  |
-*DefaultApi* | [**studiesList**](Apis/DefaultApi.md#studiesList) | **GET** /v1/studies |  |
+| *DefaultApi* | [**infographicsFindInfographics**](Apis/DefaultApi.md#infographicsFindInfographics) | **GET** /v1/infographics |  |
+*DefaultApi* | [**marketInsightsFindMarketInsights**](Apis/DefaultApi.md#marketInsightsFindMarketInsights) | **GET** /v1/marketInsights |  |
+*DefaultApi* | [**statisticsFindStatistics**](Apis/DefaultApi.md#statisticsFindStatistics) | **GET** /v1/statistics |  |
+*DefaultApi* | [**statisticsResearchAiSearchSearchStatistics**](Apis/DefaultApi.md#statisticsResearchAiSearchSearchStatistics) | **GET** /v1/search/statistics |  |
+*DefaultApi* | [**studiesFindStudies**](Apis/DefaultApi.md#studiesFindStudies) | **GET** /v1/studies |  |
 
 
 <a name="documentation-for-models"></a>
@@ -27,12 +27,12 @@ All URIs are relative to *https://api.statista.ai*
  - [Api.Response.Statistic](./Models/Api.Response.Statistic.md)
  - [Api.Response.Study](./Models/Api.Response.Study.md)
  - [Api.Response.TeaserImage](./Models/Api.Response.TeaserImage.md)
- - [Infographics_list_200_response](./Models/Infographics_list_200_response.md)
- - [Infographics_list_geolocation_parameter](./Models/Infographics_list_geolocation_parameter.md)
+ - [Infographics_findInfographics_200_response](./Models/Infographics_findInfographics_200_response.md)
+ - [Infographics_findInfographics_geolocation_parameter](./Models/Infographics_findInfographics_geolocation_parameter.md)
  - [Insights.Market](./Models/Insights.Market.md)
- - [MarketInsights_list_200_response](./Models/MarketInsights_list_200_response.md)
- - [StatisticsResearchAiSearch_list_200_response](./Models/StatisticsResearchAiSearch_list_200_response.md)
- - [Studies_list_200_response](./Models/Studies_list_200_response.md)
+ - [MarketInsights_findMarketInsights_200_response](./Models/MarketInsights_findMarketInsights_200_response.md)
+ - [StatisticsResearchAiSearch_searchStatistics_200_response](./Models/StatisticsResearchAiSearch_searchStatistics_200_response.md)
+ - [Studies_findStudies_200_response](./Models/Studies_findStudies_200_response.md)
  - [Type.LanguageLocale](./Models/Type.LanguageLocale.md)
  - [Type.SortBy](./Models/Type.SortBy.md)
 

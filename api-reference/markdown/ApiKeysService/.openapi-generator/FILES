@@ -11,9 +11,9 @@ Models/Api.Internal.ApiKey.Response.ApiKey.md
 Models/Api.Internal.KeyScopes.Common.Endpoint.md
 Models/Api.Internal.KeyScopes.Request.WriteScopes.md
 Models/Api.Internal.KeyScopes.Response.Scopes.md
-Models/ApiKeys_create_201_response.md
-Models/ApiKeys_create_request.md
-Models/ApiKeys_update_request.md
+Models/ApiKeys_createNewApiKey_201_response.md
+Models/ApiKeys_createNewApiKey_request.md
+Models/ApiKeys_updateApiKey_request.md
 Models/Api_Internal_ApiKey_Common_QuotaLedger_day.md
 Models/Api_Internal_ApiKey_Common_QuotaLedger_total.md
 README.md

@@ -7,9 +7,9 @@ All URIs are relative to *https://api.statista.ai*
 
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
-| *DefaultApi* | [**statisticReport**](Apis/DefaultApi.md#statisticReport) | **GET** /v1/data/report | Returns the Report file as binary data |
-*DefaultApi* | [**statisticReports**](Apis/DefaultApi.md#statisticReports) | **GET** /v1/data/reports |  |
-*DefaultApi* | [**statisticStatistic**](Apis/DefaultApi.md#statisticStatistic) | **GET** /v1/data/statistic |  |
+| *DefaultApi* | [**report**](Apis/DefaultApi.md#report) | **GET** /v1/data/report | Returns the Report file as binary data |
+*DefaultApi* | [**reports**](Apis/DefaultApi.md#reports) | **GET** /v1/data/reports |  |
+*DefaultApi* | [**statistic**](Apis/DefaultApi.md#statistic) | **GET** /v1/data/statistic |  |
 
 
 <a name="documentation-for-models"></a>

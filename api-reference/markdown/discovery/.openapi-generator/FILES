@@ -10,12 +10,12 @@ Models/Api.Response.Region.md
 Models/Api.Response.Statistic.md
 Models/Api.Response.Study.md
 Models/Api.Response.TeaserImage.md
-Models/Infographics_list_200_response.md
-Models/Infographics_list_geolocation_parameter.md
+Models/Infographics_findInfographics_200_response.md
+Models/Infographics_findInfographics_geolocation_parameter.md
 Models/Insights.Market.md
-Models/MarketInsights_list_200_response.md
-Models/StatisticsResearchAiSearch_list_200_response.md
-Models/Studies_list_200_response.md
+Models/MarketInsights_findMarketInsights_200_response.md
+Models/StatisticsResearchAiSearch_searchStatistics_200_response.md
+Models/Studies_findStudies_200_response.md
 Models/Type.LanguageLocale.md
 Models/Type.SortBy.md
 README.md

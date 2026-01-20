@@ -4,20 +4,20 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**apiKeysAssignToMainKey**](DefaultApi.md#apiKeysAssignToMainKey) | **POST** /v1/management/api-keys/{id}/assign-to-main-key |  |
-| [**apiKeysCreate**](DefaultApi.md#apiKeysCreate) | **POST** /v1/management/api-keys/create |  |
-| [**apiKeysGet**](DefaultApi.md#apiKeysGet) | **GET** /v1/management/api-keys/{id} |  |
-| [**apiKeysList**](DefaultApi.md#apiKeysList) | **GET** /v1/management/api-keys |  |
-| [**apiKeysUpdate**](DefaultApi.md#apiKeysUpdate) | **PUT** /v1/management/api-keys/update |  |
-| [**scopesCreate**](DefaultApi.md#scopesCreate) | **POST** /v1/management/scopes/create |  |
-| [**scopesGet**](DefaultApi.md#scopesGet) | **GET** /v1/management/scopes/{id} |  |
-| [**scopesList**](DefaultApi.md#scopesList) | **GET** /v1/management/scopes |  |
-| [**scopesUpdate**](DefaultApi.md#scopesUpdate) | **PUT** /v1/management/scopes/update |  |
+| [**apiKeysAssignApiKeysToMainKey**](DefaultApi.md#apiKeysAssignApiKeysToMainKey) | **POST** /v1/management/api-keys/{id}/assign-to-main-key |  |
+| [**apiKeysCreateNewApiKey**](DefaultApi.md#apiKeysCreateNewApiKey) | **POST** /v1/management/api-keys/create |  |
+| [**apiKeysGetApiKeysById**](DefaultApi.md#apiKeysGetApiKeysById) | **GET** /v1/management/api-keys/{id} |  |
+| [**apiKeysListApiKeys**](DefaultApi.md#apiKeysListApiKeys) | **GET** /v1/management/api-keys |  |
+| [**apiKeysUpdateApiKey**](DefaultApi.md#apiKeysUpdateApiKey) | **PUT** /v1/management/api-keys/update |  |
+| [**scopesCreateNewScope**](DefaultApi.md#scopesCreateNewScope) | **POST** /v1/management/scopes/create |  |
+| [**scopesGetScopeById**](DefaultApi.md#scopesGetScopeById) | **GET** /v1/management/scopes/{id} |  |
+| [**scopesListScopes**](DefaultApi.md#scopesListScopes) | **GET** /v1/management/scopes |  |
+| [**scopesUpdateScope**](DefaultApi.md#scopesUpdateScope) | **PUT** /v1/management/scopes/update |  |
 
 
-<a name="apiKeysAssignToMainKey"></a>
-# **apiKeysAssignToMainKey**
-> String apiKeysAssignToMainKey(id, Api.Internal.ApiKey.Request.AssignToMainKey)
+<a name="apiKeysAssignApiKeysToMainKey"></a>
+# **apiKeysAssignApiKeysToMainKey**
+> String apiKeysAssignApiKeysToMainKey(id, Api.Internal.ApiKey.Request.AssignToMainKey)
 
 
 
@@ -41,9 +41,9 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 - **Content-Type**: application/json
 - **Accept**: text/plain
 
-<a name="apiKeysCreate"></a>
-# **apiKeysCreate**
-> ApiKeys_create_201_response apiKeysCreate(ApiKeys\_create\_request)
+<a name="apiKeysCreateNewApiKey"></a>
+# **apiKeysCreateNewApiKey**
+> ApiKeys_createNewApiKey_201_response apiKeysCreateNewApiKey(ApiKeys\_createNewApiKey\_request)
 
 
 
@@ -51,11 +51,11 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **ApiKeys\_create\_request** | [**ApiKeys_create_request**](../Models/ApiKeys_create_request.md)|  | |
+| **ApiKeys\_createNewApiKey\_request** | [**ApiKeys_createNewApiKey_request**](../Models/ApiKeys_createNewApiKey_request.md)|  | |
 
 ### Return type
 
-[**ApiKeys_create_201_response**](../Models/ApiKeys_create_201_response.md)
+[**ApiKeys_createNewApiKey_201_response**](../Models/ApiKeys_createNewApiKey_201_response.md)
 
 ### Authorization
 
@@ -66,9 +66,9 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-<a name="apiKeysGet"></a>
-# **apiKeysGet**
-> Api.Internal.ApiKey.Response.ApiKey apiKeysGet(id)
+<a name="apiKeysGetApiKeysById"></a>
+# **apiKeysGetApiKeysById**
+> Api.Internal.ApiKey.Response.ApiKey apiKeysGetApiKeysById(id)
 
 
 
@@ -91,9 +91,9 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="apiKeysList"></a>
-# **apiKeysList**
-> List apiKeysList(main\_id)
+<a name="apiKeysListApiKeys"></a>
+# **apiKeysListApiKeys**
+> List apiKeysListApiKeys(main\_id)
 
 
 
@@ -116,9 +116,9 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="apiKeysUpdate"></a>
-# **apiKeysUpdate**
-> String apiKeysUpdate(ApiKeys\_update\_request)
+<a name="apiKeysUpdateApiKey"></a>
+# **apiKeysUpdateApiKey**
+> String apiKeysUpdateApiKey(ApiKeys\_updateApiKey\_request)
 
 
 
@@ -126,7 +126,7 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **ApiKeys\_update\_request** | [**ApiKeys_update_request**](../Models/ApiKeys_update_request.md)|  | |
+| **ApiKeys\_updateApiKey\_request** | [**ApiKeys_updateApiKey_request**](../Models/ApiKeys_updateApiKey_request.md)|  | |
 
 ### Return type
 
@@ -141,9 +141,9 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 - **Content-Type**: application/json
 - **Accept**: text/plain
 
-<a name="scopesCreate"></a>
-# **scopesCreate**
-> String scopesCreate(Api.Internal.KeyScopes.Request.WriteScopes)
+<a name="scopesCreateNewScope"></a>
+# **scopesCreateNewScope**
+> String scopesCreateNewScope(Api.Internal.KeyScopes.Request.WriteScopes)
 
 
 
@@ -166,9 +166,9 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 - **Content-Type**: application/json
 - **Accept**: text/plain
 
-<a name="scopesGet"></a>
-# **scopesGet**
-> Api.Internal.KeyScopes.Response.Scopes scopesGet(id)
+<a name="scopesGetScopeById"></a>
+# **scopesGetScopeById**
+> Api.Internal.KeyScopes.Response.Scopes scopesGetScopeById(id)
 
 
 
@@ -191,9 +191,9 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="scopesList"></a>
-# **scopesList**
-> List scopesList()
+<a name="scopesListScopes"></a>
+# **scopesListScopes**
+> List scopesListScopes()
 
 
 
@@ -213,9 +213,9 @@ This endpoint does not need any parameter.
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="scopesUpdate"></a>
-# **scopesUpdate**
-> String scopesUpdate(Api.Internal.KeyScopes.Request.WriteScopes)
+<a name="scopesUpdateScope"></a>
+# **scopesUpdateScope**
+> String scopesUpdateScope(Api.Internal.KeyScopes.Request.WriteScopes)
 
 
 

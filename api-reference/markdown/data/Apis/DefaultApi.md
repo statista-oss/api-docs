@@ -4,14 +4,14 @@ All URIs are relative to *https://api.statista.ai*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**statisticReport**](DefaultApi.md#statisticReport) | **GET** /v1/data/report |  |
-| [**statisticReports**](DefaultApi.md#statisticReports) | **GET** /v1/data/reports |  |
-| [**statisticStatistic**](DefaultApi.md#statisticStatistic) | **GET** /v1/data/statistic |  |
+| [**report**](DefaultApi.md#report) | **GET** /v1/data/report |  |
+| [**reports**](DefaultApi.md#reports) | **GET** /v1/data/reports |  |
+| [**statistic**](DefaultApi.md#statistic) | **GET** /v1/data/statistic |  |
 
 
-<a name="statisticReport"></a>
-# **statisticReport**
-> statisticReport(t)
+<a name="report"></a>
+# **report**
+> report(t)
 
 
 
@@ -36,9 +36,9 @@ null (empty response body)
 - **Content-Type**: Not defined
 - **Accept**: Not defined
 
-<a name="statisticReports"></a>
-# **statisticReports**
-> ReportsResponse statisticReports(id)
+<a name="reports"></a>
+# **reports**
+> ReportsResponse reports(id)
 
 
 
@@ -61,9 +61,9 @@ null (empty response body)
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="statisticStatistic"></a>
-# **statisticStatistic**
-> Api.Data.Response.Statistic statisticStatistic(id, format)
+<a name="statistic"></a>
+# **statistic**
+> Api.Data.Response.Statistic statistic(id, format)
 
 
 

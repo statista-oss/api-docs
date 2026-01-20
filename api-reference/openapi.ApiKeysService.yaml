@@ -7,7 +7,7 @@ tags: []
 paths:
   /v1/management/api-keys:
     get:
-      operationId: ApiKeys_list
+      operationId: ApiKeys_listApiKeys
       parameters:
         - name: main_id
           in: query
@@ -34,7 +34,7 @@ paths:
           description: Access is forbidden.
   /v1/management/api-keys/create:
     post:
-      operationId: ApiKeys_create
+      operationId: ApiKeys_createNewApiKey
       parameters: []
       responses:
         '201':
@@ -68,7 +68,7 @@ paths:
                   $ref: '#/components/schemas/Api.Internal.ApiKey.Request.CreateApiKey'
   /v1/management/api-keys/update:
     put:
-      operationId: ApiKeys_update
+      operationId: ApiKeys_updateApiKey
       parameters: []
       responses:
         '200':
@@ -96,7 +96,7 @@ paths:
                   $ref: '#/components/schemas/Api.Internal.ApiKey.Request.UpdateApiKey'
   /v1/management/api-keys/{id}:
     get:
-      operationId: ApiKeys_get
+      operationId: ApiKeys_getApiKeysById
       parameters:
         - name: id
           in: path
@@ -120,7 +120,7 @@ paths:
           description: The server cannot find the requested resource.
   /v1/management/api-keys/{id}/assign-to-main-key:
     post:
-      operationId: ApiKeys_assignToMainKey
+      operationId: ApiKeys_assignApiKeysToMainKey
       parameters:
         - name: id
           in: path
@@ -152,7 +152,7 @@ paths:
               $ref: '#/components/schemas/Api.Internal.ApiKey.Request.AssignToMainKey'
   /v1/management/scopes:
     get:
-      operationId: Scopes_list
+      operationId: Scopes_listScopes
       parameters: []
       responses:
         '200':
@@ -171,7 +171,7 @@ paths:
           description: Access is forbidden.
   /v1/management/scopes/create:
     post:
-      operationId: Scopes_create
+      operationId: Scopes_createNewScope
       parameters: []
       responses:
         '201':
@@ -194,7 +194,7 @@ paths:
               $ref: '#/components/schemas/Api.Internal.KeyScopes.Request.WriteScopes'
   /v1/management/scopes/update:
     put:
-      operationId: Scopes_update
+      operationId: Scopes_updateScope
       parameters: []
       responses:
         '200':
@@ -217,7 +217,7 @@ paths:
               $ref: '#/components/schemas/Api.Internal.KeyScopes.Request.WriteScopes'
   /v1/management/scopes/{id}:
     get:
-      operationId: Scopes_get
+      operationId: Scopes_getScopeById
       parameters:
         - name: id
           in: path

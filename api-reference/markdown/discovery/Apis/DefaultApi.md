@@ -4,16 +4,16 @@ All URIs are relative to *https://api.statista.ai*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**infographicsList**](DefaultApi.md#infographicsList) | **GET** /v1/infographics |  |
-| [**marketInsightsList**](DefaultApi.md#marketInsightsList) | **GET** /v1/marketInsights |  |
-| [**statisticsList**](DefaultApi.md#statisticsList) | **GET** /v1/statistics |  |
-| [**statisticsResearchAiSearchList**](DefaultApi.md#statisticsResearchAiSearchList) | **GET** /v1/search/statistics |  |
-| [**studiesList**](DefaultApi.md#studiesList) | **GET** /v1/studies |  |
+| [**infographicsFindInfographics**](DefaultApi.md#infographicsFindInfographics) | **GET** /v1/infographics |  |
+| [**marketInsightsFindMarketInsights**](DefaultApi.md#marketInsightsFindMarketInsights) | **GET** /v1/marketInsights |  |
+| [**statisticsFindStatistics**](DefaultApi.md#statisticsFindStatistics) | **GET** /v1/statistics |  |
+| [**statisticsResearchAiSearchSearchStatistics**](DefaultApi.md#statisticsResearchAiSearchSearchStatistics) | **GET** /v1/search/statistics |  |
+| [**studiesFindStudies**](DefaultApi.md#studiesFindStudies) | **GET** /v1/studies |  |
 
 
-<a name="infographicsList"></a>
-# **infographicsList**
-> Infographics_list_200_response infographicsList(q, platform, offset, size, page, date\_from, date\_to, industry, geolocation, sort)
+<a name="infographicsFindInfographics"></a>
+# **infographicsFindInfographics**
+> Infographics_findInfographics_200_response infographicsFindInfographics(q, platform, offset, size, page, date\_from, date\_to, industry, geolocation, sort)
 
 
 
@@ -29,12 +29,12 @@ All URIs are relative to *https://api.statista.ai*
 | **date\_from** | **Date**| The start date to search for content. All content published after this date will be returned. We accept a variety of date formats, e.g. &#x60;YYYY-MM-DD&#x60;. For example, &#x60;2023-01-01&#x60; will return all content published after or on the January 1st, 2023. If not set, we will use 3 months into the past as the default value. | [optional] [default to null] |
 | **date\_to** | **Date**| The end date to search for content. All content published before this date will be returned. We accept a variety of date formats, e.g. &#x60;YYYY-MM-DD&#x60;. For example, &#x60;2023-01-01&#x60; will return all content published before or on the January 1st, 2023. If not set, the current date is used. | [optional] [default to null] |
 | **industry** | [**Api.Request.Industry**](../Models/.md)| It helps to find content related to a specific industry. The value is a number that can be found in the URL. | [optional] [default to null] [enum: https://www.statista.com/api/v2/industries_de.json, https://www.statista.com/api/v2/industries_en.json] |
-| **geolocation** | [**Infographics_list_geolocation_parameter**](../Models/.md)| Filters content based on a specific geographic location. Defaults to &#x60;Worldwide&#x60; which means all content. Use geolocation codes provided by the API documentation. For example, &#x60;1&#x60; for Worldwide, &#x60;2&#x60; for Africa, etc. Note: only one geolocation can be used at a time. | [optional] [default to null] |
+| **geolocation** | [**Infographics_findInfographics_geolocation_parameter**](../Models/.md)| Filters content based on a specific geographic location. Defaults to &#x60;Worldwide&#x60; which means all content. Use geolocation codes provided by the API documentation. For example, &#x60;1&#x60; for Worldwide, &#x60;2&#x60; for Africa, etc. Note: only one geolocation can be used at a time. | [optional] [default to null] |
 | **sort** | [**Type.SortBy**](../Models/.md)| Choose how you want the results to be ordered: 0 – Best match first (sorted by relevance) 1 – Most recent first (sorted by publication date) Defaults to &#x60;0&#x60;. | [optional] [default to null] [enum: 0, 1] |
 
 ### Return type
 
-[**Infographics_list_200_response**](../Models/Infographics_list_200_response.md)
+[**Infographics_findInfographics_200_response**](../Models/Infographics_findInfographics_200_response.md)
 
 ### Authorization
 
@@ -45,9 +45,9 @@ All URIs are relative to *https://api.statista.ai*
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="marketInsightsList"></a>
-# **marketInsightsList**
-> MarketInsights_list_200_response marketInsightsList(q, platform, offset, size, page, date\_from, date\_to, geolocation, sort)
+<a name="marketInsightsFindMarketInsights"></a>
+# **marketInsightsFindMarketInsights**
+> MarketInsights_findMarketInsights_200_response marketInsightsFindMarketInsights(q, platform, offset, size, page, date\_from, date\_to, geolocation, sort)
 
 
 
@@ -62,12 +62,12 @@ All URIs are relative to *https://api.statista.ai*
 | **page** | **Integer**| The page number to return. The default value for &#x60;page&#x60; is 1. This is useful for pagination. Could be used in combination with &#x60;size&#x60;. | [optional] [default to 1] |
 | **date\_from** | **Date**| The start date to search for content. All content published after this date will be returned. We accept a variety of date formats, e.g. &#x60;YYYY-MM-DD&#x60;. For example, &#x60;2023-01-01&#x60; will return all content published after or on the January 1st, 2023. If not set, we will use 3 months into the past as the default value. | [optional] [default to null] |
 | **date\_to** | **Date**| The end date to search for content. All content published before this date will be returned. We accept a variety of date formats, e.g. &#x60;YYYY-MM-DD&#x60;. For example, &#x60;2023-01-01&#x60; will return all content published before or on the January 1st, 2023. If not set, the current date is used. | [optional] [default to null] |
-| **geolocation** | [**Infographics_list_geolocation_parameter**](../Models/.md)| Filters content based on a specific geographic location. Defaults to &#x60;Worldwide&#x60; which means all content. Use geolocation codes provided by the API documentation. For example, &#x60;1&#x60; for Worldwide, &#x60;2&#x60; for Africa, etc. Note: only one geolocation can be used at a time. | [optional] [default to null] |
+| **geolocation** | [**Infographics_findInfographics_geolocation_parameter**](../Models/.md)| Filters content based on a specific geographic location. Defaults to &#x60;Worldwide&#x60; which means all content. Use geolocation codes provided by the API documentation. For example, &#x60;1&#x60; for Worldwide, &#x60;2&#x60; for Africa, etc. Note: only one geolocation can be used at a time. | [optional] [default to null] |
 | **sort** | [**Type.SortBy**](../Models/.md)| Choose how you want the results to be ordered: 0 – Best match first (sorted by relevance) 1 – Most recent first (sorted by publication date) Defaults to &#x60;0&#x60;. | [optional] [default to null] [enum: 0, 1] |
 
 ### Return type
 
-[**MarketInsights_list_200_response**](../Models/MarketInsights_list_200_response.md)
+[**MarketInsights_findMarketInsights_200_response**](../Models/MarketInsights_findMarketInsights_200_response.md)
 
 ### Authorization
 
@@ -78,9 +78,9 @@ All URIs are relative to *https://api.statista.ai*
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="statisticsList"></a>
-# **statisticsList**
-> StatisticsResearchAiSearch_list_200_response statisticsList(q, platform, offset, size, page, date\_from, date\_to, premium, sort)
+<a name="statisticsFindStatistics"></a>
+# **statisticsFindStatistics**
+> StatisticsResearchAiSearch_searchStatistics_200_response statisticsFindStatistics(q, platform, offset, size, page, date\_from, date\_to, premium, sort)
 
 
 
@@ -100,7 +100,7 @@ All URIs are relative to *https://api.statista.ai*
 
 ### Return type
 
-[**StatisticsResearchAiSearch_list_200_response**](../Models/StatisticsResearchAiSearch_list_200_response.md)
+[**StatisticsResearchAiSearch_searchStatistics_200_response**](../Models/StatisticsResearchAiSearch_searchStatistics_200_response.md)
 
 ### Authorization
 
@@ -111,9 +111,9 @@ All URIs are relative to *https://api.statista.ai*
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="statisticsResearchAiSearchList"></a>
-# **statisticsResearchAiSearchList**
-> StatisticsResearchAiSearch_list_200_response statisticsResearchAiSearchList(q, offset, size, date\_from, date\_to, geolocation, premium)
+<a name="statisticsResearchAiSearchSearchStatistics"></a>
+# **statisticsResearchAiSearchSearchStatistics**
+> StatisticsResearchAiSearch_searchStatistics_200_response statisticsResearchAiSearchSearchStatistics(q, offset, size, date\_from, date\_to, geolocation, premium)
 
 
 
@@ -126,12 +126,12 @@ All URIs are relative to *https://api.statista.ai*
 | **size** | **Integer**| The max. value depends on which API Package you are using. The default value for &#x60;size&#x60; is 10. See API-Packages for more information.  An alias for &#x60;size&#x60; is &#x60;limit&#x60; | [optional] [default to 10] |
 | **date\_from** | **Date**| The start date to search for content. | [optional] [default to null] |
 | **date\_to** | **Date**| The end date to search for content. If not set, the current date is used. | [optional] [default to null] |
-| **geolocation** | [**Infographics_list_geolocation_parameter**](../Models/.md)| Filters content based on a specific geographic location. Defaults to &#x60;Worldwide&#x60; which means all content. Use geolocation codes provided by the API documentation. For example, &#x60;1&#x60; for Worldwide, &#x60;2&#x60; for Africa, etc. Note: only one geolocation can be used at a time. | [optional] [default to null] |
+| **geolocation** | [**Infographics_findInfographics_geolocation_parameter**](../Models/.md)| Filters content based on a specific geographic location. Defaults to &#x60;Worldwide&#x60; which means all content. Use geolocation codes provided by the API documentation. For example, &#x60;1&#x60; for Worldwide, &#x60;2&#x60; for Africa, etc. Note: only one geolocation can be used at a time. | [optional] [default to null] |
 | **premium** | **Boolean**| Filters content based on its premium status. If set to &#x60;true&#x60;, only premium content is returned. If set to &#x60;false&#x60;, only free content is returned. If not set, both free and premium content is returned. | [optional] [default to null] |
 
 ### Return type
 
-[**StatisticsResearchAiSearch_list_200_response**](../Models/StatisticsResearchAiSearch_list_200_response.md)
+[**StatisticsResearchAiSearch_searchStatistics_200_response**](../Models/StatisticsResearchAiSearch_searchStatistics_200_response.md)
 
 ### Authorization
 
@@ -142,9 +142,9 @@ All URIs are relative to *https://api.statista.ai*
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-<a name="studiesList"></a>
-# **studiesList**
-> Studies_list_200_response studiesList(q, platform, offset, size, page, date\_from, date\_to, industry, geolocation, premium, sort)
+<a name="studiesFindStudies"></a>
+# **studiesFindStudies**
+> Studies_findStudies_200_response studiesFindStudies(q, platform, offset, size, page, date\_from, date\_to, industry, geolocation, premium, sort)
 
 
 
@@ -160,13 +160,13 @@ All URIs are relative to *https://api.statista.ai*
 | **date\_from** | **Date**| The start date to search for content. All content published after this date will be returned. We accept a variety of date formats, e.g. &#x60;YYYY-MM-DD&#x60;. For example, &#x60;2023-01-01&#x60; will return all content published after or on the January 1st, 2023. If not set, we will use 3 months into the past as the default value. | [optional] [default to null] |
 | **date\_to** | **Date**| The end date to search for content. All content published before this date will be returned. We accept a variety of date formats, e.g. &#x60;YYYY-MM-DD&#x60;. For example, &#x60;2023-01-01&#x60; will return all content published before or on the January 1st, 2023. If not set, the current date is used. | [optional] [default to null] |
 | **industry** | [**Api.Request.Industry**](../Models/.md)| It helps to find content related to a specific industry. The value is a number that can be found in the URL. | [optional] [default to null] [enum: https://www.statista.com/api/v2/industries_de.json, https://www.statista.com/api/v2/industries_en.json] |
-| **geolocation** | [**Infographics_list_geolocation_parameter**](../Models/.md)| Filters content based on a specific geographic location. Defaults to &#x60;Worldwide&#x60; which means all content. Use geolocation codes provided by the API documentation. For example, &#x60;1&#x60; for Worldwide, &#x60;2&#x60; for Africa, etc. Note: only one geolocation can be used at a time. | [optional] [default to null] |
+| **geolocation** | [**Infographics_findInfographics_geolocation_parameter**](../Models/.md)| Filters content based on a specific geographic location. Defaults to &#x60;Worldwide&#x60; which means all content. Use geolocation codes provided by the API documentation. For example, &#x60;1&#x60; for Worldwide, &#x60;2&#x60; for Africa, etc. Note: only one geolocation can be used at a time. | [optional] [default to null] |
 | **premium** | **Boolean**| Filters content based on its premium status. If set to &#x60;true&#x60;, only premium content is returned. If set to &#x60;false&#x60;, only free content is returned. If not set, both free and premium content is returned. | [optional] [default to null] |
 | **sort** | [**Type.SortBy**](../Models/.md)| Choose how you want the results to be ordered: 0 – Best match first (sorted by relevance) 1 – Most recent first (sorted by publication date) Defaults to &#x60;0&#x60;. | [optional] [default to null] [enum: 0, 1] |
 
 ### Return type
 
-[**Studies_list_200_response**](../Models/Studies_list_200_response.md)
+[**Studies_findStudies_200_response**](../Models/Studies_findStudies_200_response.md)
 
 ### Authorization
 

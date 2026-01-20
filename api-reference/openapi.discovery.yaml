@@ -10,7 +10,7 @@ tags: []
 paths:
   /v1/infographics:
     get:
-      operationId: Infographics_list
+      operationId: Infographics_findInfographics
       parameters:
         - name: q
           in: query
@@ -1557,7 +1557,7 @@ paths:
           description: Access is forbidden.
   /v1/marketInsights:
     get:
-      operationId: MarketInsights_list
+      operationId: MarketInsights_findMarketInsights
       parameters:
         - name: q
           in: query
@@ -3095,7 +3095,7 @@ paths:
           description: Access is forbidden.
   /v1/search/statistics:
     get:
-      operationId: StatisticsResearchAiSearch_list
+      operationId: StatisticsResearchAiSearch_searchStatistics
       parameters:
         - name: q
           in: query
@@ -4602,7 +4602,7 @@ paths:
           description: Access is forbidden.
   /v1/statistics:
     get:
-      operationId: Statistics_list
+      operationId: Statistics_findStatistics
       parameters:
         - name: q
           in: query
@@ -4749,7 +4749,7 @@ paths:
           description: Access is forbidden.
   /v1/studies:
     get:
-      operationId: Studies_list
+      operationId: Studies_findStudies
       parameters:
         - name: q
           in: query

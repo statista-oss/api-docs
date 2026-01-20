@@ -10,7 +10,7 @@ tags: []
 paths:
   /v1/data/report:
     get:
-      operationId: Statistic_report
+      operationId: report
       description: Returns the Report file as binary data
       parameters:
         - name: t
@@ -26,7 +26,7 @@ paths:
           description: The server could not understand the request due to invalid syntax.
   /v1/data/reports:
     get:
-      operationId: Statistic_reports
+      operationId: reports
       parameters:
         - name: id
           in: query
@@ -52,7 +52,7 @@ paths:
           description: The server cannot find the requested resource.
   /v1/data/statistic:
     get:
-      operationId: Statistic_statistic
+      operationId: statistic
       parameters:
         - name: id
           in: query

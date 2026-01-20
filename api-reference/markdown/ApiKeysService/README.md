@@ -7,15 +7,15 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
 
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
-| *DefaultApi* | [**apiKeysAssignToMainKey**](Apis/DefaultApi.md#apiKeysAssignToMainKey) | **POST** /v1/management/api-keys/{id}/assign-to-main-key |  |
-*DefaultApi* | [**apiKeysCreate**](Apis/DefaultApi.md#apiKeysCreate) | **POST** /v1/management/api-keys/create |  |
-*DefaultApi* | [**apiKeysGet**](Apis/DefaultApi.md#apiKeysGet) | **GET** /v1/management/api-keys/{id} |  |
-*DefaultApi* | [**apiKeysList**](Apis/DefaultApi.md#apiKeysList) | **GET** /v1/management/api-keys |  |
-*DefaultApi* | [**apiKeysUpdate**](Apis/DefaultApi.md#apiKeysUpdate) | **PUT** /v1/management/api-keys/update |  |
-*DefaultApi* | [**scopesCreate**](Apis/DefaultApi.md#scopesCreate) | **POST** /v1/management/scopes/create |  |
-*DefaultApi* | [**scopesGet**](Apis/DefaultApi.md#scopesGet) | **GET** /v1/management/scopes/{id} |  |
-*DefaultApi* | [**scopesList**](Apis/DefaultApi.md#scopesList) | **GET** /v1/management/scopes |  |
-*DefaultApi* | [**scopesUpdate**](Apis/DefaultApi.md#scopesUpdate) | **PUT** /v1/management/scopes/update |  |
+| *DefaultApi* | [**apiKeysAssignApiKeysToMainKey**](Apis/DefaultApi.md#apiKeysAssignApiKeysToMainKey) | **POST** /v1/management/api-keys/{id}/assign-to-main-key |  |
+*DefaultApi* | [**apiKeysCreateNewApiKey**](Apis/DefaultApi.md#apiKeysCreateNewApiKey) | **POST** /v1/management/api-keys/create |  |
+*DefaultApi* | [**apiKeysGetApiKeysById**](Apis/DefaultApi.md#apiKeysGetApiKeysById) | **GET** /v1/management/api-keys/{id} |  |
+*DefaultApi* | [**apiKeysListApiKeys**](Apis/DefaultApi.md#apiKeysListApiKeys) | **GET** /v1/management/api-keys |  |
+*DefaultApi* | [**apiKeysUpdateApiKey**](Apis/DefaultApi.md#apiKeysUpdateApiKey) | **PUT** /v1/management/api-keys/update |  |
+*DefaultApi* | [**scopesCreateNewScope**](Apis/DefaultApi.md#scopesCreateNewScope) | **POST** /v1/management/scopes/create |  |
+*DefaultApi* | [**scopesGetScopeById**](Apis/DefaultApi.md#scopesGetScopeById) | **GET** /v1/management/scopes/{id} |  |
+*DefaultApi* | [**scopesListScopes**](Apis/DefaultApi.md#scopesListScopes) | **GET** /v1/management/scopes |  |
+*DefaultApi* | [**scopesUpdateScope**](Apis/DefaultApi.md#scopesUpdateScope) | **PUT** /v1/management/scopes/update |  |
 
 
 <a name="documentation-for-models"></a>
@@ -32,9 +32,9 @@ All URIs are relative to *https://internal.globalsearch.prod.aws.statista.com*
  - [Api.Internal.KeyScopes.Common.Endpoint](./Models/Api.Internal.KeyScopes.Common.Endpoint.md)
  - [Api.Internal.KeyScopes.Request.WriteScopes](./Models/Api.Internal.KeyScopes.Request.WriteScopes.md)
  - [Api.Internal.KeyScopes.Response.Scopes](./Models/Api.Internal.KeyScopes.Response.Scopes.md)
- - [ApiKeys_create_201_response](./Models/ApiKeys_create_201_response.md)
- - [ApiKeys_create_request](./Models/ApiKeys_create_request.md)
- - [ApiKeys_update_request](./Models/ApiKeys_update_request.md)
+ - [ApiKeys_createNewApiKey_201_response](./Models/ApiKeys_createNewApiKey_201_response.md)
+ - [ApiKeys_createNewApiKey_request](./Models/ApiKeys_createNewApiKey_request.md)
+ - [ApiKeys_updateApiKey_request](./Models/ApiKeys_updateApiKey_request.md)
  - [Api_Internal_ApiKey_Common_QuotaLedger_day](./Models/Api_Internal_ApiKey_Common_QuotaLedger_day.md)
  - [Api_Internal_ApiKey_Common_QuotaLedger_total](./Models/Api_Internal_ApiKey_Common_QuotaLedger_total.md)
 

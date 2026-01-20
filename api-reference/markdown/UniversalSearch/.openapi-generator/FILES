@@ -1,0 +1,12 @@
+.openapi-generator-ignore
+Apis/DefaultApi.md
+Models/Api.Response.ERI.md
+Models/Api.Response.Industry.md
+Models/Api.Response.Region.md
+Models/Api.Response.Statistic.md
+Models/Api.Response.Study.md
+Models/Api.Response.TeaserImage.md
+Models/Type.LanguageLocale.md
+Models/Type.SortBy.md
+Models/search_200_response.md
+README.md
