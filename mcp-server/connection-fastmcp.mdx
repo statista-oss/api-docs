@@ -39,7 +39,7 @@ async def main():
         
         # Call search-statistics with a natural language query
         statistics = await client.call_tool("search-statistics", 
-                                            {"question": "What's the GDP of Japan?"})
+                                            {"query": "What's the GDP of Japan?"})
         print(json.loads(statistics.content[0].text))
 
         # grab the first statistic id
@@ -47,10 +47,10 @@ async def main():
         
         # fetch chart data for a specific statistic id
         statistic_chart_data = await client.call_tool("get-chart-data-by-id", 
-                                            {"statistic_id": int(grab_statistic_id)})
+                                            {"id": int(grab_statistic_id)})
         
         statistic_id = json.loads(statistic_chart_data.content[0].text)
-        chart_data = json.loads(statistic_chart_data.content[1].text)
+        chart_data = statistic_chart_data.content[1].text
     
 if __name__ == "__main__":
     asyncio.run(main())
