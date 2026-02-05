@@ -15,6 +15,9 @@
       "to": "#307be3"
     }
   },
+  "styling": {
+    "layout": "sidenav"
+  },
   "topbarLinks": [
     {
       "name": "Get a Key",
