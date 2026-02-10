@@ -1,0 +1,141 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Statista API",
+  "colors": {
+    "primary": "#307be3",
+    "light": "#307be3",
+    "dark": "#307be3"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Get Started",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "start/introduction",
+              "start/authentication"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API Reference",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Statistics",
+            "pages": [
+              "api-reference/discovery-advanced/get-search-statistics",
+              "api-reference/data-api/get-statistic"
+            ]
+          },
+          {
+            "group": "Legacy Endpoints",
+            "pages": [
+              "api-reference/discovery-advanced/get-infographics",
+              "api-reference/discovery-advanced/get-studies",
+              "api-reference/discovery-advanced/get-marketInsights",
+              "api-reference/data-api/get-reports",
+              "api-reference/discovery-advanced/get-statistics",
+              "api-reference/research-ai/post-researchAi",
+              "api-reference/research-ai/get-researchAi"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Use Cases",
+        "groups": [
+          {
+            "group": "Use Cases",
+            "pages": [
+              "use-cases/federated-search",
+              "use-cases/fetch-chart-data"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "MCP Server",
+        "groups": [
+          {
+            "group": "MCP",
+            "pages": [
+              "mcp-server/introduction",
+              "mcp-server/connection-openai",
+              "mcp-server/connection-claude",
+              "mcp-server/connection-claude-windows",
+              "mcp-server/connection-perplexity-desktop",
+              "mcp-server/connection-fastmcp",
+              "mcp-server/connect-gemini-api",
+              "mcp-server/connection-openai-deepresearch"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Prompt Library",
+        "groups": [
+          {
+            "group": "Prompt Library",
+            "pages": [
+              "prompt-library/statista-researcher",
+              "prompt-library/enrichment",
+              "prompt-library/pestel",
+              "prompt-library/swot",
+              "prompt-library/hot-take"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Changelogs",
+        "groups": [
+          {
+            "group": "Changelogs",
+            "pages": [
+              "changelogs/updates"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo/statista.svg",
+    "dark": "/logo/statista.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Get a Key",
+        "href": "https://forms.office.com/pages/responsepage.aspx?id=OfiFB67f4U-gaID-j8YfKwI-9bbupjFMnubBsPP0QlRUMjZNOFczSjA4NkdFN0U4ODVORU5GTFIxTyQlQCN0PWcu&route=shorturl"
+      },
+      {
+        "label": "Feedback",
+        "href": "https://forms.office.com/e/DrDM0dWFKU"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Statista.com",
+      "href": "https://www.statista.com/business/connect-api"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/StatistaCharts",
+      "github": "https://github.com/statista-oss",
+      "linkedin": "https://www.linkedin.com/company/statista"
+    }
+  }
+}
