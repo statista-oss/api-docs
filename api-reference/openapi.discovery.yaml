@@ -4576,24 +4576,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                required:
-                  - items
-                  - total_count
-                properties:
-                  items:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Api.Response.Statistic'
-                    description: A list of results returned for the current request.
-                  total_count:
-                    type: integer
-                    format: uint32
-                    description: The total number of available items matching the request.
-                  total_pages:
-                    type: integer
-                    format: uint32
-                    description: The total number of pages available, based on the selected size parameter
+                $ref: '#/components/schemas/Api.Response.SearchStatistics'
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -6519,6 +6502,89 @@ components:
         code:
           type: string
           description: The code of the region.
+    Api.Response.SearchStatistic:
+      type: object
+      required:
+        - identifier
+        - title
+        - subject
+        - is_premium
+        - link
+        - platform
+        - teaser_image_urls
+      properties:
+        identifier:
+          allOf:
+            - $ref: '#/components/schemas/Type.Id'
+          description: A unique number for this content. It helps find or refer to this data.
+        title:
+          type: string
+          description: The name of the content. It tells what the data is about.
+        subject:
+          type: string
+          description: A short summary of what the data shows.
+        is_premium:
+          type: boolean
+          description: A true/false value. Indicates on paid and free content.
+        description:
+          type: string
+          description: 'Optional: A short text that explains the most important facts in the data. Available for Advanced API key'
+        link:
+          type: string
+          description: The website address (URL) where you can see the full content on the Statista platform.
+        date:
+          type: string
+          format: date-time
+          description: 'Optional: The date when the data was published. Format: YYYY-MM-DDTHH:mm:ssZ'
+        platform:
+          allOf:
+            - $ref: '#/components/schemas/Type.LanguageLocale'
+          description: The language of the page or platform.
+        teaser_image_urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.TeaserImage'
+          description: A list of preview images for this content.
+        ranking_score:
+          type: number
+          format: float
+          nullable: true
+          description: 'Optional: The ranking score used to rank this result.'
+    Api.Response.SearchStatistics:
+      type: object
+      required:
+        - items
+        - total_count
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.SearchStatistic'
+          description: A list of results returned for the current request.
+        total_count:
+          type: integer
+          format: uint32
+          description: The total number of available items matching the request.
+        took:
+          allOf:
+            - $ref: '#/components/schemas/Api.Response.SearchStatisticsTook'
+          description: 'Optional: Timing breakdown for search, load, and response conversion.'
+    Api.Response.SearchStatisticsTook:
+      type: object
+      required:
+        - search
+        - load
+        - conv
+      properties:
+        search:
+          type: string
+          description: 'Optional: The duration of the upstream search step as returned by the API.'
+        load:
+          type: string
+          description: 'Optional: The duration of the data loading step as returned by the API.'
+        conv:
+          type: string
+          description: 'Optional: The duration of the response conversion step as returned by the API.'
     Api.Response.Statistic:
       type: object
       required:
