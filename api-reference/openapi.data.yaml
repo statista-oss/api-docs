@@ -24,6 +24,12 @@ paths:
           description: The request has succeeded.
         '400':
           description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+        '404':
+          description: The server cannot find the requested resource.
   /v1/data/reports:
     get:
       operationId: reports
