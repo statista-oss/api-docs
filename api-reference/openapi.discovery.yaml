@@ -17,10 +17,9 @@ paths:
           required: false
           description: |-
             The query string to search for content.
-            Defaults to '*' which means all content.
+            If omitted or empty/whitespace-only, the API uses a broad default query.
           schema:
             type: string
-            default: '*'
           explode: false
         - name: platform
           in: query
@@ -29,7 +28,7 @@ paths:
             The platform to search for content.
             Defaults to `en` which means English.
           schema:
-            $ref: '#/components/schemas/Type.LanguageLocale'
+            $ref: '#/components/schemas/Api.Request.DiscoveryPlatform'
           explode: false
         - name: offset
           in: query
@@ -107,10 +106,9 @@ paths:
             Choose how you want the results to be ordered:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
-            Defaults to `0`.
+            If omitted, results are ordered by best match.
           schema:
             $ref: '#/components/schemas/Type.SortBy'
-            default: 0
           explode: false
       responses:
         '200':
@@ -151,10 +149,9 @@ paths:
           required: false
           description: |-
             The query string to search for content.
-            Defaults to '*' which means all content.
+            If omitted or empty/whitespace-only, the API uses a broad default query.
           schema:
             type: string
-            default: '*'
           explode: false
         - name: platform
           in: query
@@ -163,7 +160,7 @@ paths:
             The platform to search for content.
             Defaults to `en` which means English.
           schema:
-            $ref: '#/components/schemas/Type.LanguageLocale'
+            $ref: '#/components/schemas/Api.Request.DiscoveryPlatform'
           explode: false
         - name: offset
           in: query
@@ -241,10 +238,9 @@ paths:
             Choose how you want the results to be ordered:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
-            Defaults to `0`.
+            If omitted, results are ordered by best match.
           schema:
             $ref: '#/components/schemas/Type.SortBy'
-            default: 0
           explode: false
       responses:
         '200':
@@ -282,14 +278,13 @@ paths:
       parameters:
         - name: q
           in: query
-          required: true
+          required: false
           description: |-
             The query string to search for content.
             This parameter is multi-lingual.
+            If omitted or empty/whitespace-only, the API uses a broad default query.
           schema:
             type: string
-            pattern: '[^\s]'
-            minLength: 1
           explode: false
         - name: offset
           in: query
@@ -371,10 +366,9 @@ paths:
           required: false
           description: |-
             The query string to search for content.
-            Defaults to '*' which means all content.
+            If omitted or empty/whitespace-only, the API uses a broad default query.
           schema:
             type: string
-            default: '*'
           explode: false
         - name: platform
           in: query
@@ -383,7 +377,7 @@ paths:
             The platform to search for content.
             Defaults to `en` which means English.
           schema:
-            $ref: '#/components/schemas/Type.LanguageLocale'
+            $ref: '#/components/schemas/Api.Request.DiscoveryPlatform'
           explode: false
         - name: offset
           in: query
@@ -474,10 +468,9 @@ paths:
             Choose how you want the results to be ordered:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
-            Defaults to `0`.
+            If omitted, results are ordered by best match.
           schema:
             $ref: '#/components/schemas/Type.SortBy'
-            default: 0
           explode: false
       responses:
         '200':
@@ -518,10 +511,9 @@ paths:
           required: false
           description: |-
             The query string to search for content.
-            Defaults to '*' which means all content.
+            If omitted or empty/whitespace-only, the API uses a broad default query.
           schema:
             type: string
-            default: '*'
           explode: false
         - name: platform
           in: query
@@ -530,7 +522,7 @@ paths:
             The platform to search for content.
             Defaults to `en` which means English.
           schema:
-            $ref: '#/components/schemas/Type.LanguageLocale'
+            $ref: '#/components/schemas/Api.Request.DiscoveryPlatform'
           explode: false
         - name: offset
           in: query
@@ -621,10 +613,9 @@ paths:
             Choose how you want the results to be ordered:
             0 – Best match first (sorted by relevance)
             1 – Most recent first (sorted by publication date)
-            Defaults to `0`.
+            If omitted, results are ordered by best match.
           schema:
             $ref: '#/components/schemas/Type.SortBy'
-            default: 0
           explode: false
       responses:
         '200':
@@ -684,6 +675,12 @@ components:
         - `%Y-%m-%d` - example `2024-03-07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
         - `%d.%m.%Y` - example `03.07.2024` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
         - `%Y/%m/%d` - example `2024/03/07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+    Api.Request.DiscoveryPlatform:
+      type: string
+      enum:
+        - de
+        - en
+        - en-de
     Api.Response.Base:
       type: object
       required:

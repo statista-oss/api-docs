@@ -34,17 +34,19 @@ paths:
           description: Access is unauthorized.
         '403':
           description: Access is forbidden.
+        '404':
+          description: The server cannot find the requested resource.
   /v1/research-ai/ask:
     post:
       operationId: ask
       parameters: []
       responses:
-        '200':
-          description: The request has succeeded.
+        '202':
+          description: The request has been accepted for processing, but processing has not yet completed.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuestionResponse'
+                $ref: '#/components/schemas/Api.Research.Response.Answer'
         '400':
           description: The server could not understand the request due to invalid syntax.
         '401':
@@ -68,24 +70,35 @@ components:
       properties:
         question:
           type: string
+          minLength: 1
           description: The research question that needs to be processed.
     Api.Research.ResearchToken:
       type: string
+      minLength: 1
     Api.Research.Response.Answer:
       type: object
       required:
+        - request
         - researchToken
+        - metaInformation
         - state
+        - response
+        - usage_limits
       properties:
+        request:
+          $ref: '#/components/schemas/Api.Research.Request.Ask'
         researchToken:
           $ref: '#/components/schemas/Api.Research.ResearchToken'
+        metaInformation:
+          $ref: '#/components/schemas/Api.Research.Response.MetaInformation'
         state:
           $ref: '#/components/schemas/Api.Research.Response.State'
         response:
-          type: object
-          allOf:
-            - $ref: '#/components/schemas/Api.Research.Response.Response'
-          nullable: true
+          $ref: '#/components/schemas/Api.Research.Response.Response'
+        usage_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Research.Response.UsageLimit'
     Api.Research.Response.KeyFacts:
       type: object
       required:
@@ -109,23 +122,52 @@ components:
         - english
         - french
         - spanish
+    Api.Research.Response.MetaInformation:
+      type: object
+      required:
+        - answeredAt
+        - chainVersion
+        - isResearchOwner
+        - requestedAt
+      properties:
+        answeredAt:
+          type: string
+          format: date-time
+          nullable: true
+        chainVersion:
+          type: string
+          nullable: true
+        isResearchOwner:
+          type: boolean
+        requestedAt:
+          type: string
+          format: date-time
     Api.Research.Response.Response:
       type: object
       required:
         - answer
+        - errorMessage
         - keyFacts
         - sources
+        - title
       properties:
         answer:
           type: string
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
         keyFacts:
           type: array
           items:
             $ref: '#/components/schemas/Api.Research.Response.KeyFacts'
+          nullable: true
         sources:
           type: array
           items:
             $ref: '#/components/schemas/Api.Research.Response.Source'
+        title:
+          type: string
     Api.Research.Response.Source:
       type: object
       required:
@@ -182,9 +224,34 @@ components:
       type: object
       required:
         - status
+        - isBlockedContent
+        - isError
+        - isHidden
+        - isLimitReached
+        - isPublic
+        - limitsReached
+        - qualityScore
       properties:
         status:
           $ref: '#/components/schemas/Api.Research.Response.Status'
+        isBlockedContent:
+          type: boolean
+        isError:
+          type: boolean
+        isHidden:
+          type: boolean
+        isLimitReached:
+          type: boolean
+        isPublic:
+          type: boolean
+        limitsReached:
+          type: array
+          items:
+            type: string
+        qualityScore:
+          type: number
+          format: double
+          nullable: true
     Api.Research.Response.Status:
       type: string
       enum:
@@ -198,14 +265,22 @@ components:
         - title_generated
         - answer_rated
         - key_facts_generated
-    QuestionResponse:
+    Api.Research.Response.UsageLimit:
       type: object
       required:
-        - researchToken
+        - limit
+        - limitation_period
+        - usage
       properties:
-        researchToken:
-          $ref: '#/components/schemas/Api.Research.ResearchToken'
-      description: The request has succeeded.
+        limit:
+          type: integer
+          format: int32
+          nullable: true
+        limitation_period:
+          type: string
+        usage:
+          type: integer
+          format: int32
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
