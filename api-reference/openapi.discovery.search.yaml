@@ -1,0 +1,366 @@
+openapi: 3.0.0
+info:
+  title: The Statista Data API
+  contact:
+    name: API Support
+    email: api@statista.com
+  version: 2.8.0
+  description: The Statista search API provides a way to discover statistical and market-insights data
+tags: []
+paths:
+  /v1/search/market-insights/indicators:
+    get:
+      operationId: marketInsights
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: The query string to search.
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 1000
+          explode: false
+        - name: size
+          in: query
+          required: false
+          description: The maximum number of search results returned.
+          schema:
+            type: integer
+            format: uint32
+            minimum: 1
+            maximum: 25
+            default: 10
+          explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Api.Response.Search.MarketInsightsIndicators'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+  /v1/search/statistics:
+    get:
+      operationId: statistics
+      parameters:
+        - name: q
+          in: query
+          required: false
+          description: |-
+            The query string to search for content.
+            This parameter is multi-lingual.
+            If omitted or empty/whitespace-only, the API uses a broad default query.
+          schema:
+            type: string
+          explode: false
+        - name: offset
+          in: query
+          required: false
+          description: |-
+            The number of items will be skipped before the first result.
+            The default value for `offset` is 0.
+            This is useful for pagination.
+            Could be used in combination with `size`.
+          schema:
+            type: integer
+            format: uint32
+            minimum: 0
+            default: 0
+          explode: false
+        - name: size
+          in: query
+          required: false
+          description: |-
+            The max. value depends on which API Package you are using.
+            The default value for `size` is 10.
+            See API-Packages for more information.
+
+            An alias for `size` is `limit`
+          schema:
+            type: integer
+            format: uint32
+            minimum: 0
+            default: 10
+          explode: false
+        - name: date_from
+          in: query
+          required: false
+          description: The start date to search for content.
+          schema:
+            $ref: '#/components/schemas/Api.Request.DateFrom'
+          explode: false
+        - name: date_to
+          in: query
+          required: false
+          description: |-
+            The end date to search for content.
+            If not set, the current date is used.
+          schema:
+            $ref: '#/components/schemas/Api.Request.DateTo'
+          explode: false
+        - name: premium
+          in: query
+          required: false
+          description: |-
+            Filters content based on its premium status.
+            If set to `true`, only premium content is returned.
+            If set to `false`, only free content is returned.
+            If not set, both free and premium content is returned.
+          schema:
+            type: boolean
+            nullable: true
+            default: null
+          explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Api.Response.Search.Statistics'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+security:
+  - ApiKeyAuth: []
+components:
+  schemas:
+    Api.Request.DateFrom:
+      type: string
+      format: date-time
+      description: |-
+        The maximum search depth is limited to 20 years from today while the default is 3 months from today. Supported formats are
+        - RFC 33939 (`%Y-%m-%dT%H:%M:%S` like in ISO 8601)
+        - `%Y-%m-%d %H:%M:%S` - example `2024-03-07 12:45:38`
+        - `%d.%m.%Y %H:%M:%S` - example `03.07.2024 12:45:38`
+        - `%Y/%m/%d %H:%M:%S` - example `2024/03/07 12:45:38`
+        - `%Y-%m-%d` - example `2024-03-07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+        - `%d.%m.%Y` - example `03.07.2024` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+        - `%Y/%m/%d` - example `2024/03/07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+    Api.Request.DateTo:
+      type: string
+      format: date-time
+      description: |-
+        Supported formats are
+        - RFC 33939 (`%Y-%m-%dT%H:%M:%S` like in ISO 8601)
+        - `%Y-%m-%d %H:%M:%S` - example `2024-03-07 12:45:38`
+        - `%d.%m.%Y %H:%M:%S` - example `03.07.2024 12:45:38`
+        - `%Y/%m/%d %H:%M:%S` - example `2024/03/07 12:45:38`
+        - `%Y-%m-%d` - example `2024-03-07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+        - `%d.%m.%Y` - example `03.07.2024` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+        - `%Y/%m/%d` - example `2024/03/07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+    Api.Response.Search.MarketInsightsIndicator:
+      type: object
+      required:
+        - identifier
+        - title
+        - subject
+        - description
+        - link
+        - updated_at
+        - industries
+        - covered_timeframe
+      properties:
+        identifier:
+          type: string
+          description: A unique ID for this indicator. It helps find or refer to this data.
+        title:
+          type: string
+          description: The name of the content. It tells what the data is about.
+        subject:
+          type: string
+          description: A short summary of what the data shows.
+        description:
+          type: string
+          description: A short text that explains the most important facts in the data
+        link:
+          type: string
+          description: The website address (URL) where you can see the full content on the Statista platform.
+        updated_at:
+          type: string
+          description: 'The date when the data was published. Format: YYYY-MM-DD'
+        industries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Search.MarketInsightsIndustry'
+          description: A list of industries covered by this market indicator.
+        covered_timeframe:
+          allOf:
+            - $ref: '#/components/schemas/Api.Response.Search.Timeframe'
+          description: Timeframe the data is covering, start and end are inclusive.
+        covered_geos:
+          type: object
+          additionalProperties:
+            type: string
+          description: List of available geographic regions for this indicator. Mapping of the geo code to a human readable name.
+        market_type:
+          type: string
+          description: The type of market this indicator describes.
+        market_type_description:
+          type: string
+          description: The description market type.
+    Api.Response.Search.MarketInsightsIndicators:
+      type: object
+      required:
+        - items
+        - total_count
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Search.MarketInsightsIndicator'
+          description: A list of results returned for the current request.
+        total_count:
+          type: integer
+          format: uint32
+          description: The total number of available items matching the request.
+    Api.Response.Search.MarketInsightsIndustry:
+      type: object
+      required:
+        - name
+        - segments
+      properties:
+        name:
+          type: string
+          description: The name of the industry.
+        segments:
+          type: array
+          items:
+            type: string
+          description: A list of segments for this industry.
+    Api.Response.Search.Statistic:
+      type: object
+      required:
+        - identifier
+        - title
+        - subject
+        - is_premium
+        - link
+        - platform
+        - teaser_image_urls
+      properties:
+        identifier:
+          allOf:
+            - $ref: '#/components/schemas/Type.Id'
+          description: A unique number for this content. It helps find or refer to this data.
+        title:
+          type: string
+          description: The name of the content. It tells what the data is about.
+        subject:
+          type: string
+          description: A short summary of what the data shows.
+        is_premium:
+          type: boolean
+          description: A true/false value. Indicates on paid and free content.
+        description:
+          type: string
+          description: 'Optional: A short text that explains the most important facts in the data. Available for Advanced API key'
+        link:
+          type: string
+          description: The website address (URL) where you can see the full content on the Statista platform.
+        date:
+          type: string
+          format: date-time
+          description: 'Optional: The date when the data was published. Format: YYYY-MM-DDTHH:mm:ssZ'
+        platform:
+          allOf:
+            - $ref: '#/components/schemas/Type.LanguageLocale'
+          description: The language of the page or platform.
+        teaser_image_urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.TeaserImage'
+          description: A list of preview images for this content.
+        ranking_score:
+          type: number
+          format: float
+          nullable: true
+          description: 'Optional: The ranking score used to rank this result.'
+    Api.Response.Search.Statistics:
+      type: object
+      required:
+        - items
+        - total_count
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Search.Statistic'
+          description: A list of results returned for the current request.
+        total_count:
+          type: integer
+          format: uint32
+          description: The total number of available items matching the request.
+        took:
+          allOf:
+            - $ref: '#/components/schemas/Api.Response.Search.StatisticsTook'
+          description: 'Optional: Timing breakdown for search, load, and response conversion.'
+    Api.Response.Search.StatisticsTook:
+      type: object
+      required:
+        - search
+        - load
+        - conv
+      properties:
+        search:
+          type: string
+          description: 'Optional: The duration of the upstream search step as returned by the API.'
+        load:
+          type: string
+          description: 'Optional: The duration of the data loading step as returned by the API.'
+        conv:
+          type: string
+          description: 'Optional: The duration of the response conversion step as returned by the API.'
+    Api.Response.Search.Timeframe:
+      type: object
+      required:
+        - start
+        - end
+      properties:
+        start:
+          type: string
+          description: 'Start date of the timeframe. Format: YYYY-MM-DD'
+        end:
+          type: string
+          description: 'End date of the timeframe. Format: YYYY-MM-DD'
+    Api.Response.TeaserImage:
+      type: object
+      required:
+        - width
+        - src
+      properties:
+        width:
+          type: integer
+          format: uint32
+          description: The width of the image in pixels.
+        src:
+          type: string
+          description: The image link (URL).
+    Type.Id:
+      type: integer
+      format: uint64
+    Type.LanguageLocale:
+      type: string
+      enum:
+        - de
+        - en
+        - fr
+        - es
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+servers:
+  - url: https://api.statista.ai/
+    description: Single Server endpoint
+    variables: {}

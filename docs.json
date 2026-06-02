@@ -39,6 +39,13 @@
             ]
           },
           {
+            "group": "Market Insights",
+            "pages": [
+              "api-reference/discovery-advanced/get-search-marketinsights-indicators",
+              "api-reference/data-api/get-marktetinsights-indicators"
+            ]
+          },
+          {
             "group": "Legacy Endpoints",
             "pages": [
               "api-reference/discovery-advanced/get-infographics",
@@ -76,8 +83,7 @@
               "mcp-server/connection-claude-windows",
               "mcp-server/connection-perplexity-desktop",
               "mcp-server/connection-fastmcp",
-              "mcp-server/connect-gemini-api",
-              "mcp-server/connection-openai-deepresearch"
+              "mcp-server/connect-gemini-api"
             ]
           }
         ]

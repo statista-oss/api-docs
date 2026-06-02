@@ -5,9 +5,49 @@ info:
     name: API Support
     email: api@statista.com
   version: 2.8.0
-  description: The Statista Data API provides access to statistical data and reports
+  description: The Statista Data API provides access to statistical data, market-insights data and reports
 tags: []
 paths:
+  /v1/data/market-insights/indicator:
+    get:
+      operationId: marketInsights
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: The unique identifier of the Market Insights indicator to be retrieved.
+          schema:
+            type: string
+            format: uuid
+          explode: false
+        - name: geo
+          in: query
+          required: true
+          description: List of geo code to fetch the data for. Available geo codes per indicator are part of the search result.
+          schema:
+            type: array
+            items:
+              type: string
+            minItems: 0
+            maxItems: 5
+            default:
+              - WLD
+          explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Api.Response.Data.MarketInsightsIndicator'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+        '404':
+          description: The server cannot find the requested resource.
   /v1/data/report:
     get:
       operationId: report
@@ -61,12 +101,12 @@ paths:
     get:
       operationId: statistic
       parameters:
-        - name: id
+        - name: q
           in: query
-          required: true
+          required: false
           description: The unique identifier of a content information to be retrieved.
           schema:
-            $ref: '#/components/schemas/Type.Id'
+            type: string
           explode: false
       responses:
         '200':
@@ -83,6 +123,17 @@ paths:
           description: Access is forbidden.
         '404':
           description: The server cannot find the requested resource.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  $ref: '#/components/schemas/Type.Id'
+              required:
+                - id
 security:
   - ApiKeyAuth: []
 components:
@@ -212,6 +263,75 @@ components:
             $ref: '#/components/schemas/Api.Data.Response.Source'
         chart:
           $ref: '#/components/schemas/Api.Data.Response.Chart'
+    Api.Response.Data.MarketInsightsChart:
+      type: object
+      required:
+        - name
+        - graphType
+        - data
+      properties:
+        name:
+          type: string
+          description: The name of the chart. It tells what the data is about.
+        graphType:
+          type: string
+          description: The default graph rendering type.
+        unit:
+          type: string
+          description: The unit description for the numeric data points.
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Data.MarketInsightsChartDataPoint'
+          description: The chart data points.
+    Api.Response.Data.MarketInsightsChartDataPoint:
+      type: object
+      required:
+        - geo
+        - categories
+        - series
+      properties:
+        geo:
+          type: string
+          description: The geo location covered in this time series.
+        categories:
+          type: array
+          items:
+            type: string
+          description: The categories / headlines for the time series columns.
+        series:
+          type: array
+          items:
+            type: number
+            format: float
+          description: The numeric values of the time series.
+    Api.Response.Data.MarketInsightsIndicator:
+      type: object
+      required:
+        - identifier
+        - title
+        - description
+        - chart
+      properties:
+        identifier:
+          type: string
+          description: A unique ID for this indicator. It helps find or refer to this data.
+        title:
+          type: string
+          description: The name of the content. It tells what the data is about.
+        description:
+          type: string
+          description: A short text that explains the most important facts in the data.
+        market_type:
+          type: string
+          description: The type of market this data is descrypting.
+        market_type_description:
+          type: string
+          description: A short text that explains what the market is about.
+        chart:
+          allOf:
+            - $ref: '#/components/schemas/Api.Response.Data.MarketInsightsChart'
+          description: The chart data, covering one or more geo locations.
     Api.Response.Industry:
       type: object
       required:
