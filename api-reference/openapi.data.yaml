@@ -101,12 +101,12 @@ paths:
     get:
       operationId: statistic
       parameters:
-        - name: q
+        - name: id
           in: query
-          required: false
+          required: true
           description: The unique identifier of a content information to be retrieved.
           schema:
-            type: string
+            $ref: '#/components/schemas/Type.Id'
           explode: false
       responses:
         '200':
@@ -123,17 +123,6 @@ paths:
           description: Access is forbidden.
         '404':
           description: The server cannot find the requested resource.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  $ref: '#/components/schemas/Type.Id'
-              required:
-                - id
 security:
   - ApiKeyAuth: []
 components:
