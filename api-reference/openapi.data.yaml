@@ -22,16 +22,11 @@ paths:
           explode: false
         - name: geo
           in: query
-          required: true
-          description: List of geo code to fetch the data for. Available geo codes per indicator are part of the search result.
+          required: false
+          description: "Comma-separated list of geo codes. Max items: 5.  Available geo codes per indicator are part of the search result. Defaults to 'WLD'"
           schema:
-            type: array
-            items:
-              type: string
-            minItems: 0
-            maxItems: 5
-            default:
-              - WLD
+            type: string
+            default: WLD
           explode: false
       responses:
         '200':
