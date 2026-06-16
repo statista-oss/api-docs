@@ -1,0 +1,78 @@
+---
+title: "Connect to Google Gemini"
+description: "Connect the Statista MCP Server to Gemini via the google-genai SDK"
+---
+
+<Info>
+  Gemini supports MCP servers natively through the `google-genai` Python SDK — no FastMCP wrapper required. Google currently labels their MCP integration as **experimental**, so the exact API surface may evolve over time.
+</Info>
+
+The recommended way to connect Gemini to the Statista MCP server is to use the official [`mcp`](https://pypi.org/project/mcp/) Python package's streamable HTTP transport, then pass the resulting MCP session directly to Gemini as a tool.
+
+## Install dependencies
+
+```sh
+pip install google-genai mcp
+```
+
+## Connect via the google-genai SDK
+
+```python
+from google import genai
+from mcp import ClientSession
+from mcp.client.streamable_http import streamablehttp_client
+
+mcp_server_url = "<PROVIDED_MCP_SERVER_URL>"
+YOUR_STATISTA_API_KEY = "<YOUR_STATISTA_API_KEY>"
+YOUR_GEMINI_API_KEY = "<YOUR_GEMINI_API_KEY>"
+
+async with streamablehttp_client(
+    mcp_server_url,
+    headers={"x-api-key": YOUR_STATISTA_API_KEY},
+) as (read_stream, write_stream, _):
+    async with ClientSession(read_stream, write_stream) as session:
+        await session.initialize()
+
+        client = genai.Client(api_key=YOUR_GEMINI_API_KEY)
+        response = await client.aio.models.generate_content(
+            model="gemini-3.5-flash",
+            contents="What is the ice cream market in Japan?",
+            config=genai.types.GenerateContentConfig(
+                temperature=0,
+                tools=[session],
+            ),
+        )
+        print(response.text)
+```
+
+The `ClientSession` object is passed directly into the `tools` list — Gemini introspects the MCP session's available tools and invokes them automatically as needed.
+
+## Alternative: using FastMCP
+
+If you're already using [`fastmcp`](https://pypi.org/project/fastmcp/) elsewhere in your stack, you can pass its session to Gemini the same way. This is functionally equivalent to the native pattern above, just with FastMCP's higher-level wrapper.
+
+```python
+from google import genai
+from fastmcp import Client
+from fastmcp.client.transports import StreamableHttpTransport
+
+mcp_client = Client(
+    transport=StreamableHttpTransport(
+        mcp_server_url,
+        headers={"x-api-key": YOUR_STATISTA_API_KEY},
+    ),
+)
+
+client = genai.Client(api_key=YOUR_GEMINI_API_KEY)
+
+async with mcp_client:
+    response = await client.aio.models.generate_content(
+        model="gemini-3.5-flash",
+        contents="What is the ice cream market in Japan?",
+        config=genai.types.GenerateContentConfig(
+            temperature=0,
+            tools=[mcp_client.session],
+        ),
+    )
+    print(response.text)
+```
