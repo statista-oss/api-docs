@@ -46,6 +46,13 @@
             ]
           },
           {
+            "group": "Consumer Insights",
+            "pages": [
+              "api-reference/discovery-advanced/get-search-consumerinsights",
+              "api-reference/data-api/get-consumerinsights"
+            ]
+          },
+          {
             "group": "Legacy Endpoints",
             "pages": [
               "api-reference/discovery-advanced/get-infographics",

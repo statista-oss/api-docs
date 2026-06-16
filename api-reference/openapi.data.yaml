@@ -8,6 +8,64 @@ info:
   description: The Statista Data API provides access to statistical data, market-insights data and reports
 tags: []
 paths:
+  /v1/data/consumer-insights:
+    get:
+      operationId: consumerInsights
+      parameters:
+        - name: rows
+          in: query
+          required: true
+          description: The question or answer ID from a survey to select data for the crosstable.
+          schema:
+            type: string
+          explode: false
+        - name: columns
+          in: query
+          required: false
+          description: The question or answer ID from a survey to select data for the crosstable.
+          schema:
+            type: string
+          explode: false
+        - name: filters
+          in: query
+          required: false
+          description: Comma-separated list of answer IDs. Enables filtering respondents by target group.
+          schema:
+            type: string
+          explode: false
+        - name: country
+          in: query
+          required: false
+          description: Single, 3 letter, ISO 3166-1 alpha-3 country code, such as 'USA' or 'GBR', to target a specific country.
+          schema:
+            type: string
+            minLength: 3
+            maxLength: 3
+          explode: false
+        - name: year
+          in: query
+          required: false
+          description: 'Survey year as 4 digit value, default: current year'
+          schema:
+            type: integer
+            format: uint16
+            minimum: 1900
+          explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Api.Response.Data.ConsumerInsightsDataResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
+        '404':
+          description: The server cannot find the requested resource.
   /v1/data/market-insights/indicator:
     get:
       operationId: marketInsights
@@ -247,6 +305,130 @@ components:
             $ref: '#/components/schemas/Api.Data.Response.Source'
         chart:
           $ref: '#/components/schemas/Api.Data.Response.Chart'
+    Api.Response.Data.Chart:
+      type: object
+      required:
+        - description
+        - dataFormat
+        - valueUnit
+        - data
+      properties:
+        description:
+          type: string
+          description: A short text or headline that explains the the data.
+        dataFormat:
+          type: string
+          description: The name of the data format in the data poinsts, e.g. 'percentage'.
+        valueUnit:
+          type: string
+          description: Provided the unit/symbol of the numeric values, e.g. '%'.
+        data:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Api.Response.Data.ChartData'
+          description: List of the actual numeric values in the cross-tabe.
+    Api.Response.Data.ChartData:
+      type: object
+      required:
+        - name
+        - percentage
+        - respondents
+      properties:
+        name:
+          type: string
+          description: Name of this data point, which can be used a column name.
+        percentage:
+          type: number
+          format: float
+          description: Percentage representation of the absolute value.
+        respondents:
+          type: integer
+          format: uint32
+          description: Absolute number of people who responded to the question.
+    Api.Response.Data.ConsumerInsightsDataResponse:
+      type: object
+      required:
+        - identifier
+        - title
+        - subject
+        - description
+        - link
+        - date
+        - sources
+        - interpretation_hint
+        - geolocations
+        - chart
+      properties:
+        identifier:
+          allOf:
+            - $ref: '#/components/schemas/Api.Response.Data.Identifier'
+          description: A composit ID for this cross-table
+        title:
+          type: string
+          description: What is the data about.
+        subject:
+          type: string
+          description: A short summary of what the data shows.
+        description:
+          type: string
+          description: A more comprehensive text, explaining the most important facts about the data.
+        link:
+          type: string
+          description: The website address (URL) where you can see the full content off the survey.
+        date:
+          type: string
+          description: 'The year when data was compiled. Format: YYYY.'
+        sources:
+          type: array
+          items:
+            type: string
+          description: List of sources, from which was the data derived.
+        interpretation_hint:
+          type: string
+          description: Short description to help LLMs interpret the data.
+        geolocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Data.GeoLocation'
+          description: The countries the data is covering.
+        chart:
+          allOf:
+            - $ref: '#/components/schemas/Api.Response.Data.Chart'
+          description: Descriptions and the actual numeric data of the cross-table.
+    Api.Response.Data.GeoLocation:
+      type: object
+      required:
+        - name
+        - code
+      properties:
+        name:
+          type: string
+          description: Country name.
+        code:
+          type: string
+          description: 3 letter, ISO 3166-1 alpha-3 country code.
+    Api.Response.Data.Identifier:
+      type: object
+      required:
+        - rows
+        - survey_id
+      properties:
+        rows:
+          type: string
+          description: A question or answer ID.
+        columns:
+          type: string
+          description: A question or answer ID.
+        filters:
+          type: array
+          items:
+            type: string
+          description: The list of answer IDs used to filter the cross-table.
+        survey_id:
+          type: string
+          description: The survey ID, from which the data was taken to compute the cross-table
     Api.Response.Data.MarketInsightsChart:
       type: object
       required:
@@ -299,13 +481,13 @@ components:
       properties:
         identifier:
           type: string
-          description: A unique ID for this indicator. It helps find or refer to this data.
+          description: A unique ID for this indicator. Helps find or refer to this data.
         title:
           type: string
-          description: The name of the content. It tells what the data is about.
+          description: Short headline, what the data is about.
         description:
           type: string
-          description: A short text that explains the most important facts in the data.
+          description: A short text explaining the most important facts in the data.
         market_type:
           type: string
           description: The type of market this data is descrypting.

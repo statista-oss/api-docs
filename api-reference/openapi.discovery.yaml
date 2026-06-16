@@ -272,6 +272,43 @@ paths:
           description: Access is unauthorized.
         '403':
           description: Access is forbidden.
+  /v1/search/consumer-insights:
+    get:
+      operationId: consumerInsights
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: The query string to search for.
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 1000
+          explode: false
+        - name: size
+          in: query
+          required: false
+          description: The maximum number of search results returned.
+          schema:
+            type: integer
+            format: uint32
+            minimum: 1
+            maximum: 25
+            default: 10
+          explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Api.Response.Search.ConsumerInsightsSearchResults'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+        '401':
+          description: Access is unauthorized.
+        '403':
+          description: Access is forbidden.
   /v1/search/market-insights/indicators:
     get:
       operationId: marketInsights
@@ -279,7 +316,7 @@ paths:
         - name: q
           in: query
           required: true
-          description: The query string to search.
+          description: The query string to search for.
           schema:
             type: string
             minLength: 1
@@ -897,6 +934,73 @@ components:
         code:
           type: string
           description: The code of the region.
+    Api.Response.Search.Answer:
+      type: object
+      required:
+        - answer_id
+        - label
+        - order
+        - code
+      properties:
+        answer_id:
+          type: string
+          description: A unique answer ID.
+        label:
+          type: string
+          description: Description of the answer.
+        order:
+          type: integer
+          format: uint16
+          description: Sort order of the answers in the survey.
+        code:
+          type: integer
+          format: uint16
+          description: Numeric ID part of the answer ID, which consists of the question ID, '#', and the numeric ID, such as 'v0013g_demo_generation#42'.
+    Api.Response.Search.ConsumerInsightsSearchResult:
+      type: object
+      required:
+        - question_id
+        - indicator
+        - label
+        - question_type
+        - metadata
+        - answers_subset
+        - total_answers
+      properties:
+        question_id:
+          type: string
+          description: A unique question ID.
+        indicator:
+          type: string
+          description: Short summary of what this question is about.
+        label:
+          type: string
+          description: Exact phrasing of the question shown to survey respondents.
+        question_type:
+          type: string
+          description: What kind of questions / answer combination was asked, e.g. 'multi-pick'.
+        metadata:
+          allOf:
+            - $ref: '#/components/schemas/Api.Response.Search.MetaData'
+          description: Additional data describing details of the survey.
+        answers_subset:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Search.Answer'
+          description: List of answers related to the question.
+        total_answers:
+          type: integer
+          format: uint32
+          description: The number of available answer options.
+    Api.Response.Search.ConsumerInsightsSearchResults:
+      type: object
+      required:
+        - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Search.ConsumerInsightsSearchResult'
     Api.Response.Search.MarketInsightsIndicator:
       type: object
       required:
@@ -976,6 +1080,20 @@ components:
           items:
             type: string
           description: A list of segments for this industry.
+    Api.Response.Search.MetaData:
+      type: object
+      required:
+        - min_year
+        - max_year
+      properties:
+        min_year:
+          type: integer
+          format: uint16
+          description: Start year, when this question was first asked.
+        max_year:
+          type: integer
+          format: uint16
+          description: Last year, when this question was asked.
     Api.Response.Search.Statistic:
       type: object
       required:

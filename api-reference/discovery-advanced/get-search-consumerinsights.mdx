@@ -1,0 +1,14 @@
+---
+title: "Search"
+openapi: "GET /v1/search/consumer-insights"
+---
+
+Semantically search in Consumer Insights survey data for questions and answers.
+
+The results are grouped by question. If only an answer matches, the corresponding question is added to the result.
+
+The search works best with short search terms that cover only one aspect, such as “gen z” or “headphone brands”.
+Filtering by country can be done when the actual survey cross-table data is fetched, by providing a geo location.
+Adding a country to the search query degrades result quality.
+
+

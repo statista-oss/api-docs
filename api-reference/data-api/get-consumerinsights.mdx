@@ -1,0 +1,23 @@
+---
+title: "Data"
+openapi: "GET /v1/data/consumer-insights"
+---
+
+Retrieve cross tabulated survey data for a combination of question and answer ID(s).
+Answer IDs consist of the question ID, a postfix of '#', and a number, such as `v0025_demo_regiondeu#3`.
+
+Impact of **rows**, **columns**, and **filter** parameter combinations on the result:
+- only **rows** provided: “frequency table” (like “Internet provider“, rows are Telekom, Vodafone, …, there is a single column that contains how many respondents picked the respective answer)
+- **rows** and **columns** provided: compute a “cross table” such as (“Internet provider by generation”, rows are Telekom, Vodafone, … columns are Baby Boomer, Gen X, … cells contain values like “what percentage of Gen X uses Vodafone”)
+- **rows** and **filters** provided: the same as “frequency table” but restricted to only the group of respondents that matches the filter
+- **rows**, **columns**, and **filters** provided: cross table but restricted to the group of respondents that matches the filter
+
+## Filters
+Filters are a comma-separated list of answer IDs.
+
+Filters on different questions are AND, filters on the same question are OR.
+
+Example: `v0013g_demo_generation#4,v0025_demo_regiondeu#3,v0025_demo_regiondeu#6`
+Interpretation: `Gen Z AND (living in Hamburg OR living in Berlin)`
+
+
