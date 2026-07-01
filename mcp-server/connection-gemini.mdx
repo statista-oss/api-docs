@@ -9,43 +9,46 @@ description: "Connect the Statista MCP Server to Gemini via the google-genai SDK
 
 The recommended way to connect Gemini to the Statista MCP server is to use the official [`mcp`](https://pypi.org/project/mcp/) Python package's streamable HTTP transport, then pass the resulting MCP session directly to Gemini as a tool.
 
-## Install dependencies
+<Steps>
+  <Step title="Install dependencies" icon="python">
+    ```sh
+    pip install google-genai mcp
+    ```
+  </Step>
+  <Step title="Connect via the google-genai SDK" icon="key">
+    Pass your Statista API key as the `x-api-key` header, then hand the MCP session directly to Gemini.
 
-```sh
-pip install google-genai mcp
-```
+    ```python
+    from google import genai
+    from mcp import ClientSession
+    from mcp.client.streamable_http import streamablehttp_client
 
-## Connect via the google-genai SDK
+    mcp_server_url = "<PROVIDED_MCP_SERVER_URL>"
+    YOUR_STATISTA_API_KEY = "<YOUR_STATISTA_API_KEY>"
+    YOUR_GEMINI_API_KEY = "<YOUR_GEMINI_API_KEY>"
 
-```python
-from google import genai
-from mcp import ClientSession
-from mcp.client.streamable_http import streamablehttp_client
+    async with streamablehttp_client(
+        mcp_server_url,
+        headers={"x-api-key": YOUR_STATISTA_API_KEY},
+    ) as (read_stream, write_stream, _):
+        async with ClientSession(read_stream, write_stream) as session:
+            await session.initialize()
 
-mcp_server_url = "<PROVIDED_MCP_SERVER_URL>"
-YOUR_STATISTA_API_KEY = "<YOUR_STATISTA_API_KEY>"
-YOUR_GEMINI_API_KEY = "<YOUR_GEMINI_API_KEY>"
+            client = genai.Client(api_key=YOUR_GEMINI_API_KEY)
+            response = await client.aio.models.generate_content(
+                model="gemini-3.5-flash",
+                contents="What is the ice cream market in Japan?",
+                config=genai.types.GenerateContentConfig(
+                    temperature=0,
+                    tools=[session],
+                ),
+            )
+            print(response.text)
+    ```
 
-async with streamablehttp_client(
-    mcp_server_url,
-    headers={"x-api-key": YOUR_STATISTA_API_KEY},
-) as (read_stream, write_stream, _):
-    async with ClientSession(read_stream, write_stream) as session:
-        await session.initialize()
-
-        client = genai.Client(api_key=YOUR_GEMINI_API_KEY)
-        response = await client.aio.models.generate_content(
-            model="gemini-3.5-flash",
-            contents="What is the ice cream market in Japan?",
-            config=genai.types.GenerateContentConfig(
-                temperature=0,
-                tools=[session],
-            ),
-        )
-        print(response.text)
-```
-
-The `ClientSession` object is passed directly into the `tools` list — Gemini introspects the MCP session's available tools and invokes them automatically as needed.
+    The `ClientSession` object is passed directly into the `tools` list — Gemini introspects the MCP session's available tools and invokes them automatically as needed.
+  </Step>
+</Steps>
 
 ## Alternative: using FastMCP
 

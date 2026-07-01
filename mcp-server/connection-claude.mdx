@@ -4,75 +4,103 @@ description: "Connect the Statista MCP Server to Claude Desktop on Mac"
 ---
 
 ## Install Claude Desktop
-To try the Statista MCP Server with Claude Desktop, follow these steps:
-1. Install [Claude Desktop](https://claude.ai/download) (important that it's the desktop version)
-2. Install [node.js](https://nodejs.org/en/download), needed for the `mcp-remote` integration.
-3. If you don't already have one; create an account
-4. Open Claude Desktop
 
+<Steps>
+  <Step title="Install Claude Desktop" icon="download">
+    Install [Claude Desktop](https://claude.ai/download) (important that it's the desktop version).
+  </Step>
+  <Step title="Install Node.js" icon="node-js">
+    Install [node.js](https://nodejs.org/en/download), needed for the `mcp-remote` integration.
+  </Step>
+  <Step title="Create an account">
+    If you don't already have one, create an account.
+  </Step>
+  <Step title="Open Claude Desktop">
+    Launch the app to get started.
+  </Step>
+</Steps>
 
 ## Modify configuration file
-<Frame>
-<img
-  src="/images/claude-settings.png"
-  alt="Click settings"
-  height="100"
-  width="400"
-  className="rounded-lg"
-/>
-</Frame>
 
-1. Under **Settings**, go to **Developer**
-2. Click **Edit Config**
-<Frame>
-<img
-  src="/images/claude-edit-config.png"
-  alt="Click edit config"
-  height="100"
-  width="600"
-  className="rounded-lg"
-/>
-</Frame>
+<Steps>
+  <Step title="Open Developer settings">
+    Under **Settings**, go to **Developer**.
 
-3. Open the ```claude_desktop_config.json``` file in a text editor
-4. Copy/paste below snippet into the file, replace ```YOUR_API_KEY``` with the provided API Key
-5. Save file
+    <Frame>
+      <img
+        src="/images/claude-settings.png"
+        alt="Click settings"
+        height="100"
+        width="400"
+        className="rounded-lg"
+      />
+    </Frame>
+  </Step>
+  <Step title="Edit the config">
+    Click **Edit Config**.
 
-```.json
-{
-  "mcpServers": {
-    "statista": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://api.statista.ai/v1/mcp",
-        "--transport",
-        "http-only",
-        "--header",
-        "x-api-key: ${API_KEY}"
-      ],
-      "env": {
-        "API_KEY": "YOUR_API_KEY"
+    <Frame>
+      <img
+        src="/images/claude-edit-config.png"
+        alt="Click edit config"
+        height="100"
+        width="600"
+        className="rounded-lg"
+      />
+    </Frame>
+  </Step>
+  <Step title="Open the config file">
+    Open the `claude_desktop_config.json` file in a text editor.
+  </Step>
+  <Step title="Add the Statista server" icon="key">
+    Copy/paste the snippet below into the file, replacing `YOUR_API_KEY` with the provided API Key.
+
+    ```.json
+    {
+      "mcpServers": {
+        "statista": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "mcp-remote",
+            "https://api.statista.ai/v1/mcp",
+            "--transport",
+            "http-only",
+            "--header",
+            "x-api-key: ${API_KEY}"
+          ],
+          "env": {
+            "API_KEY": "YOUR_API_KEY"
+          }
+        }
       }
     }
-  }
-}
-```
+    ```
+  </Step>
+  <Step title="Save the file">
+    Save your changes.
+  </Step>
+</Steps>
 
 ## Use the MCP Server in Claude Desktop
-Once your configuration file is successfully modified and saved, close down Claude Desktop and open it again.
 
-Now, under **Search and tools** you should see **statista** enabled.
+<Steps>
+  <Step title="Restart Claude Desktop">
+    Once your configuration file is successfully modified and saved, close down Claude Desktop and open it again.
+  </Step>
+  <Step title="Confirm Statista is enabled">
+    Now, under **Search and tools** you should see **statista** enabled.
 
-<Frame>
-<img
-  src="/images/claude-tools.png"
-  alt="Statista tool should be enabled"
-  height="100"
-  width="400"
-  className="rounded-lg"
-/>
-</Frame>
+    <Frame>
+      <img
+        src="/images/claude-tools.png"
+        alt="Statista tool should be enabled"
+        height="100"
+        width="400"
+        className="rounded-lg"
+      />
+    </Frame>
+  </Step>
+</Steps>
 
 You're good to go! Now you can do market research with Statista and Claude Desktop on Mac 🎉

@@ -4,69 +4,90 @@ description: "Connect the Statista MCP Server to Perplexity Desktop on Mac"
 ---
 
 ## Install Perplexity Desktop
-To try the Statista MCP Server with Perplexity Desktop, follow these steps:
-1. Install [Perplexity Desktop](https://www.perplexity.ai/platforms) (important that it's the desktop version)
-2. If you don't already have one; create an account
-3. Open Perplexity Desktop
+
+<Steps>
+  <Step title="Install Perplexity Desktop" icon="download">
+    Install [Perplexity Desktop](https://www.perplexity.ai/platforms) (important that it's the desktop version).
+  </Step>
+  <Step title="Create an account">
+    If you don't already have one, create an account.
+  </Step>
+  <Step title="Open Perplexity Desktop">
+    Launch the app to get started.
+  </Step>
+</Steps>
 
 ## Set up Connector
-1. In the bottom-right corner, click cogwheel
-<Frame>
-<img 
-  src="/images/perplexity-settings.png" 
-  alt="Open settings"
-  height="100"
-  width="400"
-  className="rounded-lg"
-/>
-</Frame>
 
-2. Click `Connectors`
-3. Click `+ Add Connector`
-4. Choose `Advanced`
-<Frame>
-<img 
-  src="/images/perplexity-create-connector.png" 
-  alt="Configure connector"
-  height="100"
-  width="400"
-  className="rounded-lg"
-/>
-</Frame>
+<Steps>
+  <Step title="Open settings">
+    In the bottom-right corner, click the cogwheel.
 
-5. Copy/paste this into text-box:
-```json
-{
-  "args" : [
-    "-y",
-    "mcp-remote",
-    <STATISTA_MCP_URL>,
-    "--transport",
-    "http-only",
-    "--header",
-    "x-api-key: \\${API_KEY}"
-  ],
-  "command" : "npx",
-  "env" : {
-    "API_KEY" : <STATISTA_API_KEY>
-  },
-  "useBuiltInNode" : true
-}
-```
-<Info>
-Replace `<STATISTA_MCP_URL>` and `<STATISTA_API_KEY>` with provided credentials from Statista.
-</Info>
+    <Frame>
+      <img
+        src="/images/perplexity-settings.png"
+        alt="Open settings"
+        height="100"
+        width="400"
+        className="rounded-lg"
+      />
+    </Frame>
+  </Step>
+  <Step title="Add a connector">
+    Click `Connectors`, then click `+ Add Connector` and choose `Advanced`.
 
-6. Save connector 
-7. Toggle `Statista MCP` as a source
-<Frame>
-<img 
-  src="/images/perplexity-tools.png" 
-  alt="Toggle connector"
-  height="100"
-  width="400"
-  className="rounded-lg"
-/>
-</Frame>
+    <Frame>
+      <img
+        src="/images/perplexity-create-connector.png"
+        alt="Configure connector"
+        height="100"
+        width="400"
+        className="rounded-lg"
+      />
+    </Frame>
+  </Step>
+  <Step title="Paste the configuration" icon="key">
+    Copy/paste this into the text-box:
+
+    ```json
+    {
+      "args" : [
+        "-y",
+        "mcp-remote",
+        <STATISTA_MCP_URL>,
+        "--transport",
+        "http-only",
+        "--header",
+        "x-api-key: \\${API_KEY}"
+      ],
+      "command" : "npx",
+      "env" : {
+        "API_KEY" : <STATISTA_API_KEY>
+      },
+      "useBuiltInNode" : true
+    }
+    ```
+
+    <Info>
+      Replace `<STATISTA_MCP_URL>` and `<STATISTA_API_KEY>` with provided credentials from Statista.
+    </Info>
+  </Step>
+  <Step title="Save the connector">
+    Save your new connector.
+  </Step>
+  <Step title="Toggle Statista MCP as a source">
+    Toggle `Statista MCP` as a source.
+
+    <Frame>
+      <img
+        src="/images/perplexity-tools.png"
+        alt="Toggle connector"
+        height="100"
+        width="400"
+        className="rounded-lg"
+      />
+    </Frame>
+  </Step>
+</Steps>
 
 You're good to go! Now you can do market research with Statista and Perplexity Desktop on Mac 🎉

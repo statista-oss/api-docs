@@ -67,13 +67,12 @@
         ]
       },
       {
-        "tab": "Use Cases",
+        "tab": "Pricing",
         "groups": [
           {
-            "group": "Use Cases",
+            "group": "Pricing",
             "pages": [
-              "use-cases/federated-search",
-              "use-cases/fetch-chart-data"
+              "pricing/credit-logic"
             ]
           }
         ]

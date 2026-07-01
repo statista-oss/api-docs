@@ -1,0 +1,15 @@
+---
+title: Credit Logic
+description: "Once you have procured credits with Statista Connect, you can use them across our services"
+---
+
+Credits are consumed across MCP and API endpoints on a per-request basis. Costs associated with a request to an endpoint or MCP tool will follow the credit table below:
+
+| Data Type | MCP | API | Credit Cost |
+| ---- | --- | --- | --- |
+| Statistics | `search-statistics` | `search/statistics` | 1 |
+| Statistics | `get-chart-data-by-id` | `data/statistic` | 10 |
+| Market Insights | `search-market-insights` | `search/market-insights/indicators` | 0 |
+| Market Insights | `fetch-market-insights` | `data/market-insights/indicator` | 15 |
+| Consumer Insights | `search-consumer-insights` | `search/consumer-insights` | 0 |
+| Consumer Insights | `fetch-consumer-insights` | `data/consumer-insights` | 10 |

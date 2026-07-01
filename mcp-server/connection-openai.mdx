@@ -3,25 +3,35 @@ title: "Connect to OpenAI Platform"
 description: "Connect the Statista MCP Server to OpenAI"
 ---
 
-## OpenAI Platform
 To try the Statista MCP Server with OpenAI, follow these steps:
-1. Go to [platform.openai.com](https://platform.openai.com)
-2. If you don't already have one; create an account
-3. Go to **Dashboard** -> **Chat**
-4. Click **Tools (+ Add)**
-5. Select **MCP Server**
-6. Add provided URL and label
-7. Under **Authentication**, change to **Custom Headers**, set **header** to **x-api-key** and enter provided [API Key](/start/request-api-key)
 
-<Frame>
-<img 
-  src="/images/openai-platform.png" 
-  alt="You should now see a screen with available tools"
-  height="100"
-  width="400"
-  className="rounded-lg"
-/>
-</Frame>
+<Steps>
+  <Step title="Go to the OpenAI Platform">
+    Navigate to [platform.openai.com](https://platform.openai.com). If you don't already have one, create an account.
+  </Step>
+  <Step title="Open the Chat dashboard">
+    Go to **Dashboard** → **Chat**.
+  </Step>
+  <Step title="Add a tool">
+    Click **Tools (+ Add)** and select **MCP Server**.
+  </Step>
+  <Step title="Configure the server">
+    Add the provided URL and label.
+  </Step>
+  <Step title="Set authentication" icon="key">
+    Under **Authentication**, change to **Custom Headers**, set the **header** to **x-api-key**, and enter your provided [API Key](/start/request-api-key).
+
+    <Frame>
+      <img
+        src="/images/openai-platform.png"
+        alt="You should now see a screen with available tools"
+        height="100"
+        width="400"
+        className="rounded-lg"
+      />
+    </Frame>
+  </Step>
+</Steps>
 
 With that you've successfully connected the Statista MCP server with an OpenAI chat.
 
