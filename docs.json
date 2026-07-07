@@ -89,7 +89,9 @@
               "mcp-server/connection-claude-windows",
               "mcp-server/connection-perplexity-desktop",
               "mcp-server/connection-fastmcp",
-              "mcp-server/connection-gemini"
+              "mcp-server/connection-gemini",
+              "mcp-server/connection-qwen",
+              "mcp-server/connection-cursor"
             ]
           }
         ]

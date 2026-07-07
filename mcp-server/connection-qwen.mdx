@@ -1,0 +1,99 @@
+---
+title: "Connect to Qwen Chat Desktop"
+description: "Connect the Statista MCP Server to Qwen Chat Desktop on Mac and Windows"
+---
+
+<Info>
+  MCP is available only in the Qwen Chat Desktop app on Mac and Windows — not in the web chat.
+</Info>
+
+## What you'll need
+
+- Your [Statista API key](/start/request-api-key)
+- [Qwen Chat Desktop](https://qwen.ai/home) installed on Mac or Windows
+- [Node.js](https://nodejs.org/) 20 or later (needed for the `mcp-remote` integration)
+
+## Install Qwen Chat Desktop
+
+To connect the Statista MCP Server with Qwen Chat Desktop, follow these steps:
+
+1. Install [Qwen Chat Desktop](https://qwen.ai/home) for Mac or Windows
+2. If you don't already have one, create an account
+3. Open Qwen Chat Desktop
+
+## Connect via JSON
+
+1. In the chat window, click **MCP**
+2. Go to **MCP settings**
+3. Click **Add MCP**
+4. Choose the JSON option
+5. Copy/paste this configuration:
+
+**Mac:**
+
+```json
+{
+  "mcpServers": {
+    "statista": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://api.statista.ai/v1/mcp",
+        "--transport",
+        "http-only",
+        "--header",
+        "x-api-key: ${API_KEY}"
+      ],
+      "env": {
+        "API_KEY": "YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+**Windows:**
+
+```json
+{
+  "mcpServers": {
+    "statista": {
+      "command": "C:\\PROGRA~1\\nodejs\\npx.cmd",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://api.statista.ai/v1/mcp",
+        "--transport",
+        "http-only",
+        "--header",
+        "x-api-key: ${API_KEY}"
+      ],
+      "env": {
+        "API_KEY": "YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+<Info>
+Replace `YOUR_API_KEY` with your provided [Statista API key](/start/request-api-key). On Windows, use the full path to `npx.cmd` as shown — plain `npx` often fails in desktop apps that do not inherit your system PATH.
+</Info>
+
+6. Save and enable the connector
+
+## Verify the connection
+
+Once the connector is enabled, ask a market research question in Qwen Chat. The model should be able to use Statista tools such as `search-statistics` and `get-chart-data-by-id`.
+
+## Troubleshooting
+
+- **401 authentication error**: confirm the `x-api-key` header is set correctly
+- **Connection fails**: confirm Node.js 20+ is installed and try `npx mcp-remote@latest`
+- **Windows: command not found**: use `C:\\PROGRA~1\\nodejs\\npx.cmd` instead of `npx` in the JSON config
+- **Manual config inspection** (if needed):
+  - **Mac**: `~/Library/Application Support/Qwen/settings.json`
+  - **Windows**: `%APPDATA%\Qwen\settings.json`
+
+You're good to go! Now you can do market research with Statista and Qwen Desktop.

@@ -1,0 +1,95 @@
+---
+title: "Connect to Cursor"
+description: "Connect the Statista MCP Server to Cursor on Mac and Windows"
+---
+
+## What you'll need
+
+- Your [Statista API key](/start/request-api-key)
+- [Cursor](https://cursor.com/download) installed on Mac or Windows
+- [Node.js](https://nodejs.org/) 20 or later (needed for the `mcp-remote` integration)
+
+## Install Cursor
+
+To connect the Statista MCP Server with Cursor, follow these steps:
+
+1. Install [Cursor](https://cursor.com/download) for Mac or Windows
+2. If you don't already have one, create an account
+3. Open Cursor
+
+## Connect via mcp.json
+
+Add the server by editing an MCP configuration file:
+
+- **Project scope**: `.cursor/mcp.json` in your project root
+- **Global scope (Mac)**: `~/.cursor/mcp.json`
+- **Global scope (Windows)**: `%USERPROFILE%\.cursor\mcp.json`
+
+**Mac:**
+
+```json
+{
+  "mcpServers": {
+    "statista": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://api.statista.ai/v1/mcp",
+        "--transport",
+        "http-only",
+        "--header",
+        "x-api-key: ${API_KEY}"
+      ],
+      "env": {
+        "API_KEY": "YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+**Windows:**
+
+```json
+{
+  "mcpServers": {
+    "statista": {
+      "command": "C:\\PROGRA~1\\nodejs\\npx.cmd",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://api.statista.ai/v1/mcp",
+        "--transport",
+        "http-only",
+        "--header",
+        "x-api-key: ${API_KEY}"
+      ],
+      "env": {
+        "API_KEY": "YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+<Info>
+Replace `YOUR_API_KEY` with your provided [Statista API key](/start/request-api-key). On Windows, use the full path to `npx.cmd` as shown — plain `npx` often fails in desktop apps that do not inherit your system PATH.
+</Info>
+
+Save the file and restart Cursor.
+
+## Verify the connection
+
+1. Open a Cursor chat or Agent session
+2. Confirm **statista** appears under available MCP tools
+3. Ask a market research question — the model should be able to use Statista tools such as `search-statistics` and `get-chart-data-by-id`
+
+## Troubleshooting
+
+- **401 authentication error**: confirm the `x-api-key` header is set correctly
+- **Connection fails**: confirm Node.js 20+ is installed and try `npx mcp-remote@latest`
+- **Windows: command not found**: use `C:\\PROGRA~1\\nodejs\\npx.cmd` instead of `npx` in the JSON config
+- **Server not loading**: open **Output** (`Cmd+Shift+U` on Mac / `Ctrl+Shift+U` on Windows) → select **MCP Logs** from the dropdown
+
+You're good to go! Now you can do market research with Statista and Cursor.
