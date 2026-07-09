@@ -1212,6 +1212,10 @@ components:
           type: integer
           format: uint32
           description: The total number of available items matching the request.
+        total_pages:
+          type: integer
+          format: uint32
+          description: The total number of pages available, based on the selected size parameter
     Api.Response.Search.Timeframe:
       type: object
       required:

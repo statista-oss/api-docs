@@ -226,91 +226,92 @@ components:
         - line-zoomable
         - pie
         - table
+    Api.Data.Response.Industry:
+      type: object
+      required:
+        - name
+        - id
+      properties:
+        name:
+          type: string
+        id:
+          $ref: '#/components/schemas/Type.IndustryId'
+    Api.Data.Response.Region:
+      type: object
+      required:
+        - name
+        - code
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+    Api.Data.Response.Source:
+      type: object
+      required:
+        - title
+        - subtitle
+      properties:
+        title:
+          type: string
+        subtitle:
+          type: string
     Api.Data.Response.Statistic:
       type: object
       required:
-        - teaser_image_urls
         - identifier
         - title
         - link
         - date
-        - released_at
-        - platform
         - subject
         - is_premium
+        - teaser_image_urls
+        - platform
         - chart
       properties:
+        identifier:
+          $ref: '#/components/schemas/Type.Id'
+        title:
+          type: string
+        link:
+          type: string
+        date:
+          type: string
+          format: date-time
+        subject:
+          type: string
+        is_premium:
+          type: boolean
+        description:
+          type: string
         teaser_image_urls:
           type: array
           items:
             $ref: '#/components/schemas/Api.Response.TeaserImage'
-          description: A list of preview images for this content.
-        identifier:
-          allOf:
-            - $ref: '#/components/schemas/Type.Id'
-          description: A unique number for this content. It helps find or refer to this data.
-        title:
-          type: string
-          description: The name of the content. It tells what the data is about.
-        description:
-          type: string
-          description: 'Optional: A short text that explains the most important facts in the data. Available for Advanced API key'
-        link:
-          type: string
-          description: The website address (URL) where you can see the full content on the Statista platform.
-        date:
-          type: string
-          format: date-time
-          description: 'Deprecated: The date when the data was published. Use `updated_at` for the latest update timestamp. Or use `released_at` for the creation timestamp. Format: YYYY-MM-DDTHH:mm:ssZ'
-          deprecated: true
-        updated_at:
-          type: string
-          format: date-time
-          description: 'The date when the data was last updated. Format: YYYY-MM-DDTHH:mm:ssZ'
-        released_at:
-          type: string
-          format: date-time
-          description: 'The date when the content was released. Format: YYYY-MM-DDTHH:mm:ssZ'
-        platform:
-          allOf:
-            - $ref: '#/components/schemas/Type.LanguageLocale'
-          description: The language of the page or platform.
-        ranking_score:
-          type: number
-          format: float
-          nullable: true
-          description: The ranking score used to rank this result.
         sources:
           type: array
           items:
-            $ref: '#/components/schemas/Api.Response.Source'
-          description: A list of sources related to the data.
+            $ref: '#/components/schemas/Api.Data.Response.Source'
         publishers:
           type: array
           items:
-            $ref: '#/components/schemas/Api.Response.Source'
-          description: A list of publishers related to the data.
+            $ref: '#/components/schemas/Api.Data.Response.Source'
         chargers:
           type: array
           items:
-            $ref: '#/components/schemas/Api.Response.Source'
-          description: A list of chargers related to the data.
-        subject:
-          type: string
-          description: A short summary of what the data shows.
-        is_premium:
-          type: boolean
-          description: A true/false value. Indicates on paid and free content.
+            $ref: '#/components/schemas/Api.Data.Response.Source'
         industries:
           type: array
           items:
-            $ref: '#/components/schemas/Api.Response.Industry'
-          description: A list of industries related to the data.
+            $ref: '#/components/schemas/Api.Data.Response.Industry'
         geolocations:
           type: array
           items:
-            $ref: '#/components/schemas/Api.Response.Region'
-          description: A list of regions related to the data.
+            $ref: '#/components/schemas/Api.Data.Response.Region'
+        platform:
+          $ref: '#/components/schemas/Type.LanguageLocale'
+        image_url:
+          type: string
         chart:
           $ref: '#/components/schemas/Api.Data.Response.Chart'
     Api.Response.Data.Chart:
@@ -506,45 +507,6 @@ components:
           allOf:
             - $ref: '#/components/schemas/Api.Response.Data.MarketInsightsChart'
           description: The chart data, covering one or more geo locations.
-    Api.Response.Industry:
-      type: object
-      required:
-        - name
-      properties:
-        id:
-          allOf:
-            - $ref: '#/components/schemas/Type.IndustryId'
-          description: The unique identifier for the industry.
-        name:
-          type: string
-          description: The name of the industry.
-    Api.Response.Region:
-      type: object
-      required:
-        - name
-        - code
-      properties:
-        id:
-          allOf:
-            - $ref: '#/components/schemas/Type.RegionId'
-          description: 'Optional: The unique identifier for the region.'
-        name:
-          type: string
-          description: 'Optional: The name of the region.'
-        code:
-          type: string
-          description: The code of the region.
-    Api.Response.Source:
-      type: object
-      required:
-        - title
-      properties:
-        title:
-          type: string
-          description: The name of the source, publisher, or charger.
-        subtitle:
-          type: string
-          description: 'Optional: Additional source, publisher, or charger information.'
     Api.Response.TeaserImage:
       type: object
       required:
@@ -584,9 +546,6 @@ components:
         - en
         - fr
         - es
-    Type.RegionId:
-      type: integer
-      format: uint16
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
