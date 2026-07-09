@@ -195,6 +195,130 @@ components:
         - `%Y-%m-%d` - example `2024-03-07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
         - `%d.%m.%Y` - example `03.07.2024` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
         - `%Y/%m/%d` - example `2024/03/07` (in this case we assume 00:00:00 as time for Start and 23:59:59 for End)
+    Api.Response.CoveredTimeFrame:
+      type: object
+      required:
+        - start
+        - end
+        - display_text
+      properties:
+        start:
+          type: string
+          format: date-time
+          description: 'The start of the covered time frame. Format: YYYY-MM-DDTHH:mm:ssZ'
+        end:
+          type: string
+          format: date-time
+          description: 'The end of the covered time frame. Format: YYYY-MM-DDTHH:mm:ssZ'
+        display_text:
+          type: string
+          description: The human-readable covered time frame.
+    Api.Response.ERI:
+      type: object
+      required:
+        - identifier
+        - title
+        - link
+        - date
+        - released_at
+        - platform
+        - subject
+        - is_premium
+      properties:
+        identifier:
+          allOf:
+            - $ref: '#/components/schemas/Type.Id'
+          description: A unique number for this content. It helps find or refer to this data.
+        title:
+          type: string
+          description: The name of the content. It tells what the data is about.
+        description:
+          type: string
+          description: 'Optional: A short text that explains the most important facts in the data. Available for Advanced API key'
+        link:
+          type: string
+          description: The website address (URL) where you can see the full content on the Statista platform.
+        date:
+          type: string
+          format: date-time
+          description: 'Deprecated: The date when the data was published. Use `updated_at` for the latest update timestamp. Or use `released_at` for the creation timestamp. Format: YYYY-MM-DDTHH:mm:ssZ'
+          deprecated: true
+        updated_at:
+          type: string
+          format: date-time
+          description: 'The date when the data was last updated. Format: YYYY-MM-DDTHH:mm:ssZ'
+        released_at:
+          type: string
+          format: date-time
+          description: 'The date when the content was released. Format: YYYY-MM-DDTHH:mm:ssZ'
+        platform:
+          allOf:
+            - $ref: '#/components/schemas/Type.LanguageLocale'
+          description: The language of the page or platform.
+        ranking_score:
+          type: number
+          format: float
+          nullable: true
+          description: The ranking score used to rank this result.
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Source'
+          description: A list of sources related to the data.
+        publishers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Source'
+          description: A list of publishers related to the data.
+        chargers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Source'
+          description: A list of chargers related to the data.
+        subject:
+          type: string
+          description: A short summary of what the data shows.
+        is_premium:
+          type: boolean
+          description: A true/false value. Indicates on paid and free content.
+        industries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Industry'
+          description: A list of industries related to the data.
+        geolocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Region'
+          description: A list of regions related to the data.
+    Api.Response.Industry:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Type.IndustryId'
+          description: The unique identifier for the industry.
+        name:
+          type: string
+          description: The name of the industry.
+    Api.Response.Region:
+      type: object
+      required:
+        - name
+        - code
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Type.RegionId'
+          description: 'Optional: The unique identifier for the region.'
+        name:
+          type: string
+          description: 'Optional: The name of the region.'
+        code:
+          type: string
+          description: The code of the region.
     Api.Response.Search.Answer:
       type: object
       required:
@@ -355,54 +479,6 @@ components:
           type: integer
           format: uint16
           description: Last year, when this question was asked.
-    Api.Response.Search.Statistic:
-      type: object
-      required:
-        - identifier
-        - title
-        - subject
-        - is_premium
-        - link
-        - platform
-        - teaser_image_urls
-      properties:
-        identifier:
-          allOf:
-            - $ref: '#/components/schemas/Type.Id'
-          description: A unique number for this content. It helps find or refer to this data.
-        title:
-          type: string
-          description: The name of the content. It tells what the data is about.
-        subject:
-          type: string
-          description: A short summary of what the data shows.
-        is_premium:
-          type: boolean
-          description: A true/false value. Indicates on paid and free content.
-        description:
-          type: string
-          description: 'Optional: A short text that explains the most important facts in the data. Available for Advanced API key'
-        link:
-          type: string
-          description: The website address (URL) where you can see the full content on the Statista platform.
-        date:
-          type: string
-          format: date-time
-          description: 'Optional: The date when the data was published. Format: YYYY-MM-DDTHH:mm:ssZ'
-        platform:
-          allOf:
-            - $ref: '#/components/schemas/Type.LanguageLocale'
-          description: The language of the page or platform.
-        teaser_image_urls:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Response.TeaserImage'
-          description: A list of preview images for this content.
-        ranking_score:
-          type: number
-          format: float
-          nullable: true
-          description: 'Optional: The ranking score used to rank this result.'
     Api.Response.Search.Statistics:
       type: object
       required:
@@ -412,32 +488,12 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/Api.Response.Search.Statistic'
+            $ref: '#/components/schemas/Api.Response.Statistic'
           description: A list of results returned for the current request.
         total_count:
           type: integer
           format: uint32
           description: The total number of available items matching the request.
-        took:
-          allOf:
-            - $ref: '#/components/schemas/Api.Response.Search.StatisticsTook'
-          description: 'Optional: Timing breakdown for search, load, and response conversion.'
-    Api.Response.Search.StatisticsTook:
-      type: object
-      required:
-        - search
-        - load
-        - conv
-      properties:
-        search:
-          type: string
-          description: 'Optional: The duration of the upstream search step as returned by the API.'
-        load:
-          type: string
-          description: 'Optional: The duration of the data loading step as returned by the API.'
-        conv:
-          type: string
-          description: 'Optional: The duration of the response conversion step as returned by the API.'
     Api.Response.Search.Timeframe:
       type: object
       required:
@@ -450,6 +506,38 @@ components:
         end:
           type: string
           description: 'End date of the timeframe. Format: YYYY-MM-DD'
+    Api.Response.Source:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          description: The name of the source, publisher, or charger.
+        subtitle:
+          type: string
+          description: 'Optional: Additional source, publisher, or charger information.'
+    Api.Response.Statistic:
+      type: object
+      required:
+        - teaser_image_urls
+      properties:
+        teaser_image_urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.TeaserImage'
+          description: A list of preview images for this content.
+      allOf:
+        - $ref: '#/components/schemas/Api.Response.ERI'
+    Api.Response.Study:
+      type: object
+      properties:
+        covered_time_frame:
+          allOf:
+            - $ref: '#/components/schemas/Api.Response.CoveredTimeFrame'
+          description: Timeframe the data is covering, start and end are inclusive.
+      allOf:
+        - $ref: '#/components/schemas/Api.Response.ERI'
     Api.Response.TeaserImage:
       type: object
       required:
@@ -466,6 +554,9 @@ components:
     Type.Id:
       type: integer
       format: uint64
+    Type.IndustryId:
+      type: integer
+      format: uint16
     Type.LanguageLocale:
       type: string
       enum:
@@ -473,6 +564,9 @@ components:
         - en
         - fr
         - es
+    Type.RegionId:
+      type: integer
+      format: uint16
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

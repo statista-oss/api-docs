@@ -226,16 +226,6 @@ components:
         - line-zoomable
         - pie
         - table
-    Api.Data.Response.Source:
-      type: object
-      required:
-        - title
-        - subtitle
-      properties:
-        title:
-          type: string
-        subtitle:
-          type: string
     Api.Data.Response.Statistic:
       type: object
       required:
@@ -244,6 +234,7 @@ components:
         - title
         - link
         - date
+        - released_at
         - platform
         - subject
         - is_premium
@@ -270,11 +261,40 @@ components:
         date:
           type: string
           format: date-time
-          description: 'The date when the data was published. Format: YYYY-MM-DDTHH:mm:ssZ'
+          description: 'Deprecated: The date when the data was published. Use `updated_at` for the latest update timestamp. Or use `released_at` for the creation timestamp. Format: YYYY-MM-DDTHH:mm:ssZ'
+          deprecated: true
+        updated_at:
+          type: string
+          format: date-time
+          description: 'The date when the data was last updated. Format: YYYY-MM-DDTHH:mm:ssZ'
+        released_at:
+          type: string
+          format: date-time
+          description: 'The date when the content was released. Format: YYYY-MM-DDTHH:mm:ssZ'
         platform:
           allOf:
             - $ref: '#/components/schemas/Type.LanguageLocale'
           description: The language of the page or platform.
+        ranking_score:
+          type: number
+          format: float
+          nullable: true
+          description: The ranking score used to rank this result.
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Source'
+          description: A list of sources related to the data.
+        publishers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Source'
+          description: A list of publishers related to the data.
+        chargers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Api.Response.Source'
+          description: A list of chargers related to the data.
         subject:
           type: string
           description: A short summary of what the data shows.
@@ -285,24 +305,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Api.Response.Industry'
-          description: 'Optional: A list of industries related to the data.'
+          description: A list of industries related to the data.
         geolocations:
           type: array
           items:
             $ref: '#/components/schemas/Api.Response.Region'
-          description: 'Optional: A list of regions related to the data.'
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Data.Response.Source'
-        chargers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Data.Response.Source'
-        publishers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Api.Data.Response.Source'
+          description: A list of regions related to the data.
         chart:
           $ref: '#/components/schemas/Api.Data.Response.Chart'
     Api.Response.Data.Chart:
@@ -526,6 +534,17 @@ components:
         code:
           type: string
           description: The code of the region.
+    Api.Response.Source:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          description: The name of the source, publisher, or charger.
+        subtitle:
+          type: string
+          description: 'Optional: Additional source, publisher, or charger information.'
     Api.Response.TeaserImage:
       type: object
       required:
