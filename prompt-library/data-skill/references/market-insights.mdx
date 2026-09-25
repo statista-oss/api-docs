@@ -1,0 +1,59 @@
+# search-market-insights + fetch-market-insights reference
+
+## What this pair wraps
+
+Statista's own analyst-built market-sizing and forecasting models, the "Outlook" product line, rather than a citation of someone else's published number. The in-house models cover 1,000+ market segments across 190+ countries, built with a hybrid top-down/bottom-up method, e.g. S-curve adoption curves for digital products and exponential trend smoothing for steady-growth categories, and increasingly informed by Statista's own Consumer Insights survey data alongside the broader platform and analyst expertise. Because these are Statista's own numbers rather than a fixed published chart, a dataset can be queried at any country/year combination it covers. That's why this pair returns structured, multi-year, cross-country time series instead of a single citable figure. Cite it as Statista's own model or estimate, not as a named third-party publisher. The Statistics pair does carry a named external source, this one doesn't.
+
+## When to use this pair
+
+Use this pair when the user needs the *same* KPI across multiple countries or regions and multiple years: market sizing, growth forecasts, unit sales, penetration rates, and similar structured cross-country metrics. It fits questions like "how does the X market compare across these five countries" or "what's the forecast for Y through 2030", where a single chart id wouldn't give you the multi-geo time series you need.
+
+It's the wrong tool when the user wants one specific citable chart, since `search-statistics` is faster and gives a cleaner citation, or wants the consumer attitudes behind the numbers rather than the numbers, which is `search-consumer-insights`. It's also not a general economic-indicators database. Coverage is organized around specific published market-research datasets, so an oddly specific or hyper-niche KPI may not exist as a dataset even when the broader category does.
+
+## Data structure
+
+**`search-market-insights(query)`** returns per hit:
+- `id`, an opaque UUID-style string. Never guess or reconstruct one, always copy it verbatim from a search result.
+- `title`, `subject`, `description`, saying what the dataset covers.
+- `covered_timeframes`, the start and end years the dataset spans. These can include future years when it holds forecasts.
+- `covered_geos`, a map of geo code to English name, e.g. `{"DEU": "Germany", "EUR": "Europe", "WLD": "Worldwide"}`. This is the *only* reliable source of truth for which geo codes are valid for that dataset. Codes are not universal across datasets.
+- `market_type` and `market_type_description`, broad internal classification labels. Treat them as a rough grouping hint, not a filter. They've been seen mismatched to a dataset's actual subject, e.g. a utilities-revenue dataset filed under an "Advertising & Media" market type.
+
+**`fetch-market-insights(id, geo)`** returns `{id, title, description, market_type, market_type_description, chart: {unit, graphType, name, data: [{geo, categories, series}, ...]}}`.
+
+- Each geo you requested gets its own entry in `chart.data`, with its own `categories`, typically years, and `series`, one or more named value arrays. Check whether the categories extend past the current year, since forecast years aren't flagged beyond sitting in the series. A dataset can carry more than one named series per geo, e.g. an "actual" series and a "forecast" series.
+- `unit` varies by dataset: `percent`, `user`, `USD`, `vehicle`, `piece`, `ton-kilometre`, and occasionally an unintuitive label like `"one"` for what's really a per-capita or per-subscriber count. Read `unit` rather than inferring it from the title.
+- `graphType` has been `stacked_bar` in every fetch observed across a wide spread of markets. That describes Statista's own default chart rendering, and doesn't hint that the series are meant to be summed.
+
+## How to query
+
+- Don't put a country or region name in the query text. Geography is handled entirely through `covered_geos`, not query parsing. "cybersecurity revenue Germany" does nothing more useful than "cybersecurity revenue".
+- Query by market, topic, or KPI concept instead, e.g. "insurance premiums", "car sales", "cloud gaming users". Even a deliberately broad single-word query like "market" or "revenue" is safe here and returns a large, diverse set of datasets rather than erroring, which is useful for an exploratory first pass before narrowing.
+- After search, inspect `covered_geos` before calling fetch. Check two things specifically: whether `WLD` is present at all, and whether the geos you need are plain country codes or broader bloc codes. Blocs get rejected more often, see gotchas.
+- Enforce the 5-geo cap yourself before calling fetch. For more than 5 geos, plan multiple `fetch-market-insights` calls with disjoint geo sets up front rather than discovering the limit through an error.
+
+## How to interpret results
+
+- Read `unit` before quoting any number. A dataset titled like an absolute revenue figure can report fractional or percent-style values, and a "users" dataset can report a per-unit rate rather than a headcount.
+- Treat each geo's `categories`/`series` pair independently. Requested geos don't always share year ranges, and a narrower-coverage geo can have a shorter historical run than a well-covered one in the same response.
+- Only compare numbers within the same dataset `id`. Two dataset ids covering similar topics can use different definitions, time windows, or methodologies, and stitching them into one series produces a misleading comparison.
+- `market_type` and `market_type_description` aren't reliable enough to filter or categorize by. Use `title`, `subject`, and `description` to confirm what a dataset measures.
+
+## Gotchas
+
+- **The 5-geo cap is enforced before any network call, with a specific parameter-validation error.** Passing 6 codes fails immediately with `MCP error -32602: Tool 'fetch-market-insights' parameter validation failed: geo: Maximum number of geo codes is 5.`
+- **Whether a dataset has `WLD` correlates with how narrow its geo coverage is.** Broad datasets with dozens of geos usually include `WLD`. Datasets scoped to a handful of countries or blocs, like niche category revenue or single-region market slices, often don't.
+- **Omitting `geo` silently defaults to `WLD`, and on a dataset without `WLD` that produces a confusing error rather than a helpful one**: `404 - Not Found, {"detail":"No data for any requested geo"}`. It doesn't tell you which geos are valid. When a fetch 404s this way, go back to the search result's `covered_geos` and pass an explicit code from that list.
+- **A geo code listed in a dataset's own `covered_geos` isn't always accepted by fetch.** A broader regional code like `EU` returned a different, unstructured 400 (`Ivalid geo code: EU`, with no `error_code` field, and note the typo in the message itself) even though it appeared in that dataset's `covered_geos` map. The standard invalid-code error is a clean structured 400: `{"detail":"Invalid 'geo' value. Use one of the supported Market Insights geo codes","error_code":"InvalidQueryParameter"}`. If a geo from `covered_geos` gets rejected, retry with a plain country code from the same map instead of a bloc code.
+- Geo codes are Statista-specific, not pure ISO, and their meaning is stable across datasets once you know it, e.g. `CHK` is "China incl. Hong Kong", distinct from a plain China code. But the available codes include many bloc and region groupings (`EUR`, `G7`, `G20`, `BRICS`, `GCC`, `CIS`, `MENA`, `EMEA`, `NORDICS`, `BENELUX`, `NAFTA`, and similar) that aren't always safe to pass even when listed.
+- An invalid or garbage id returns a 404, `{"detail":"Dataset not found"}`. That's distinct from the geo errors above, so a 404 of this shape means the id is wrong, not the geo.
+
+## Worked examples
+
+A few representative results, to show the pattern rather than serve as a market list:
+
+| Query                                    | Dataset id (example)                   | covered_geos highlights                                   | geo used in fetch                                         | Result highlight                                                        |
+| ---------------------------------------- | -------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | ----------------------------------------------------------------------- |
+| "cloud computing" (Public Cloud Revenue) | `674e94cc-c58e-0c3d-9090-d10cb0057b85` | DEU, USA, JPN, AUS, SGP, GBR, CAN, CHK, IND, KOR, no WLD  | USA, DEU, JPN                                             | USA revenue far exceeds DEU/JPN in USD                                  |
+| "mobile gaming" (Cloud Gaming Users)     | `e6650fb2-4f1e-b3ae-fb09-507a7a388c2e` | ~80 geos                                                  | Call 1: USA,DEU,GBR,JPN,FRA · Call 2: BRA,IND,CHK,KOR,AUS | Shows the disjoint multi-call pattern for >5 geos; unit = `user`        |
+| "pharmaceutical revenue"                 | `2ba05efe-7500-ef25-af76-8535b614316f` | DEU, EU, JPN, USA, CHK, no WLD                            | DEU,JPN,USA                                               | Narrow-geo dataset; omitting `geo` here fails, see gotchas              |

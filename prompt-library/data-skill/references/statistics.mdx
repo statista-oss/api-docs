@@ -1,0 +1,59 @@
+# search-statistics + get-chart-data-by-id reference
+
+## What this pair wraps
+
+Statista's core statistics catalogue: over a million individually published charts from roughly 22,500 outside publishers, including market research firms, trade associations, scientific journals, and government agencies, across some 170 industries and 150+ countries. Statista didn't produce these numbers, it curated and indexed someone else's already-published figure. That's the whole reason every result carries a named external publisher. The citation belongs to that third party, and Statista is just the index you found it through. Market Insights (Statista's own forecasting models) and Consumer Insights (Statista's own survey data) are Statista's own numbers. This pair isn't.
+
+## When to use this pair
+
+Use this pair when the user wants one specific, citable, already-published number or chart: a single headline stat, a short historical series, or a ranking Statista's analysts have already built, like top companies by market cap or top countries by some metric. It fits asks that sound like "how many/how much/what % is X" or "find me a chart on Y", where one well-sourced figure settles the request.
+
+It's the wrong tool when the user needs the *same* KPI across many countries or years in a structured way, which is `search-market-insights`, or wants consumer attitudes and behavior rather than a market-level number, which is `search-consumer-insights`. It also can't build a custom breakdown. It returns statistics that already exist as published charts, nothing more.
+
+## Data structure
+
+**`search-statistics(query)`** returns `{items: [...], total_count, total_pages}`.
+
+Each item includes:
+- `identifier` is the numeric id, and the only thing you carry into the fetch step. Never construct or guess one.
+- `title`, `subject`, and `description` say what the chart covers.
+- `is_premium` is a boolean flag. It doesn't affect whether you can fetch full data. See the interpretation notes.
+- `link` is a URL to the chart on statista.com.
+- `geolocations` is an array of `{name, code}` for the geography the chart covers.
+- `industries` is an array of `{name}` industry tags.
+- `sources`/`publishers` name the data provider behind the chart, e.g. "EV-Volumes.com" or "Kantar Group UK". This is what you cite.
+- `ranking_score` is a float roughly in the 0.4 to 0.8 range, sorted descending. The first item is the tool's best guess at relevance, and a best guess isn't the same as correct. See the interpretation notes.
+
+`total_count` and `total_pages` reflect the real corpus size matched by the query, not a fixed page size. A broad query can legitimately return a large count, a narrow one returns a true small count in the tens, and a query with no real match returns `0`. A nonzero count isn't proof the query worked.
+
+**`get-chart-data-by-id(id)`** returns the full numeric chart payload, an extended HTML description with methodology notes, and source detail including a canonical statista.com citation URL. The payload's shape depends on `graphType`. Flat-series shapes cover `bar`, `stacked-bars`, and `dual-y-axes`, while a `table` type nests values under year-string keys instead of a flat array. Check `graphType` before you assume the shape, and don't hardcode a parser that handles only one.
+
+## How to query
+
+- Use short, specific multi-word queries that name the actual metric and topic, e.g. "electric vehicle sales" or "real estate prices Germany", rather than one generic word like "market" or "growth". Specificity drives relevance far more than length.
+- Unlike Market Insights, you can put a country or region name directly in the query here. Geography isn't a separate structured parameter for this tool.
+- If a query returns `0` results, weak scattered `ranking_score`s, or nothing on topic, don't re-run it. Rephrase with an added qualifier, a more specific metric, a narrower industry term, or a time frame, and search again.
+- Non-English queries do return real, on-corpus results, but the language of the returned metadata isn't guaranteed to match. A German or Spanish query won't necessarily get back German or Spanish source titles.
+
+## How to interpret results
+
+- Before fetching or citing the top hit, check that its title and description match what was asked. A nonempty, well-formed result list is not proof of relevance. For niche or hyper-local topics especially, the tool returns real statistics about an adjacent but different topic instead of a clean miss, so read the top few hits.
+- `is_premium: true` has never blocked `get-chart-data-by-id` from returning complete data in testing, in any domain. Treat it as informational, not a gate to work around.
+- Read `graphType` before parsing the numeric payload. A `table`-type result nests by year rather than giving you a flat series.
+- Cite the named publisher from the result, or the extended source detail from the fetch step, not "Statista" generically. That's what ends up in a report footnote or deck citation.
+- If you're using two chart ids to make a comparison, check that they cover comparable units and time periods first. Nothing in the response normalizes that for you.
+
+## Gotchas
+
+- A guessed or unsourced id, say `1` or a large made-up number, returns a clean 404: `Could not find statistic #<id>`. Never hand-craft an id.
+- Identical queries return identical, cached-feeling results within a session. Vary the wording rather than repeating a call that didn't help.
+
+## Worked examples
+
+A few representative results, to show the pattern rather than serve as a topic list:
+
+| Query                       | Chart id | Key fact from the fetch                                                                       |
+| --------------------------- | -------- | --------------------------------------------------------------------------------------------- |
+| "electric vehicle sales"    | 1635138  | China sold >8M of the world's 14.2M electric vehicles in 2023 (source: EV-Volumes.com)        |
+| "defense budget by country" | 1638963  | Premium-flagged chart still returned full 15-country data via the fetch call                  |
+| "banking sector Nigeria"    | 1139751  | 45.1% of Nigerians 15+ have a financial institution account, but only 1.6% have a credit card |

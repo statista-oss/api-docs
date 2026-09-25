@@ -112,6 +112,25 @@
         ]
       },
       {
+        "tab": "Data Skill",
+        "groups": [
+          {
+            "group": "SKILL.md",
+            "pages": [
+              "prompt-library/data-skill/skill"
+            ]
+          },
+          {
+            "group": "references/",
+            "pages": [
+              "prompt-library/data-skill/references/statistics",
+              "prompt-library/data-skill/references/market-insights",
+              "prompt-library/data-skill/references/consumer-insights"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Changelogs",
         "groups": [
           {

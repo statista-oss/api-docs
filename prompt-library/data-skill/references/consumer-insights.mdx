@@ -1,0 +1,56 @@
+# search-consumer-insights + fetch-consumer-insights reference
+
+## What this pair wraps
+
+Statista's own primary survey and panel research, not a citation of someone else's data and not a modeled estimate. Statista fields proprietary online surveys across 50+ countries, up to 60,000 respondents per country, asking real people directly about their attitudes, purchases, media habits, and brand interactions, using professional online panel providers, split-questionnaire design, quota sampling, and rolling waves. Because it's original polling rather than a citation or a model, results come back as crosstabs of actual respondent answers, and the correct citation is "Statista Consumer Insights" itself. Never an external publisher, that's the Statistics pair, and never "Statista's model", that's Market Insights.
+
+## When to use this pair
+
+Use this pair when the user wants to know what a population or segment believes, does, owns, or intends to do, the who and why behind a market rather than the market-size number. It's built for questions like "what % of Gen Z in Germany already use X" or "how does attitude toward Y differ by income level", and for narrowing to a target audience by combining a topic question with demographic filters to get a base rate for a niche segment.
+
+It's the wrong tool when the user wants an aggregate market-size or forecast figure, which is `search-market-insights`, or a single citable published chart, which is `search-statistics`. It's also not a general-purpose demographics database. Coverage is limited to the questions Statista's survey program actually fielded, in the countries and waves it ran in, so a very specific attitude question may not exist even when the broader topic does.
+
+## Data structure
+
+**`search-consumer-insights(query)`** returns question IDs like `v0463a_digi_streamoffers` with nested answer IDs like `v0463a_digi_streamoffers#4`, plus year coverage and a short label for each. One search surfaces only a subset of the full answer-option space for a concept. Searching the same concept with different wording turns up a different subset of valid answer IDs, so don't assume one search caught everything when you need a specific option that didn't show up.
+
+**`fetch-consumer-insights(rows, columns?, filters?, country?, year?)`** returns a crosstab. Percentages and counts live under `chart.data`, and the response includes a `sources` field, which is what you cite. Never cite `survey_id`, e.g. `gcs_usa_202601`, which is purely an internal reference. The response `title` describes exactly what configuration ran, and it's worth reading closely, because the same fields mean structurally different things depending on how you combined `rows`, `columns`, and `filters`. See the interpretation notes.
+
+Parameter roles:
+- `rows` is required and takes exactly one question or answer ID. This is the primary variable being measured.
+- `columns` is optional and usually takes a demographic answer ID, or another topic ID, see gotchas. It produces a real breakdown, one crosstab column per answer option.
+- `filters` is an optional list of answer IDs that narrows the respondent base without adding a breakdown column. Multiple filters combine with AND logic, so the base is the intersection of all conditions.
+- `country` is a 3-letter ISO alpha-3 code, e.g. `USA`, `DEU`, `BRA`.
+- `year` restricts to a specific survey wave.
+
+## How to query
+
+- `rows` takes exactly one ID. Never comma-separate IDs into it, or into `columns`. A strict pattern validator enforces this server-side, it isn't just a style convention.
+- Default pattern: pair one topic question with one demographic `columns` or `filters` ID. Use `columns` when you need the answer broken out by a demographic, `filters` when you just need the topic's rate within one demographic slice, a single number with no breakdown.
+- For a narrow audience, e.g. "Gen Z women with a college degree", stack multiple filter IDs in the `filters` list. They intersect correctly, but watch the base shrinking to where the number stops meaning anything. The response doesn't warn you about small samples.
+- Pass an explicit `country` whenever the user cares about a specific market or wants one clean number. Omitting `country` doesn't give you broad global coverage, it returns an array of crosstabs auto-picked across a small default set of countries.
+- If the first search for a demographic concept doesn't turn up the answer option you expect, re-search with different wording, e.g. try both "age" and "generation" framings, or both "income" and "earnings", rather than concluding the concept isn't covered.
+
+## How to interpret results
+
+- Read the `title` to know what kind of result you got. "X by Y" phrasing means a true breakdown via `columns`, "X with target group Y" means a filtered base rate via `filters`, and a "Fusion Data Notice" means the result is a statistically imputed estimate from statistical-twin matching across demographics rather than a directly measured joint response. Treat that as lower confidence than a direct crosstab, and flag it when you present the number.
+- Check the wave date or `survey_id` in the response before citing a `year`. If the question wasn't fielded in the year you asked for, the tool silently substitutes the earliest available wave instead of erroring, so the response's year may not match your request.
+- A demographic answer ID's meaning and label can be country-specific. Income bands are denominated in local currency and vary by country, and education categories follow each country's own schooling labels. Don't reuse an income or education answer ID across countries, re-search per country when you need the same cut in several markets.
+- If a `columns` breakdown across two topic-level questions looks unusually smooth or precise, check for a Fusion Data Notice before treating it as an observed relationship.
+
+## Gotchas
+
+- **"At most one non-demographic split" is a rule of thumb, not a uniformly enforced limit.** Pairing two genuinely different topic questions, one in `rows` and one in `columns`, doesn't always error. Sometimes it returns a real joint crosstab, sometimes it silently falls back to the Fusion Data Notice behavior above. Only a *third* non-demographic split, e.g. two topic questions plus a topic-based filter, reliably hard-errors: `400 - "Incompatible splits detected between the selected questions, answers, and filters... unless they share the same split value, or are demographic (split \"demo\")..."`.
+- An invented ID, a plain English word like `"age"` or a guessed sequential-looking ID, returns a 404: `Question or answer not found: <id>`. Only use IDs copied verbatim from a search result.
+- A well-formed ID plus a country the question wasn't fielded in produces a *different* error: `404 - "No crosstab solution found, try a different combination of questions/answers/filters"`. This isn't about the market being small or unsupported, it's specific to whether that question ran in that country, so a less-common country works fine when the question happened to run there.
+- Answer IDs get retired or replaced between survey waves. An option present in one year can disappear in a later wave, replaced by a differently worded one. If results for a given `year` look off, re-search to check the current answer set.
+
+## Worked examples
+
+A few representative results, to show the pattern rather than serve as a topic list:
+
+| Search query | ID(s) found | Fetch call | Result highlight |
+|---|---|---|---|
+| "streaming service usage" | `v0463a_digi_streamoffers#4` | `rows=v0463a_digi_streamoffers` | Real, well-formed crosstab, same shape as any other topic |
+| "sustainable fashion" | `v0710_fmcg_attitudesfashion#10` | `country=GBR` | 24.5% of UK respondents support fair-labor fashion brands (2026 wave) |
+| "tobacco product usage" | filtered by gender + education answer IDs together | `filters=[gender#1, education#3]` | Multiple filters combine correctly, title reflects both target-group conditions intersected |
