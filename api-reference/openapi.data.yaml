@@ -491,6 +491,10 @@ components:
             type: number
             format: float
           description: The numeric values of the time series.
+        link:
+          type: string
+          format: uri
+          description: Link to this geo's page on statista.com, at the indicator's section. Absent for indicators without a link.
     Api.Response.Data.MarketInsightsIndicator:
       type: object
       required:
