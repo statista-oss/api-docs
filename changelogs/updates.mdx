@@ -3,6 +3,22 @@ title: Updates
 description: "Changelogs for the APIs and MCP Server"
 ---
 
+<Update label="19. November 2026">
+<b> MCP Server </b>
+
+All MCP tools got updated tool descriptions improving the tool selection precision.
+
+The 'get-chart-by-id' tool is now deprecated, but works as before. It will be removed in a future release.
+Please use the new 'fetch-statistics' tool, which provides additional functionality and improved response formats.
+
+Both 'fetch-statistics' and 'fetch-market-insights tools support batch fetching of up to 6 datasets with one call, to
+reduce the needed round trips for data collection by the LLM. Credit consumption is as before, per dataset fetched.
+Fetching three datasets cost three times the cost of a single dataset.
+
+The 'fetch-consumer-insights' tool now returns links into the new Consumer Insights application, which provides
+a visualization of the fetched tables and crosstables.
+</Update>
+
 <Update label="03. November 2026">
 <b> REST API & MCP Server </b>
 

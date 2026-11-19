@@ -45,10 +45,18 @@ Your API key authenticates each session and provides access to the MCP Server.
     Searches Statista's comprehensive data catalogue to discover relevant statistical content across various industries and topics. Returns matching statistics with metadata to help you identify the most relevant data sources.
   </Accordion>
 
-  <Accordion title="Get Chart Data by ID" icon="chart-simple">
+  <Accordion title="Fetch Statistics" icon="chart-simple">
+    **Tool ID**: `fetch-statistics`
+
+    Retrieves a batch of up to six detailed statistics, with specific charts or datasets using their unique identifier(s). Provides complete numerical values, methodological information, source details, and contextual metadata.
+    Credit cost is per fetched dataset, not call. Fetching three datasets at the same time cost three times the cost of a single dataset.
+  </Accordion>
+
+  <Accordion title="Get Chart Data by ID - DEPRECATED" icon="chart-simple">
     **Tool ID**: `get-chart-data-by-id`
 
-    Retrieves detailed statistical information for specific charts or datasets using their unique identifier. Provides complete numerical values, methodological information, source details, and contextual metadata.
+    DEPRECATED! Please use the 'fetch-statistics' tool.
+    Retrieves a single detailed statistical information for specific charts or datasets using their unique identifier. Provides complete numerical values, methodological information, source details, and contextual metadata.
   </Accordion>
 
   <Accordion title="Search Consumer Insights" icon="users">
@@ -72,7 +80,8 @@ Your API key authenticates each session and provides access to the MCP Server.
   <Accordion title="Fetch Market Insights" icon="database">
     **Tool ID**: `fetch-market-insights`
 
-    Retrieves detailed Market Insights datasets using their unique identifier. Provides complete numerical values, methodological information, source details, and contextual metadata.
+    Retrieves a batch of up to six detailed Market Insights datasets using their unique identifier(s) and up to five geo locations. Provides complete numerical values, methodological information, source details, and contextual metadata.
+    Credit cost is per fetched dataset, not call. Fetching three datasets at the same time cost three times the cost of a single dataset.
   </Accordion>
 
 </AccordionGroup>
