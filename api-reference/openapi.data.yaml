@@ -272,6 +272,10 @@ components:
       properties:
         identifier:
           $ref: '#/components/schemas/Type.Id'
+        redirected_from_identifier:
+          allOf:
+            - $ref: '#/components/schemas/Type.Id'
+          description: The originally requested statistic ID. Only present if the document was redirected to the statistic specified by 'identifier'.
         title:
           type: string
         link:
