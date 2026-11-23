@@ -470,6 +470,7 @@ components:
       required:
         - min_year
         - max_year
+        - countries
       properties:
         min_year:
           type: integer
@@ -479,6 +480,11 @@ components:
           type: integer
           format: uint16
           description: Last year, when this question was asked.
+        countries:
+          type: array
+          items:
+            type: string
+          description: The covered geo locations, 3 letter ISO codes.
     Api.Response.Search.Statistics:
       type: object
       required:
