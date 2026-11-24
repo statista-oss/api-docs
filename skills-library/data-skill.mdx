@@ -1,0 +1,115 @@
+---
+title: "Statista Data"
+description: "When to use Statista MCP tools and how to work with Statistics, Market Insights, and Consumer Insights"
+---
+
+<Info>
+This skill works with Cursor, Claude, and other agents that support skills or MCP. Connect the [MCP Server](/mcp-server/introduction) before you use it.
+</Info>
+
+## Skill design
+
+Statista MCP groups **six tools** into **three data buckets**. This skill uses the same layout: **one main Markdown file** plus **three reference Markdown files** (one per bucket).
+
+| File | Purpose |
+| --- | --- |
+| **Main skill** (copy block below) | Agent triggers (`name` / `description` in YAML), which bucket to use, shared rules, when to chain pairs |
+| **`statistics.md`** | Reference for published third-party charts — `search-statistics`, `get-chart-data-by-id` |
+| **`market-insights.md`** | Reference for Statista market models — `search-market-insights`, `fetch-market-insights` |
+| **`consumer-insights.md`** | Reference for Statista surveys — `search-consumer-insights`, `fetch-consumer-insights` |
+
+**How to install it**
+
+1. Create a folder (for example `statista-data-catalogue/`).
+2. Save the **Main skill** copy block below as `SKILL.md`.
+3. Open each reference page linked in the cards, copy its block, and save under `references/` using the filenames in the layout below.
+
+The main file is what the agent loads for routing; open the matching reference when you need field names, errors, or examples. In Cursor, add `SKILL.md` as the skill and attach the three files under `references/`.
+
+```text
+statista-data-catalogue/
+  SKILL.md
+  references/
+    statistics.md
+    market-insights.md
+    consumer-insights.md
+```
+
+<CardGroup cols={3}>
+  <Card title="Statistics" icon="chart-simple" href="/skills-library/references/statistics">
+    Published charts and `get-chart-data-by-id`
+  </Card>
+  <Card title="Market insights" icon="chart-line" href="/skills-library/references/market-insights">
+    Cross-country KPIs and forecasts
+  </Card>
+  <Card title="Consumer insights" icon="users" href="/skills-library/references/consumer-insights">
+    Survey attitudes and crosstabs
+  </Card>
+</CardGroup>
+
+## Main skill
+
+```md wrap
+---
+name: statista-data-catalogue
+description: Use this skill whenever the user wants market data, industry statistics, market-size/forecast KPIs, or consumer survey insights sourced from Statista's MCP connector, using the tools search-statistics, get-chart-data-by-id, search-market-insights, fetch-market-insights, search-consumer-insights, and fetch-consumer-insights. Trigger it whenever the user asks things like "how big is the X market in Y", "what's the forecast for Z industry", "market share of...", "what percent of consumers/Gen Z/people in a given country do/think/own...", "find me a chart on...", or wants any number to cite for a report, deck, pitch, or analysis, even if they never say "Statista" by name and even if the request only implies needing outside data rather than asking for it outright. Do NOT use this skill for the connector's separate e-commerce benchmarking tools (metrics-ecommerce, profile-ecommerce, ranked-ecommerce), which cover a different SKU/retailer-level workflow and are out of scope here.
+compatibility: Requires the Statista MCP connector to be connected, providing search-statistics, get-chart-data-by-id, search-market-insights, fetch-market-insights, search-consumer-insights, and fetch-consumer-insights.
+---
+
+# Statista Data
+
+Six tools, three search-then-fetch pairs. Every pair works the same way. A cheap `search-*` call returns candidate IDs plus metadata, then a `fetch-*`/`get-*` call returns the full numbers for one ID. Never skip the search step. Every ID, geo code, or question/answer ID you pass to a fetch call must come verbatim from a search result you already got back in this conversation. Guessed IDs return clean 404s, so there is no shortcut worth trying.
+
+Route the user question to one of three pairs:
+- One citable published chart → Statistics (`search-statistics` → `get-chart-data-by-id`)
+- Same KPI across countries and years → Market Insights (`search-market-insights` → `fetch-market-insights`)
+- What people think, do, or buy → Consumer Insights (`search-consumer-insights` → `fetch-consumer-insights`)
+
+## What each pair wraps
+
+- **Statistics** wraps Statista's core catalogue of third-party published charts. Cite the named publisher in the result, not "Statista" alone.
+- **Market Insights** wraps Statista's own market-sizing and forecasting models (Outlook). Returns multi-year, cross-country series. Cite as Statista's model or estimate.
+- **Consumer Insights** wraps Statista's own survey panel. Results are crosstabs; cite "Statista Consumer Insights", never `survey_id`.
+
+## Which pair to use
+
+| User is asking about... | Underlying data is... | Use |
+|---|---|---|
+| A specific published stat or chart | A third-party figure Statista aggregated and indexed | `search-statistics` then `get-chart-data-by-id` |
+| Market size, forecasts, or KPIs across countries and years | Statista's in-house market model | `search-market-insights` then `fetch-market-insights` |
+| What consumers think, do, buy, or how that varies by demographic or country | Statista's primary survey results | `search-consumer-insights` then `fetch-consumer-insights` |
+
+When it's ambiguous, start with `search-statistics`. Switch to Market Insights for multi-country/year KPIs; switch to Consumer Insights for attitudes and behavior.
+
+## Combining tools across pairs
+
+- **Market entry:** Market Insights for size/forecast + Consumer Insights for intent in the target country.
+- **Competitive deck:** `search-statistics` for a citable headline chart + Market Insights for category trend context.
+- **Narratives:** Market Insights aggregate + Consumer Insights to explain who is driving the shift.
+- **Cross-country strategy:** Same KPI across countries (Market Insights) + attitudes in those countries (Consumer Insights) with matching `country` values.
+- **Sanity-check:** If one Statistics number is load-bearing, look for a comparable Market Insights series.
+
+Cite each tool's source separately. If two pairs disagree, say so to the user.
+
+## Rules that apply to all six tools
+
+- Never invent an ID, geo code, or question/answer ID — use only values from a prior `search-*` result in this conversation.
+- Don't re-issue an identical search query; vary wording or reuse results.
+- Don't re-fetch the same parameter tuple; calls are deterministic within a conversation.
+- Always cite sources, not internal IDs.
+- A well-formed result is not proof of relevance — read title, description, and `ranking_score` before fetch and cite.
+- Keep search queries to 2–4 words naming the topic.
+- Read error messages; causes differ by tool. See the reference files for exact error shapes.
+
+## Pair 1: search-statistics + get-chart-data-by-id
+
+Broad catalogue search; each hit has numeric `identifier`, metadata, and `ranking_score`. `get-chart-data-by-id(id)` returns the full series. `is_premium: true` does not block fetch.
+
+## Pair 2: search-market-insights + fetch-market-insights
+
+Do not put country names in the query — geography is only via each result's `covered_geos`. `fetch-market-insights(id, geo)` takes up to 5 geo codes copied from that dataset's `covered_geos`. Default `WLD` fails on narrow datasets.
+
+## Pair 3: search-consumer-insights + fetch-consumer-insights
+
+`rows` is exactly one question or answer ID. Use `columns` for demographic breakdowns; `filters` to narrow the base. Pass explicit ISO alpha-3 `country` when the user cares about one market.
+```

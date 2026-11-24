@@ -98,10 +98,16 @@
         ]
       },
       {
-        "tab": "Prompt Library",
+        "tab": "Prompts & Skills",
         "groups": [
           {
-            "group": "Prompt Library",
+            "group": "Overview",
+            "pages": [
+              "prompts-and-skills/introduction"
+            ]
+          },
+          {
+            "group": "Prompts",
             "pages": [
               "prompt-library/statista-researcher",
               "prompt-library/enrichment",
@@ -109,24 +115,23 @@
               "prompt-library/swot",
               "prompt-library/hot-take"
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Data Skill",
-        "groups": [
-          {
-            "group": "SKILL.md",
-            "pages": [
-              "prompt-library/data-skill/skill"
-            ]
           },
           {
-            "group": "references/",
+            "group": "Skills",
             "pages": [
-              "prompt-library/data-skill/references/statistics",
-              "prompt-library/data-skill/references/market-insights",
-              "prompt-library/data-skill/references/consumer-insights"
+              {
+                "group": "Statista Data",
+                "root": "skills-library/data-skill",
+                "expanded": true,
+                "pages": [
+                  "skills-library/references/statistics",
+                  "skills-library/references/market-insights",
+                  "skills-library/references/consumer-insights"
+                ]
+              },
+              "skills-library/statista-consulting",
+              "skills-library/statista-finance",
+              "skills-library/statista-marketing"
             ]
           }
         ]
@@ -176,6 +181,34 @@
     {
       "source": "/mcp-server/connect-gemini-api",
       "destination": "/mcp-server/connection-gemini"
+    },
+    {
+      "source": "/prompt-library/data-skill/skill",
+      "destination": "/skills-library/data-skill"
+    },
+    {
+      "source": "/prompt-library/data-skill/references/statistics",
+      "destination": "/skills-library/references/statistics"
+    },
+    {
+      "source": "/prompt-library/data-skill/references/market-insights",
+      "destination": "/skills-library/references/market-insights"
+    },
+    {
+      "source": "/prompt-library/data-skill/references/consumer-insights",
+      "destination": "/skills-library/references/consumer-insights"
+    },
+    {
+      "source": "/skills-library/statista-consulting/:slug",
+      "destination": "/skills-library/statista-consulting"
+    },
+    {
+      "source": "/skills-library/statista-finance/:slug",
+      "destination": "/skills-library/statista-finance"
+    },
+    {
+      "source": "/skills-library/statista-marketing/:slug",
+      "destination": "/skills-library/statista-marketing"
     }
   ]
 }
