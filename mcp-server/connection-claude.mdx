@@ -1,106 +1,238 @@
 ---
-title: "Connect to Claude Desktop (Mac)"
-description: "Connect the Statista MCP Server to Claude Desktop on Mac"
+title: "Connect to Claude"
+description: "Use Statista Connect in Claude via the directory, a custom connector, or Claude Desktop (npx)"
 ---
 
-## Install Claude Desktop
+## Choose a path
+
+Most people should use the **community connector** in Claude’s directory. Use a **custom connector** only if the Statista Connect team set up OAuth or gave you an API key for your organisation. **Claude Desktop (npx)** is a separate local setup.
+
+<CardGroup cols={3}>
+  <Card title="Community connector" icon="users" href="#community-connector">
+    Find **Statista Connect** in Claude’s connector directory; sign in with your work email.
+  </Card>
+  <Card title="Custom connector" icon="plug" href="#custom-connector">
+    Add the MCP URL yourself (OAuth client from Statista, or shared API key).
+  </Card>
+  <Card title="Claude Desktop (npx)" icon="desktop" href="#claude-desktop-npx">
+    Edit `claude_desktop_config.json` on Mac or Windows.
+  </Card>
+</CardGroup>
+
+## Community connector
+
+Use this when **Statista Connect** appears in Claude’s connector browse/search (listed as a **Community** connector).
 
 <Steps>
-  <Step title="Install Claude Desktop" icon="download">
-    Install [Claude Desktop](https://claude.ai/download) (important that it's the desktop version).
+  <Step title="Open Connectors">
+    In Claude, open **Customize → Connectors**.
   </Step>
-  <Step title="Install Node.js" icon="node-js">
-    Install [node.js](https://nodejs.org/en/download), needed for the `mcp-remote` integration.
+  <Step title="Find Statista Connect">
+    Search or browse for **Statista Connect** and open the listing.
   </Step>
-  <Step title="Create an account">
-    If you don't already have one, create an account.
+  <Step title="Connect and sign in">
+    Choose **Connect**, then sign in with your **Statista Connect work email** (one-time code by email). You must be an [active member](https://platform.statista.ai/) of your organisation.
   </Step>
-  <Step title="Open Claude Desktop">
-    Launch the app to get started.
+  <Step title="Use in chat">
+    In a new chat, open **+ → Connectors** and turn **Statista Connect** on. Mention Statista in your prompt so Claude uses the connector.
   </Step>
 </Steps>
 
-## Modify configuration file
+## Custom connector
+
+Add the server manually when Statista onboarded your organisation with **your own OAuth app** or a **shared API key**.
+
+<Warning>
+  **OAuth client IDs** are issued only by the **Statista Connect team** during onboarding — not something you generate yourself. If you need a client ID or are unsure which path to use, contact your Statista representative or use **Feedback** in the docs header.
+</Warning>
+
+### Add the connector
 
 <Steps>
-  <Step title="Open Developer settings">
-    Under **Settings**, go to **Developer**.
+  <Step title="Open the form">
+    **Customize → Connectors → + Add → Add custom connector**.
 
     <Frame>
       <img
-        src="/images/claude-settings.png"
-        alt="Click settings"
-        height="100"
-        width="400"
+        src="/images/claude-connect/connectors-tab-menu.png"
+        alt="Connectors tab and Add custom connector menu"
+        width="420"
+        height="59"
+        className="rounded-lg"
+      />
+    </Frame>
+    <Frame>
+      <img
+        src="/images/claude-connect/add-custom-connector-form.png"
+        alt="Add custom connector: name Statista Connect and paste the MCP URL"
+        width="300"
+        height="233"
         className="rounded-lg"
       />
     </Frame>
   </Step>
-  <Step title="Edit the config">
-    Click **Edit Config**.
+  <Step title="Name and URL">
+    - **Name:** `Statista Connect`
+  - **Server URL:** `https://api.statista.ai/v1/mcp` (no trailing slash)
+  - Click **Continue**
+  </Step>
+</Steps>
+
+### Option A — OAuth (per user)
+
+For teams where each person signs in with their own Statista Connect account. You need the **OAuth client ID from Statista**.
+
+<Steps>
+  <Step title="Platform access">
+    Invited users must accept your organisation invitation on the [Developer Platform](https://platform.statista.ai/) before sign-in works.
 
     <Frame>
       <img
-        src="/images/claude-edit-config.png"
-        alt="Click edit config"
-        height="100"
-        width="600"
+        src="/images/claude-connect/platform-organization-members.png"
+        alt="Active members on the Statista Developer Platform"
+        width="380"
+        height="208"
         className="rounded-lg"
       />
     </Frame>
   </Step>
-  <Step title="Open the config file">
-    Open the `claude_desktop_config.json` file in a text editor.
-  </Step>
-  <Step title="Add the Statista server" icon="key">
-    Copy/paste the snippet below into the file, replacing `YOUR_API_KEY` with the provided API Key.
+  <Step title="Authentication settings">
+    Keep **Sign in now** and **Use your own OAuth client**. Paste the **OAuth client ID** Statista provided. Leave **OAuth client secret** blank unless Statista told you otherwise. Click **Add**.
 
-    ```.json
-    {
-      "mcpServers": {
-        "statista": {
-          "command": "npx",
-          "args": [
-            "-y",
-            "mcp-remote",
-            "https://api.statista.ai/v1/mcp",
-            "--transport",
-            "http-only",
-            "--header",
-            "x-api-key: ${API_KEY}"
-          ],
-          "env": {
-            "API_KEY": "YOUR_API_KEY"
+    <Frame>
+      <img
+        src="/images/claude-connect/oauth-auth-settings.png"
+        alt="OAuth authentication and client ID fields in Claude"
+        width="240"
+        height="363"
+        className="rounded-lg"
+      />
+    </Frame>
+  </Step>
+  <Step title="Finish sign-in in the browser">
+    Complete email verification in the browser tab Claude opens.
+
+    <Frame>
+      <img
+        src="/images/claude-connect/oauth-finish-connecting.png"
+        alt="Finish connecting a connector"
+        width="280"
+        height="169"
+        className="rounded-lg"
+      />
+    </Frame>
+    <Frame>
+      <img
+        src="/images/claude-connect/oauth-sign-in-email.png"
+        alt="Sign in to Statista Connect with work email"
+        width="260"
+        height="319"
+        className="rounded-lg"
+      />
+    </Frame>
+    <Frame>
+      <img
+        src="/images/claude-connect/oauth-verify-code.png"
+        alt="Verify identity with one-time code"
+        width="250"
+        height="364"
+        className="rounded-lg"
+      />
+    </Frame>
+  </Step>
+</Steps>
+
+### Option B — API key (no sign-in)
+
+For a shared connector using one [Statista API key](/start/authentication).
+
+<Steps>
+  <Step title="No sign-in + header">
+    Select **No sign-in** (not **Sign in now**). Under **Request headers**, add `x-api-key` with your API key, **Required** checked, then **Add**.
+
+    <Frame>
+      <img
+        src="/images/claude-connect/api-key-request-header.png"
+        alt="API key as x-api-key request header"
+        width="240"
+        height="357"
+        className="rounded-lg"
+      />
+    </Frame>
+
+    <Info>
+      Header values cannot be viewed again after save. Never paste API keys into OAuth fields or chats.
+    </Info>
+  </Step>
+</Steps>
+
+## Claude Desktop (npx)
+
+Local **Claude Desktop** config via Node.js and `mcp-remote` — not the in-app connector UI above.
+
+<AccordionGroup>
+  <Accordion title="Set up Claude Desktop (Mac or Windows)" icon="desktop">
+    <Tabs>
+      <Tab title="Mac">
+        Install [Claude Desktop](https://claude.ai/download) and [Node.js](https://nodejs.org/). **Settings → Developer → Edit Config**, then paste:
+
+        ```json
+        {
+          "mcpServers": {
+            "statista": {
+              "command": "npx",
+              "args": ["-y", "mcp-remote", "https://api.statista.ai/v1/mcp", "--transport", "http-only", "--header", "x-api-key: ${API_KEY}"],
+              "env": { "API_KEY": "YOUR_API_KEY" }
+            }
           }
         }
-      }
-    }
-    ```
-  </Step>
-  <Step title="Save the file">
-    Save your changes.
-  </Step>
-</Steps>
+        ```
 
-## Use the MCP Server in Claude Desktop
+        <Frame>
+          <img src="/images/claude-settings.png" alt="Claude Developer settings on Mac" height="100" width="400" className="rounded-lg" />
+        </Frame>
+      </Tab>
+      <Tab title="Windows">
+        Install Node.js LTS, restart Windows, open `%APPDATA%\Claude\claude_desktop_config.json`. Use `C:\\PROGRA~1\\nodejs\\npx.cmd` as `command`:
 
-<Steps>
-  <Step title="Restart Claude Desktop">
-    Once your configuration file is successfully modified and saved, close down Claude Desktop and open it again.
-  </Step>
-  <Step title="Confirm Statista is enabled">
-    Now, under **Search and tools** you should see **statista** enabled.
+        ```json
+        {
+          "mcpServers": {
+            "statista": {
+              "command": "C:\\PROGRA~1\\nodejs\\npx.cmd",
+              "args": ["-y", "mcp-remote", "https://api.statista.ai/v1/mcp", "--transport", "http-only", "--header", "x-api-key: ${API_KEY}"],
+              "env": { "API_KEY": "YOUR_API_KEY" }
+            }
+          }
+        }
+        ```
+      </Tab>
+    </Tabs>
+
+    Restart Claude Desktop and enable **statista** under **Search and tools**.
 
     <Frame>
-      <img
-        src="/images/claude-tools.png"
-        alt="Statista tool should be enabled"
-        height="100"
-        width="400"
-        className="rounded-lg"
-      />
+      <img src="/images/claude-tools.png" alt="Enable Statista under Search and tools" height="100" width="400" className="rounded-lg" />
     </Frame>
-  </Step>
-</Steps>
+  </Accordion>
+</AccordionGroup>
 
-You're good to go! Now you can do market research with Statista and Claude Desktop on Mac 🎉
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Could not connect">
+    URL must be exactly `https://api.statista.ai/v1/mcp` with no trailing slash.
+  </Accordion>
+  <Accordion title="OAuth: no client ID">
+    Contact the Statista Connect team — client IDs are not self-service.
+  </Accordion>
+  <Accordion title="OAuth: no access after sign-in">
+    Accept your platform invitation or ask your admin to add you under **Active members**.
+  </Accordion>
+  <Accordion title="API key: Unauthorized">
+    Header name must be `x-api-key`. Re-add the header and paste the key again (no spaces).
+  </Accordion>
+  <Accordion title="No data in answers">
+    Turn the connector on in that chat and include “Statista” in the prompt.
+  </Accordion>
+</AccordionGroup>
