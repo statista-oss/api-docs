@@ -159,7 +159,7 @@ paths:
           required: true
           description: The unique identifier of a content information to be retrieved.
           schema:
-            $ref: '#/components/schemas/Type.Id'
+            $ref: '#/components/schemas/Type.ContentId'
           explode: false
       responses:
         '200':
@@ -271,10 +271,10 @@ components:
         - chart
       properties:
         identifier:
-          $ref: '#/components/schemas/Type.Id'
+          $ref: '#/components/schemas/Type.ContentId'
         redirected_from_identifier:
           allOf:
-            - $ref: '#/components/schemas/Type.Id'
+            - $ref: '#/components/schemas/Type.ContentId'
           description: The originally requested statistic ID. Only present if the document was redirected to the statistic specified by 'identifier'.
         title:
           type: string
@@ -558,6 +558,10 @@ components:
           type: string
           description: The Excel file of this Report
       description: The request has succeeded.
+    Type.ContentId:
+      type: integer
+      format: uint64
+      minimum: 1
     Type.Id:
       type: integer
       format: uint64
